@@ -15,13 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Prints a particular instance of sityper
+ * Prints a particular instance of mootyper
  *
  * You can have a rather longer description of the file as well,
  * if you like, and it can span multiple lines.
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,71 +31,71 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
-$n  = optional_param('n', 0, PARAM_INT);  // sityper instance ID - it should be named as the first character of the module
+$n  = optional_param('n', 0, PARAM_INT);  // mootyper instance ID - it should be named as the first character of the module
 
 if ($id) {
-    $cm         = get_coursemodule_from_id('sityper', $id, 0, false, MUST_EXIST);
+    $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-    $sityper  = $DB->get_record('sityper', array('id' => $cm->instance), '*', MUST_EXIST);
+    $mootyper  = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
 } elseif ($n) {
-    $sityper  = $DB->get_record('sityper', array('id' => $n), '*', MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $sityper->course), '*', MUST_EXIST);
-    $cm         = get_coursemodule_from_instance('sityper', $sityper->id, $course->id, false, MUST_EXIST);
+    $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
+    $course     = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
+    $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
 
 require_login($course, true, $cm);
 $context = get_context_instance(CONTEXT_MODULE, $cm->id);
-add_to_log($course->id, 'sityper', 'view', "view.php?id={$cm->id}", $sityper->name, $cm->id);
+add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id);
 
 /// Print the page header
 
-$PAGE->set_url('/mod/sityper/view.php', array('id' => $cm->id));
-$PAGE->set_title(format_string($sityper->name));
+$PAGE->set_url('/mod/mootyper/view.php', array('id' => $cm->id));
+$PAGE->set_title(format_string($mootyper->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 
 // other things you may want to set - remove if not needed
 $PAGE->set_cacheable(false);
 //$PAGE->set_focuscontrol('tb1');
-//$PAGE->add_body_class('sityper-'.$somevar);
+//$PAGE->add_body_class('mootyper-'.$somevar);
 
 // Output starts here
 echo $OUTPUT->header();
 
-if ($sityper->intro) { // Conditions to show the intro can change to look for own settings or whatever
-    echo $OUTPUT->box(format_module_intro('sityper', $sityper, $cm->id), 'generalbox mod_introbox', 'sityperintro');
+if ($mootyper->intro) { // Conditions to show the intro can change to look for own settings or whatever
+    echo $OUTPUT->box(format_module_intro('mootyper', $mootyper, $cm->id), 'generalbox mod_introbox', 'mootyperintro');
 }
-if($sityper->lesson != NULL)
+if($mootyper->lesson != NULL)
 {
 // Replace the following lines with you own code
 //echo $OUTPUT->heading('Yay! It works!'
-//get_record('sityper_exercises', array('id' => $eid));
-//$sityper = jget_sityper_record($n);
-if($sityper->isexam)
+//get_record('mootyper_exercises', array('id' => $eid));
+//$mootyper = jget_mootyper_record($n);
+if($mootyper->isexam)
 {
-    $insertDir = $CFG->wwwroot . '/mod/sityper/gadd.php';
-    $exercise_ID = $sityper->exercise;
+    $insertDir = $CFG->wwwroot . '/mod/mootyper/gadd.php';
+    $exercise_ID = $mootyper->exercise;
     $exercise = get_exercise_record($exercise_ID);
-    $textToEnter = $exercise->texttotype; //"N=".$n." exercise_ID=".$sityper->exercise." fjajfjfjfj name=".$sityper->name." fjfjfjfjfj";
+    $textToEnter = $exercise->texttotype; //"N=".$n." exercise_ID=".$mootyper->exercise." fjajfjfjfj name=".$mootyper->name." fjfjfjfjfj";
 }
 else
 {
-	$reqiredGoal = $sityper->requiredgoal;
-	$insertDir = $CFG->wwwroot . '/mod/sityper/gcnext.php';
-	$exercise = get_exercise_from_sityper($sityper->id, $sityper->lesson, $USER->id);
+	$reqiredGoal = $mootyper->requiredgoal;
+	$insertDir = $CFG->wwwroot . '/mod/mootyper/gcnext.php';
+	$exercise = get_exercise_from_mootyper($mootyper->id, $mootyper->lesson, $USER->id);
 	if($exercise != FALSE){
 	$exercise_ID = $exercise->id;
 	$textToEnter = $exercise->texttotype;}
 }
-if(exam_already_done($sityper, $USER->id) && $sityper->isexam)
+if(exam_already_done($mootyper, $USER->id) && $mootyper->isexam)
 {
-	echo get_string('examdone', 'sityper');
+	echo get_string('examdone', 'mootyper');
 	echo "<br>";
-	if (has_capability('mod/sityper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
-				$jlnk4 = $CFG->wwwroot . '/mod/sityper/gview.php?id='.$id.'&sid='.$sityper->id.'&n='.$sityper->id;
-				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'sityper').'</a><br><br>';
+	if (has_capability('mod/mootyper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
+				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&sid='.$mootyper->id.'&n='.$mootyper->id;
+				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
     }
 }
 else if($exercise != FALSE)
@@ -109,7 +109,7 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 <div id="mainDiv">
 			<form name='form1' id='form1' method='post' action='<?php echo $insertDir; ?>'> 
 <div id="tipkovnica" style="float: left; text-align:center; margin-left: auto; margin-right: auto;">
-<h4><?php if(!$sityper->isexam) echo $exercise->exercisename; ?></h4>
+<h4><?php if(!$mootyper->isexam) echo $exercise->exercisename; ?></h4>
 <br>
 	<div style="float: left; padding-bottom: 10px;" id="textToEnter"></div><br>
 	<div id="innerTipkovnica" style="margin: 0px auto;display: inline-block;"><br>
@@ -188,23 +188,23 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 </div>				
 <div id="reportDiv" style="float: right; /*position: relative; right: 90px; top: 35px;*/">
 											<?php
-			if (has_capability('mod/sityper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
-				$jlnk4 = $CFG->wwwroot . '/mod/sityper/gview.php?id='.$id.'&sid='.$sityper->id.'&n='.$sityper->id;;
-				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'sityper').'</a><br><br>';
+			if (has_capability('mod/mootyper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
+				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&sid='.$mootyper->id.'&n='.$mootyper->id;;
+				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
 			}
 			?>
 								<input name='rpCourseId' type='hidden' value='<?php echo $course->id; ?>'>
-								<input name='rpSityperId' type='hidden' value='<?php echo $sityper->id; ?>'>
+								<input name='rpSityperId' type='hidden' value='<?php echo $mootyper->id; ?>'>
 								<input name='rpUser' type='hidden' value='<?php echo $USER->id; ?>'>
 								<input name='rpExercise' type='hidden' value='<?php echo $exercise_ID; ?>'>
 								<input name='rpFullHits' type='hidden' value=''>
 								<input name='rpGoal' type='hidden' value='<?php if(isset($reqiredGoal)) echo $reqiredGoal; ?>'>
-								<input name='rpTimeInput' type='hidden'><strong><?php echo get_string('rtime', 'sityper'); ?></strong> <span id="jsTime">0</span> s<br>
-								<strong><?php echo get_string('rprogress', 'sityper'); ?></strong> <span id="jsProgress"> 0</span><br>
-								<input name='rpMistakesInput' type='hidden'><strong><?php echo get_string('rmistakes', 'sityper'); ?></strong> <span id="jsMistakes">0</span><br>
-								<input name='rpAccInput' type='hidden'><strong><?php echo get_string('rprecision', 'sityper'); ?></strong> <span id="jsAcc"> 0</span>%<br>
-								<input name='rpSpeedInput' type='hidden'><strong><?php echo get_string('rhitspermin', 'sityper'); ?></strong> <span id="jsSpeed">0</span>
-								<br><br><input style="visibility: hidden;" name='btnContinue' type="submit" value=<?php echo "'".get_string('fcontinue', 'sityper')."'"; ?>> 
+								<input name='rpTimeInput' type='hidden'><strong><?php echo get_string('rtime', 'mootyper'); ?></strong> <span id="jsTime">0</span> s<br>
+								<strong><?php echo get_string('rprogress', 'mootyper'); ?></strong> <span id="jsProgress"> 0</span><br>
+								<input name='rpMistakesInput' type='hidden'><strong><?php echo get_string('rmistakes', 'mootyper'); ?></strong> <span id="jsMistakes">0</span><br>
+								<input name='rpAccInput' type='hidden'><strong><?php echo get_string('rprecision', 'mootyper'); ?></strong> <span id="jsAcc"> 0</span>%<br>
+								<input name='rpSpeedInput' type='hidden'><strong><?php echo get_string('rhitspermin', 'mootyper'); ?></strong> <span id="jsSpeed">0</span>
+								<br><br><input style="visibility: hidden;" name='btnContinue' type="submit" value=<?php echo "'".get_string('fcontinue', 'mootyper')."'"; ?>> 
 							</div>	
 			</form>
 		</div>
@@ -224,22 +224,22 @@ echo '<script type="text/javascript">
 }
 else
 {
-	echo get_string('endlesson', 'sityper');
+	echo get_string('endlesson', 'mootyper');
 	echo "<br>";
-	if (has_capability('mod/sityper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
-				$jlnk4 = $CFG->wwwroot . '/mod/sityper/gview.php?id='.$id.'&sid='.$sityper->id.'&n='.$sityper->id;
-				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'sityper').'</a><br><br>';
+	if (has_capability('mod/mootyper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
+				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&sid='.$mootyper->id.'&n='.$mootyper->id;
+				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
     }
 }
 }
 else
 {
-	if (has_capability('mod/sityper:setup', get_context_instance(CONTEXT_COURSE, $course->id)))
+	if (has_capability('mod/mootyper:setup', get_context_instance(CONTEXT_COURSE, $course->id)))
 	{
-		$vaLnk = $CFG->wwwroot."/mod/sityper/mod_setup.php?n=".$sityper->id;
-		echo '<a href="'.$vaLnk.'">'.get_string('fsetup', 'sityper').'</a>';
+		$vaLnk = $CFG->wwwroot."/mod/mootyper/mod_setup.php?n=".$mootyper->id;
+		echo '<a href="'.$vaLnk.'">'.get_string('fsetup', 'mootyper').'</a>';
 	}
 	else
-		echo get_string('notreadyyet', 'sityper');
+		echo get_string('notreadyyet', 'mootyper');
 }
 echo $OUTPUT->footer();

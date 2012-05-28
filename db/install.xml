@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/sityper/db" VERSION="20101203" COMMENT="XMLDB file for Moodle mod/sityper"
+<XMLDB PATH="mod/mootyper/db" VERSION="20101203" COMMENT="XMLDB file for Moodle mod/mootyper"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
   <TABLES>
-    <TABLE NAME="sityper" COMMENT="This is a SiTyper instance." NEXT="sityper_grades">
+    <TABLE NAME="mootyper" COMMENT="This is a MooTyper instance." NEXT="mootyper_grades">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="course"/>
-        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Course sityper activity belongs to" PREVIOUS="id" NEXT="name"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Course mootyper activity belongs to" PREVIOUS="id" NEXT="name"/>
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances" PREVIOUS="course" NEXT="intro"/>
-        <FIELD NAME="intro" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction of the sityper activity" PREVIOUS="name" NEXT="introformat"/>
+        <FIELD NAME="intro" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction of the mootyper activity" PREVIOUS="name" NEXT="introformat"/>
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)" PREVIOUS="intro" NEXT="timecreated"/>
         <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="introformat" NEXT="timemodified"/>
         <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated" NEXT="timeopen"/>
@@ -28,12 +28,12 @@
       </INDEXES>
     </TABLE>
     
-    <TABLE NAME="sityper_grades" COMMENT="The overall grade for each user, based on their individual and the sityper grademethod setting." PREVIOUS="sityper" NEXT="sityper_lessons">
+    <TABLE NAME="mootyper_grades" COMMENT="The overall grade for each user, based on their individual and the mootyper grademethod setting." PREVIOUS="mootyper" NEXT="mootyper_lessons">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="sityper"/>
-        <FIELD NAME="sityper" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key references sityper.id." PREVIOUS="id" NEXT="userid"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key references user.id." PREVIOUS="sityper" NEXT="grade"/>
-        <FIELD NAME="grade" TYPE="number" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" DECIMALS="5" COMMENT="The overall grade from the sityper. Not affected by overrides in the gradebook." PREVIOUS="userid" NEXT="mistakes"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="mootyper"/>
+        <FIELD NAME="mootyper" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key references mootyper.id." PREVIOUS="id" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key references user.id." PREVIOUS="mootyper" NEXT="grade"/>
+        <FIELD NAME="grade" TYPE="number" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" DECIMALS="5" COMMENT="The overall grade from the mootyper. Not affected by overrides in the gradebook." PREVIOUS="userid" NEXT="mistakes"/>
         <FIELD NAME="mistakes" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="How many mistakes in this exercise" PREVIOUS="grade" NEXT="timeinseconds"/>
 		<FIELD NAME="timeinseconds" TYPE="int" LENGTH="15" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Time in seconds" PREVIOUS="mistakes" NEXT="hitsperminute"/>
 		<FIELD NAME="hitsperminute" TYPE="number" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Hits per minute" PREVIOUS="timeinseconds" NEXT="fullhits"/>
@@ -51,7 +51,7 @@
       </INDEXES>
     </TABLE>
     
-    <TABLE NAME="sityper_lessons" COMMENT="Exercise categories" PREVIOUS="sityper_grades" NEXT="sityper_exercises">
+    <TABLE NAME="mootyper_lessons" COMMENT="Exercise categories" PREVIOUS="mootyper_grades" NEXT="mootyper_exercises">
 		<FIELDS>
 			<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="lessonname"/>
 			<FIELD NAME="lessonname" TYPE="char" LENGTH="150" NOTNULL="true" SEQUENCE="false" PREVIOUS="id"/>
@@ -61,7 +61,7 @@
        </KEYS>
     </TABLE>
     
-    <TABLE NAME="sityper_exercises" COMMENT="Text to type..." PREVIOUS="sityper_lessons">
+    <TABLE NAME="mootyper_exercises" COMMENT="Text to type..." PREVIOUS="mootyper_lessons">
 		<FIELDS>
 			<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="texttotype"/>
 			<FIELD NAME="texttotype" TYPE="char" LENGTH="1332" NOTNULL="true" SEQUENCE="false" COMMENT="Text to type" PREVIOUS="id" NEXT="exercisename"/>

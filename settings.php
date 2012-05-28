@@ -18,7 +18,7 @@
  * Administration settings definitions for the quiz module.
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,14 +27,14 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    require_once($CFG->dirroot.'/mod/sityper/lib.php');
+    require_once($CFG->dirroot.'/mod/mootyper/lib.php');
 
-    //$settings->add(new admin_setting_configselect('sityper_exercise', get_string('fexercise', 'sityper'),
-      //                 get_string('fexercise', 'sityper'), 2, get_typerexercises()));
+    //$settings->add(new admin_setting_configselect('mootyper_exercise', get_string('fexercise', 'mootyper'),
+      //                 get_string('fexercise', 'mootyper'), 2, get_typerexercises()));
 
     //$settings->add(new admin_setting_configcheckbox('forum_replytouser', get_string('replytouser', 'forum'),
       //                 get_string('configreplytouser', 'forum'), 1));
     
-    //require_once($CFG->dirroot.'/mod/sityper/exercises.php');  
+    //require_once($CFG->dirroot.'/mod/mootyper/exercises.php');  
     
 }

@@ -17,13 +17,13 @@
 
 
 /**
- * Defines the version of sityper
+ * Defines the version of mootyper
  *
  * This code fragment is called by moodle_needs_upgrading() and
  * /admin/index.php
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -34,4 +34,4 @@ $module->version   = 20121104;               // If version == 0 then module will
 //$module->version   = 2010032200;      // The current module version (Date: YYYYMMDDXX)
 $module->requires  = 2011120501.11;      // Requires this Moodle version
 $module->cron      = 60;               // Period for cron to check this module (secs)
-$module->component = 'mod_sityper'; // To check on upgrade, that module sits in correct place
+$module->component = 'mod_mootyper'; // To check on upgrade, that module sits in correct place

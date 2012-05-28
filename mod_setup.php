@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Prints a particular instance of sityper setup
+ * Prints a particular instance of mootyper setup
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -30,39 +30,39 @@ require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
-$n  = optional_param('n', 0, PARAM_INT);  // sityper instance ID - it should be named as the first character of the module
+$n  = optional_param('n', 0, PARAM_INT);  // mootyper instance ID - it should be named as the first character of the module
 
 if(isset($_POST['button']))
 $param1 = $_POST['button'];
-if(isset($param1) && get_string('fconfirm', 'sityper') == $param1)
+if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1)
 {
 	$modePO = optional_param('mode', null, PARAM_INT);
 	$lessonPO = optional_param('lesson', null, PARAM_INT);
     $goalPO = optional_param('requiredgoal', null, PARAM_INT);
 	global $DB, $CFG;
-	$sityper  = $DB->get_record('sityper', array('id' => $n), '*', MUST_EXIST);
-	$sityper->lesson = $lessonPO;
-	$sityper->isexam = $modePO;
-	$sityper->requiredgoal = $goalPO;
+	$mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
+	$mootyper->lesson = $lessonPO;
+	$mootyper->isexam = $modePO;
+	$mootyper->requiredgoal = $goalPO;
 	if($modePO == 1){
 		$exercisePO = optional_param('exercise', null, PARAM_INT);
-		$sityper->exercise = $exercisePO;
+		$mootyper->exercise = $exercisePO;
 	}
-	$DB->update_record('sityper', $sityper);
-	header('Location: '.$CFG->wwwroot.'/mod/sityper/view.php?n='.$n);
+	$DB->update_record('mootyper', $mootyper);
+	header('Location: '.$CFG->wwwroot.'/mod/mootyper/view.php?n='.$n);
 }
 
 $modePO = optional_param('mode', null, PARAM_INT);
 $lessonPO = optional_param('lesson', null, PARAM_INT);
 
 if ($id) {
-    $cm         = get_coursemodule_from_id('sityper', $id, 0, false, MUST_EXIST);
+    $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-    $sityper  = $DB->get_record('sityper', array('id' => $cm->instance), '*', MUST_EXIST);
+    $mootyper  = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
 } elseif ($n) {
-    $sityper  = $DB->get_record('sityper', array('id' => $n), '*', MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $sityper->course), '*', MUST_EXIST);
-    $cm         = get_coursemodule_from_instance('sityper', $sityper->id, $course->id, false, MUST_EXIST);
+    $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
+    $course     = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
+    $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
@@ -70,43 +70,43 @@ if ($id) {
 require_login($course, true, $cm);
 $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
-//add_to_log($course->id, 'sityper', 'view', "view.php?id={$cm->id}", $sityper->name, $cm->id);
+//add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id);
 
 /// Print the page header
 
-$PAGE->set_url('/mod/sityper/mod_setup.php', array('id' => $cm->id));
-$PAGE->set_title(format_string($sityper->name));
+$PAGE->set_url('/mod/mootyper/mod_setup.php', array('id' => $cm->id));
+$PAGE->set_title(format_string($mootyper->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 
 // other things you may want to set - remove if not needed
 $PAGE->set_cacheable(false);
 //$PAGE->set_focuscontrol('tb1');
-//$PAGE->add_body_class('sityper-'.$somevar);
+//$PAGE->add_body_class('mootyper-'.$somevar);
 // Output starts here
 echo $OUTPUT->header();
 // Replace the following lines with you own code
-echo $OUTPUT->heading($sityper->name);
-//get_record('sityper_exercises', array('id' => $eid));
-//$sityper = jget_sityper_record($n);
-//$exercise_ID = $sityper->exercise;
+echo $OUTPUT->heading($mootyper->name);
+//get_record('mootyper_exercises', array('id' => $eid));
+//$mootyper = jget_mootyper_record($n);
+//$exercise_ID = $mootyper->exercise;
 //$exercise = get_exercise_record($exercise_ID);
-//$textToEnter = $exercise->texttotype; //"N=".$n." exercise_ID=".$sityper->exercise." fjajfjfjfj name=".$sityper->name." fjfjfjfjfj";
+//$textToEnter = $exercise->texttotype; //"N=".$n." exercise_ID=".$mootyper->exercise." fjajfjfjfj name=".$mootyper->name." fjfjfjfjfj";
 
 //onload="initTextToEnter('')"
 
 //$grds = get_typergradesfull($_GET['sid']);
 $htmlout = '';
 $htmlout .= '<form id="setupform" name="setupform" method="POST">';
-$htmlout .= '<table><tr><td>'.get_string('fmode', 'sityper').'</td><td><select onchange="this.form.submit()" name="mode">';
+$htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td><td><select onchange="this.form.submit()" name="mode">';
 $lessons = get_typerlessons();
 if($modePO == 0 || is_null($modePO))
 {
 	$htmlout .= '<option selected="true" value="0">'.
-            get_string('sflesson', 'sityper').'</option><option value="1">'.
-            get_string('isexamtext', 'sityper').'</option>';
+            get_string('sflesson', 'mootyper').'</option><option value="1">'.
+            get_string('isexamtext', 'mootyper').'</option>';
     $htmlout .= '</select></td></tr><tr><td>';
-    $htmlout .= get_string('flesson', 'sityper').'</td><td><select onchange="this.form.submit()" name="lesson">';
+    $htmlout .= get_string('flesson', 'mootyper').'</td><td><select onchange="this.form.submit()" name="lesson">';
     for($ij=0; $ij<count($lessons); $ij++)
     {
 		if($lessons[$ij]['id'] == $lessonPO)
@@ -114,15 +114,15 @@ if($modePO == 0 || is_null($modePO))
 		else
 			$htmlout .= '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
 	}
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'sityper').'</td><td><input style="width: 20px;" type="text" name="requiredgoal"> % </td></tr></table>';
+    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td><td><input style="width: 20px;" type="text" name="requiredgoal"> % </td></tr></table>';
 }
 else if($modePO == 1)
 {
 	$htmlout .= '<option value="0">'.
-            get_string('sflesson', 'sityper').'</option><option value="1" selected="true">'.
-            get_string('isexamtext', 'sityper').'</option>';
+            get_string('sflesson', 'mootyper').'</option><option value="1" selected="true">'.
+            get_string('isexamtext', 'mootyper').'</option>';
     $htmlout .= '</select></td></tr><tr><td>';
-    $htmlout .= get_string('flesson', 'sityper').'</td><td><select onchange="this.form.submit()" name="lesson">';
+    $htmlout .= get_string('flesson', 'mootyper').'</td><td><select onchange="this.form.submit()" name="lesson">';
     for($ij=0; $ij<count($lessons); $ij++)
     {
 		if($lessons[$ij]['id'] == $lessonPO)
@@ -132,14 +132,14 @@ else if($modePO == 1)
 	}
     $htmlout .= '</select></td></tr>';
     $exercises = get_exercises_by_lesson($lessonPO);
-    $htmlout .= '<tr><td>'.get_string('fexercise', 'sityper').'</td><td><select name="exercise">';
+    $htmlout .= '<tr><td>'.get_string('fexercise', 'mootyper').'</td><td><select name="exercise">';
     for($ik=0; $ik<count($exercises); $ik++)
     {
 		$htmlout .= '<option value="'.$exercises[$ik]['id'].'">'.$exercises[$ik]['exercisename'].'</option>';
 	}
     $htmlout .= '</select></td></tr></table>';
 }
-$htmlout .= '<br><input name="button" value="'.get_string('fconfirm', 'sityper').'" type="submit">';
+$htmlout .= '<br><input name="button" value="'.get_string('fconfirm', 'mootyper').'" type="submit">';
 $htmlout .= '</form>';
 echo $htmlout;
 // Finish the page

@@ -19,7 +19,7 @@
  * @see uninstall_plugin()
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,6 +27,6 @@
 /**
  * Custom uninstallation procedure
  */
-function xmldb_sityper_uninstall() {
+function xmldb_mootyper_uninstall() {
     return true;
 }

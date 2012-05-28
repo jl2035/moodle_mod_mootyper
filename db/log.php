@@ -23,7 +23,7 @@
  * in the previous 1.9 NEWMODULE.
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar jaka.luthar@gmail.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,8 +33,8 @@ defined('MOODLE_INTERNAL') || die();
 global $DB;
 
 $logs = array(
-    array('module'=>'sityper', 'action'=>'add', 'mtable'=>'sityper', 'field'=>'name'),
-    array('module'=>'sityper', 'action'=>'update', 'mtable'=>'sityper', 'field'=>'name'),
-    array('module'=>'sityper', 'action'=>'view', 'mtable'=>'sityper', 'field'=>'name'),
-    array('module'=>'sityper', 'action'=>'view all', 'mtable'=>'sityper', 'field'=>'name')
+    array('module'=>'mootyper', 'action'=>'add', 'mtable'=>'mootyper', 'field'=>'name'),
+    array('module'=>'mootyper', 'action'=>'update', 'mtable'=>'mootyper', 'field'=>'name'),
+    array('module'=>'mootyper', 'action'=>'view', 'mtable'=>'mootyper', 'field'=>'name'),
+    array('module'=>'mootyper', 'action'=>'view all', 'mtable'=>'mootyper', 'field'=>'name')
 );

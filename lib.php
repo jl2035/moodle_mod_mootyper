@@ -16,16 +16,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Library of interface functions and constants for module sityper
+ * Library of interface functions and constants for module mootyper
  *
  * All the core Moodle functions, neeeded to allow the module to work
  * integrated in Moodle should be placed here.
- * All the sityper specific functions, needed to implement all the module
+ * All the mootyper specific functions, needed to implement all the module
  * logic, should go to locallib.php. This will help to save some memory when
  * Moodle is performing actions across all modules.
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -46,45 +46,45 @@ defined('MOODLE_INTERNAL') || die();
  * @param string $feature FEATURE_xx constant for requested feature
  * @return mixed true if the feature is supported, null if unknown
  */
-function sityper_supports($feature) {
+function mootyper_supports($feature) {
     switch($feature) {
         case FEATURE_MOD_INTRO:         return true;
         default:                        return null;
     }
 }
 
-function get_users_of_one_instance($sityperID)
+function get_users_of_one_instance($mootyperID)
 {
     global $DB, $CFG;
     $params = array();
     $toReturn = array();
-    $gradesTblName = $CFG->prefix."sityper_grades";
+    $gradesTblName = $CFG->prefix."mootyper_grades";
     $usersTblName = $CFG->prefix."user";
     $sql = "SELECT DISTINCT ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$usersTblName.".id".
     " FROM ".$gradesTblName.
     " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
-    " WHERE (sityper=".$sityperID.")";
+    " WHERE (mootyper=".$mootyperID.")";
     if ($grades = $DB->get_records_sql($sql, $params)) {
         return $grades;
 	}
     return FALSE;
 }
 
-function get_typer_grades_adv($sityperID, $exerciseID, $userID=0)
+function get_typer_grades_adv($mootyperID, $exerciseID, $userID=0)
 {
 	global $DB, $CFG;
     $params = array();
     $toReturn = array();
-    $gradesTblName = $CFG->prefix."sityper_grades";
+    $gradesTblName = $CFG->prefix."mootyper_grades";
     $usersTblName = $CFG->prefix."user";
-    $exerTblName = $CFG->prefix."sityper_exercises";
+    $exerTblName = $CFG->prefix."mootyper_exercises";
     $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$gradesTblName.".pass, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".
     $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename".
     " FROM ".$gradesTblName.
     " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
     " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
-    " WHERE (sityper=".$sityperID.") AND (exercise=".$exerciseID." OR ".$exerciseID."=0) AND".
+    " WHERE (mootyper=".$mootyperID.") AND (exercise=".$exerciseID." OR ".$exerciseID."=0) AND".
     " (userid=".$userID." OR ".$userID."=0)";
     if ($grades = $DB->get_records_sql($sql, $params)) {
         return $grades;
@@ -116,16 +116,16 @@ function get_typergradesfull($s_id) {
     global $DB, $CFG;
     $params = array();
     $toReturn = array();
-    $gradesTblName = $CFG->prefix."sityper_grades";
+    $gradesTblName = $CFG->prefix."mootyper_grades";
     $usersTblName = $CFG->prefix."user";
-    $exerTblName = $CFG->prefix."sityper_exercises";
+    $exerTblName = $CFG->prefix."mootyper_exercises";
     $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".
     $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename".
     " FROM ".$gradesTblName.
     " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
     " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
-    " WHERE sityper=".$s_id;
+    " WHERE mootyper=".$s_id;
     if ($grades = $DB->get_records_sql($sql, $params)) {
         return $grades;
 	}
@@ -134,35 +134,35 @@ function get_typergradesfull($s_id) {
 }
 
 /**
- * Saves a new instance of the sityper into the database
+ * Saves a new instance of the mootyper into the database
  *
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
  * will create a new instance and return the id number
  * of the new instance.
  *
- * @param object $sityper An object from the form in mod_form.php
- * @param mod_sityper_mod_form $mform
- * @return int The id of the newly inserted sityper record
+ * @param object $mootyper An object from the form in mod_form.php
+ * @param mod_mootyper_mod_form $mform
+ * @return int The id of the newly inserted mootyper record
  */
-function sityper_add_instance(stdClass $sityper, mod_sityper_mod_form $mform = null) {
+function mootyper_add_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
     global $DB;
-    $sityper->timecreated = time();
-    return $DB->insert_record('sityper', $sityper);
+    $mootyper->timecreated = time();
+    return $DB->insert_record('mootyper', $mootyper);
 }
 
 
 function get_exercise_record($eid)
 {
 	global $DB;
-    return $DB->get_record('sityper_exercises', array('id' => $eid));
+    return $DB->get_record('mootyper_exercises', array('id' => $eid));
 }
 
-function exam_already_done($sityper, $user_id)
+function exam_already_done($mootyper, $user_id)
 {
 	global $DB;
-	$table = 'sityper_grades';
-    $select = 'userid='.$user_id.' AND sityper='.$sityper->id; //is put into the where clause
+	$table = 'mootyper_grades';
+    $select = 'userid='.$user_id.' AND mootyper='.$mootyper->id; //is put into the where clause
     $result = $DB->get_records_select($table,$select);
     if(!is_null($result) && count($result) > 0){
 		return true;
@@ -170,55 +170,55 @@ function exam_already_done($sityper, $user_id)
 	return false;
 }
 
-function get_exercise_from_sityper($sityper_id, $lesson_id, $user_id)
+function get_exercise_from_mootyper($mootyper_id, $lesson_id, $user_id)
 {
 	global $DB;
-	$table = 'sityper_grades';
-    $select = 'userid='.$user_id.' AND sityper='.$sityper_id.' AND pass=1'; //is put into the where clause
+	$table = 'mootyper_grades';
+    $select = 'userid='.$user_id.' AND mootyper='.$mootyper_id.' AND pass=1'; //is put into the where clause
     $result = $DB->get_records_select($table,$select);
     if(!is_null($result) && count($result) > 0){
 		$max = 0;
 		$maxID = 0;
 		foreach($result as $grd)
 		{
-			$exRec = $DB->get_record('sityper_exercises', array('id' => $grd->exercise));
+			$exRec = $DB->get_record('mootyper_exercises', array('id' => $grd->exercise));
 			$zap_st = $exRec->snumber;
 			if($zap_st > $max){
 				$max = $zap_st;
 				$maxID = $exRec->id;
 			}
 		}
-		return $DB->get_record('sityper_exercises', array('id' => $maxID+1));
+		return $DB->get_record('mootyper_exercises', array('id' => $maxID+1));
 	}
 	else
-		return $DB->get_record('sityper_exercises', array('snumber' => 1, 'lesson' => $lesson_id));
+		return $DB->get_record('mootyper_exercises', array('snumber' => 1, 'lesson' => $lesson_id));
 }
 
-function jget_sityper_record($sid)
+function jget_mootyper_record($sid)
 {
-	//get_record('sityper', array('id' => $n));
+	//get_record('mootyper', array('id' => $n));
 	global $DB;
-    return $DB->get_record('sityper', array('id' => $sid));
+    return $DB->get_record('mootyper', array('id' => $sid));
 }
 /**
- * Updates an instance of the sityper in the database
+ * Updates an instance of the mootyper in the database
  *
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
  * will update an existing instance with new data.
  *
- * @param object $sityper An object from the form in mod_form.php
- * @param mod_sityper_mod_form $mform
+ * @param object $mootyper An object from the form in mod_form.php
+ * @param mod_mootyper_mod_form $mform
  * @return boolean Success/Fail
  */
-function sityper_update_instance(stdClass $sityper, mod_sityper_mod_form $mform = null) {
+function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
     global $DB;
-    $sityper->timemodified = time();
-    return $DB->update_record('sityper', $sityper);
+    $mootyper->timemodified = time();
+    return $DB->update_record('mootyper', $mootyper);
 }
 
 /**
- * Removes an instance of the sityper from the database
+ * Removes an instance of the mootyper from the database
  *
  * Given an ID of an instance of this module,
  * this function will permanently delete the instance
@@ -227,23 +227,23 @@ function sityper_update_instance(stdClass $sityper, mod_sityper_mod_form $mform 
  * @param int $id Id of the module instance
  * @return boolean Success/Failure
  */
-function sityper_delete_instance($id) {
+function mootyper_delete_instance($id) {
 	global $DB;
-    $sityper = $DB->get_record('sityper', array('id' => $id), '*', MUST_EXIST);
-    sityper_delete_all_grades($sityper);
-    if (! $sityper = $DB->get_record('sityper', array('id' => $id))) {
+    $mootyper = $DB->get_record('mootyper', array('id' => $id), '*', MUST_EXIST);
+    mootyper_delete_all_grades($mootyper);
+    if (! $mootyper = $DB->get_record('mootyper', array('id' => $id))) {
         return false;
     }
-    $DB->delete_records('sityper', array('id' => $sityper->id));
+    $DB->delete_records('mootyper', array('id' => $mootyper->id));
     return true;
 }
 
-function sityper_delete_all_grades($sityper) {
+function mootyper_delete_all_grades($mootyper) {
     //global $CFG, $DB;
     global $DB;
-    //require_once($CFG->dirroot . '/mod/sityper/locallib.php');
+    //require_once($CFG->dirroot . '/mod/mootyper/locallib.php');
     //question_engine::delete_questions_usage_by_activities(new qubaids_for_yyyyyy($yyyyyyyyyyyy->id));
-    $DB->delete_records('sityper_grades', array('sityper' => $sityper->id));
+    $DB->delete_records('mootyper_grades', array('mootyper' => $mootyper->id));
 }
 
 
@@ -259,7 +259,7 @@ function sityper_delete_all_grades($sityper) {
  *
  * @return stdClass|null
  */
-function sityper_user_outline($course, $user, $mod, $sityper) {
+function mootyper_user_outline($course, $user, $mod, $mootyper) {
 
     $return = new stdClass();
     $return->time = 0;
@@ -274,20 +274,20 @@ function sityper_user_outline($course, $user, $mod, $sityper) {
  * @param stdClass $course the current course record
  * @param stdClass $user the record of the user we are generating report for
  * @param cm_info $mod course module info
- * @param stdClass $sityper the module instance record
+ * @param stdClass $mootyper the module instance record
  * @return void, is supposed to echp directly
  */
-function sityper_user_complete($course, $user, $mod, $sityper) {
+function mootyper_user_complete($course, $user, $mod, $mootyper) {
 }
 
 /**
  * Given a course and a time, this module should find recent activity
- * that has occurred in sityper activities and print it out.
+ * that has occurred in mootyper activities and print it out.
  * Return true if there was output, or false is there was none.
  *
  * @return boolean
  */
-function sityper_print_recent_activity($course, $viewfullnames, $timestart) {
+function mootyper_print_recent_activity($course, $viewfullnames, $timestart) {
     return false;  //  True if anything was printed, otherwise false
 }
 
@@ -296,7 +296,7 @@ function sityper_print_recent_activity($course, $viewfullnames, $timestart) {
  *
  * This callback function is supposed to populate the passed array with
  * custom activity records. These records are then rendered into HTML via
- * {@link sityper_print_recent_mod_activity()}.
+ * {@link mootyper_print_recent_mod_activity()}.
  *
  * @param array $activities sequentially indexed array of objects with the 'cmid' property
  * @param int $index the index in the $activities to use for the next record
@@ -307,15 +307,15 @@ function sityper_print_recent_activity($course, $viewfullnames, $timestart) {
  * @param int $groupid check for a particular group's activity only, defaults to 0 (all groups)
  * @return void adds items into $activities and increases $index
  */
-function sityper_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid=0, $groupid=0) {
+function mootyper_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid=0, $groupid=0) {
 }
 
 /**
- * Prints single activity item prepared by {@see sityper_get_recent_mod_activity()}
+ * Prints single activity item prepared by {@see mootyper_get_recent_mod_activity()}
 
  * @return void
  */
-function sityper_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
+function mootyper_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
 }
 
 /**
@@ -326,23 +326,23 @@ function sityper_print_recent_mod_activity($activity, $courseid, $detail, $modna
  * @return boolean
  * @todo Finish documenting this function
  **/
-function sityper_cron () {
+function mootyper_cron () {
     return true;
 }
 
 /**
- * Returns an array of users who are participanting in this sityper
+ * Returns an array of users who are participanting in this mootyper
  *
  * Must return an array of users who are participants for a given instance
- * of sityper. Must include every user involved in the instance,
+ * of mootyper. Must include every user involved in the instance,
  * independient of his role (student, teacher, admin...). The returned
  * objects must contain at least id property.
  * See other modules as example.
  *
- * @param int $sityperid ID of an instance of this module
+ * @param int $mootyperid ID of an instance of this module
  * @return boolean|array false if no participants, array of objects otherwise
  */
-function sityper_get_participants($sityperid) {
+function mootyper_get_participants($mootyperid) {
     return false;
 }
 
@@ -352,7 +352,7 @@ function sityper_get_participants($sityperid) {
  * @example return array('moodle/site:accessallgroups');
  * @return array
  */
-function sityper_get_extra_capabilities() {
+function mootyper_get_extra_capabilities() {
     return array();
 }
 
@@ -361,21 +361,21 @@ function sityper_get_extra_capabilities() {
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Is a given scale used by the instance of sityper?
+ * Is a given scale used by the instance of mootyper?
  *
- * This function returns if a scale is being used by one sityper
+ * This function returns if a scale is being used by one mootyper
  * if it has support for grading and scales. Commented code should be
  * modified if necessary. See forum, glossary or journal modules
  * as reference.
  *
- * @param int $sityperid ID of an instance of this module
- * @return bool true if the scale is used by the given sityper instance
+ * @param int $mootyperid ID of an instance of this module
+ * @return bool true if the scale is used by the given mootyper instance
  */
-function sityper_scale_used($sityperid, $scaleid) {
+function mootyper_scale_used($mootyperid, $scaleid) {
     global $DB;
 
     /** @example */
-    if ($scaleid and $DB->record_exists('sityper', array('id' => $sityperid, 'grade' => -$scaleid))) {
+    if ($scaleid and $DB->record_exists('mootyper', array('id' => $mootyperid, 'grade' => -$scaleid))) {
         return true;
     } else {
         return false;
@@ -383,18 +383,18 @@ function sityper_scale_used($sityperid, $scaleid) {
 }
 
 /**
- * Checks if scale is being used by any instance of sityper.
+ * Checks if scale is being used by any instance of mootyper.
  *
  * This is used to find out if scale used anywhere.
  *
  * @param $scaleid int
- * @return boolean true if the scale is used by any sityper instance
+ * @return boolean true if the scale is used by any mootyper instance
  */
-function sityper_scale_used_anywhere($scaleid) {
+function mootyper_scale_used_anywhere($scaleid) {
     global $DB;
 
     /** @example */
-    if ($scaleid and $DB->record_exists('sityper', array('grade' => -$scaleid))) {
+    if ($scaleid and $DB->record_exists('mootyper', array('grade' => -$scaleid))) {
         return true;
     } else {
         return false;
@@ -402,44 +402,44 @@ function sityper_scale_used_anywhere($scaleid) {
 }
 
 /**
- * Creates or updates grade item for the give sityper instance
+ * Creates or updates grade item for the give mootyper instance
  *
  * Needed by grade_update_mod_grades() in lib/gradelib.php
  *
- * @param stdClass $sityper instance object with extra cmidnumber and modname property
+ * @param stdClass $mootyper instance object with extra cmidnumber and modname property
  * @return void
  */
-function sityper_grade_item_update(stdClass $sityper) {
+function mootyper_grade_item_update(stdClass $mootyper) {
     global $CFG;
     require_once($CFG->libdir.'/gradelib.php');
 
     /** @example */
     $item = array();
-    $item['itemname'] = clean_param($sityper->name, PARAM_NOTAGS);
+    $item['itemname'] = clean_param($mootyper->name, PARAM_NOTAGS);
     $item['gradetype'] = GRADE_TYPE_VALUE;
-    $item['grademax']  = $sityper->grade;
+    $item['grademax']  = $mootyper->grade;
     $item['grademin']  = 0;
 
-    grade_update('mod/sityper', $sityper->course, 'mod', 'sityper', $sityper->id, 0, null, $item);
+    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, null, $item);
 }
 
 /**
- * Update sityper grades in the gradebook
+ * Update mootyper grades in the gradebook
  *
  * Needed by grade_update_mod_grades() in lib/gradelib.php
  *
- * @param stdClass $sityper instance object with extra cmidnumber and modname property
+ * @param stdClass $mootyper instance object with extra cmidnumber and modname property
  * @param int $userid update grade of specific user only, 0 means all participants
  * @return void
  */
-function sityper_update_grades(stdClass $sityper, $userid = 0) {
+function mootyper_update_grades(stdClass $mootyper, $userid = 0) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
     /** @example */
     $grades = array(); // populate array of grade objects indexed by userid
 
-    grade_update('mod/sityper', $sityper->course, 'mod', 'sityper', $sityper->id, 0, $grades);
+    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -457,12 +457,12 @@ function sityper_update_grades(stdClass $sityper, $userid = 0) {
  * @param stdClass $context
  * @return array of [(string)filearea] => (string)description
  */
-function sityper_get_file_areas($course, $cm, $context) {
+function mootyper_get_file_areas($course, $cm, $context) {
     return array();
 }
 
 /**
- * Serves the files from the sityper file areas
+ * Serves the files from the mootyper file areas
  *
  * @param stdClass $course
  * @param stdClass $cm
@@ -472,7 +472,7 @@ function sityper_get_file_areas($course, $cm, $context) {
  * @param bool $forcedownload
  * @return void this should never return to the caller
  */
-function sityper_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload) {
+function mootyper_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload) {
     global $DB, $CFG;
 
     if ($context->contextlevel != CONTEXT_MODULE) {
@@ -489,26 +489,26 @@ function sityper_pluginfile($course, $cm, $context, $filearea, array $args, $for
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Extends the global navigation tree by adding sityper nodes if there is a relevant content
+ * Extends the global navigation tree by adding mootyper nodes if there is a relevant content
  *
  * This can be called by an AJAX request so do not rely on $PAGE as it might not be set up properly.
  *
- * @param navigation_node $navref An object representing the navigation tree node of the sityper module instance
+ * @param navigation_node $navref An object representing the navigation tree node of the mootyper module instance
  * @param stdClass $course
  * @param stdClass $module
  * @param cm_info $cm
  */
-function sityper_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
+function mootyper_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
 }
 
 /**
- * Extends the settings navigation with the sityper settings
+ * Extends the settings navigation with the mootyper settings
  *
- * This function is called when the context for the page is a sityper module. This is not called by AJAX
+ * This function is called when the context for the page is a mootyper module. This is not called by AJAX
  * so it is safe to rely on the $PAGE.
  *
  * @param settings_navigation $settingsnav {@link settings_navigation}
- * @param navigation_node $sitypernode {@link navigation_node}
+ * @param navigation_node $mootypernode {@link navigation_node}
  */
-function sityper_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $sitypernode=null) {
+function mootyper_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $mootypernode=null) {
 }

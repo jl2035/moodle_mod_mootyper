@@ -20,7 +20,7 @@
  * lib.php/modulename_install() post installation hook and partially defaults.php
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -30,10 +30,10 @@
  *
  * @see upgrade_plugins_modules()
  */
-function xmldb_sityper_install() {
+function xmldb_mootyper_install() {
 	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 	global $CFG;
-	$pth = $CFG->dirroot."/mod/sityper/db/Lessons";
+	$pth = $CFG->dirroot."/mod/mootyper/db/Lessons";
 	$res = scandir($pth);
 	for($i=0; $i<count($res); $i++)
 	{
@@ -48,7 +48,7 @@ function read_lessons_file($daFile)
 {
 	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 	global $DB, $CFG;
-	$theFile = $CFG->dirroot."/mod/sityper/db/Lessons/".$daFile;
+	$theFile = $CFG->dirroot."/mod/mootyper/db/Lessons/".$daFile;
 	//echo $theFile;
 	
 	$record = new stdClass();
@@ -56,7 +56,7 @@ function read_lessons_file($daFile)
 	$lessonName = substr($daFile, 0, $pikapos);
 	//echo $lessonName;
     $record->lessonname = $lessonName;
-    $lesson_id = $DB->insert_record('sityper_lessons', $record, true);
+    $lesson_id = $DB->insert_record('mootyper_lessons', $record, true);
 	$fh = fopen($theFile, 'r');
 	$theData = fread($fh, filesize($theFile));
 	fclose($fh);
@@ -83,7 +83,7 @@ function read_lessons_file($daFile)
 		$erecord->exercisename = $nm;
 		$erecord->lesson = $lesson_id;
 		$erecord->snumber = $j+1;
-		$DB->insert_record('sityper_exercises', $erecord, false);
+		$DB->insert_record('mootyper_exercises', $erecord, false);
 	}
 }
 
@@ -92,5 +92,5 @@ function read_lessons_file($daFile)
  *
  * @see upgrade_plugins_modules()
  */
-function xmldb_sityper_install_recovery() {
+function xmldb_mootyper_install_recovery() {
 }

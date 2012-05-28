@@ -22,7 +22,7 @@
  * if you like, and it can span multiple lines.
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -37,7 +37,7 @@ require_once(dirname(__FILE__).'/lib.php');
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
 
 if ($id) {
-    //$cm         = get_coursemodule_from_id('sityper', $id, 0, false, MUST_EXIST);
+    //$cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 }
 else {
@@ -47,19 +47,19 @@ else {
 require_login($course, true);
 //$context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
-//add_to_log($course->id, 'sityper', 'view', "view.php?id={$cm->id}", $sityper->name, $cm->id);
+//add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id);
 
 /// Print the page header
 
-$PAGE->set_url('/mod/sityper/exercises.php', array('id' => $course->id));
-$PAGE->set_title(get_string('etitle', 'sityper'));
-$PAGE->set_heading(get_string('eheading', 'sityper'));
+$PAGE->set_url('/mod/mootyper/exercises.php', array('id' => $course->id));
+$PAGE->set_title(get_string('etitle', 'mootyper'));
+$PAGE->set_heading(get_string('eheading', 'mootyper'));
 //$PAGE->set_context($context);
 
 // other things you may want to set - remove if not needed
 $PAGE->set_cacheable(false);
 //$PAGE->set_focuscontrol('tb1');
-//$PAGE->add_body_class('sityper-'.$somevar);
+//$PAGE->add_body_class('mootyper-'.$somevar);
 
 // Output starts here
 echo $OUTPUT->header();
@@ -76,8 +76,8 @@ $lessonPO = optional_param('lesson', 0, PARAM_INT);
 
 
 
-$jlnk2 = $webDir = $CFG->wwwroot . '/mod/sityper/eins.php?id='.$id;
-echo '<a href="'.$jlnk2.'">'.get_string('eaddnew', 'sityper').'</a><br><br>';
+$jlnk2 = $webDir = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id;
+echo '<a href="'.$jlnk2.'">'.get_string('eaddnew', 'mootyper').'</a><br><br>';
 $lessons = get_typerlessons();
 if($lessonPO == 0 && count($lessons) > 0)
 	$lessonPO = $lessons[0]['id'];
@@ -92,7 +92,7 @@ for($ij=0; $ij<count($lessons); $ij++)
 }
 echo '</select>';
 echo '</form><br>';
-echo '<table style="border: solid;"><tr><td>'.get_string('ename','sityper').'</td><td>'.get_string('etext', 'sityper').'</td><td></td></tr>';
+echo '<table style="border: solid;"><tr><td>'.get_string('ename','mootyper').'</td><td>'.get_string('etext', 'mootyper').'</td><td></td></tr>';
 $exercises = get_typerexercisesfull($lessonPO);
 foreach($exercises as $ex)
 {
@@ -101,7 +101,7 @@ foreach($exercises as $ex)
 	if(strlen($strToCut) > 65)
 		$strToCut = substr($strToCut, 0, 65).'...';
 	//$jWebDir = $CFG->wwwroot . '/course/view.php?id='.$_POST['rpCourseId'];
-	$jlink =   '<a href="erem.php?id='.$course->id.'&r='.$ex['id'].'">'.get_string('eremove', 'sityper').'</a>';
+	$jlink =   '<a href="erem.php?id='.$course->id.'&r='.$ex['id'].'">'.get_string('eremove', 'mootyper').'</a>';
 	echo '<tr style="border-top: solid;"><td>'.$ex['exercisename'].'</td><td>'.$strToCut.'</td><td>'.$jlink.'</td></tr>';
 }
 echo '</table>';

@@ -22,7 +22,7 @@
  * if you like, and it can span multiple lines.
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -36,19 +36,19 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 
 require_course_login($course);
 
-add_to_log($course->id, 'sityper', 'view all', 'index.php?id='.$course->id, '');
+add_to_log($course->id, 'mootyper', 'view all', 'index.php?id='.$course->id, '');
 
 $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
 
-$PAGE->set_url('/mod/sityper/index.php', array('id' => $id));
+$PAGE->set_url('/mod/mootyper/index.php', array('id' => $id));
 $PAGE->set_title(format_string($course->fullname));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($coursecontext);
 
 echo $OUTPUT->header();
 
-if (! $sitypers = get_all_instances_in_course('sityper', $course)) {
-    notice(get_string('nositypers', 'sityper'), new moodle_url('/course/view.php', array('id' => $course->id)));
+if (! $mootypers = get_all_instances_in_course('mootyper', $course)) {
+    notice(get_string('nomootypers', 'mootyper'), new moodle_url('/course/view.php', array('id' => $course->id)));
 }
 
 if ($course->format == 'weeks') {
@@ -62,25 +62,25 @@ if ($course->format == 'weeks') {
     $table->align = array('left', 'left', 'left');
 }
 
-foreach ($sitypers as $sityper) {
-    if (!$sityper->visible) {
+foreach ($mootypers as $mootyper) {
+    if (!$mootyper->visible) {
         $link = html_writer::link(
-            new moodle_url('/mod/sityper.php', array('id' => $sityper->coursemodule)),
-            format_string($sityper->name, true),
+            new moodle_url('/mod/mootyper.php', array('id' => $mootyper->coursemodule)),
+            format_string($mootyper->name, true),
             array('class' => 'dimmed'));
     } else {
         $link = html_writer::link(
-            new moodle_url('/mod/sityper.php', array('id' => $sityper->coursemodule)),
-            format_string($sityper->name, true));
+            new moodle_url('/mod/mootyper.php', array('id' => $mootyper->coursemodule)),
+            format_string($mootyper->name, true));
     }
 
     if ($course->format == 'weeks' or $course->format == 'topics') {
-        $table->data[] = array($sityper->section, $link);
+        $table->data[] = array($mootyper->section, $link);
     } else {
         $table->data[] = array($link);
     }
 }
 
-echo $OUTPUT->heading(get_string('modulenameplural', 'sityper'), 2);
+echo $OUTPUT->heading(get_string('modulenameplural', 'mootyper'), 2);
 echo html_writer::table($table);
 echo $OUTPUT->footer();

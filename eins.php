@@ -20,7 +20,7 @@
  *
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -36,7 +36,7 @@ require_once(dirname(__FILE__).'/locallib.php');
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
 
 if ($id) {
-    //$cm         = get_coursemodule_from_id('sityper', $id, 0, false, MUST_EXIST);
+    //$cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 }
 else {
@@ -46,7 +46,7 @@ require_login($course, true);
 $lessonPO = optional_param('lesson', -1, PARAM_INT);
 if(isset($_POST['button']))
    $param1 = $_POST['button']; 
-if(isset($param1) && get_string('fconfirm', 'sityper') == $param1 )
+if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
   //DB insert
 {
 	global $DB;
@@ -58,7 +58,7 @@ if(isset($param1) && get_string('fconfirm', 'sityper') == $param1 )
 		$lsnnamePO = $_POST['lessonname'];
 		$lsnrecord = new stdClass();
 		$lsnrecord->lessonname = $lsnnamePO;
-		$lesson_id = $DB->insert_record('sityper_lessons', $lsnrecord, true);
+		$lesson_id = $DB->insert_record('mootyper_lessons', $lsnrecord, true);
 	}
 	else
 		$lesson_id = $lessonPO;
@@ -67,35 +67,35 @@ if(isset($param1) && get_string('fconfirm', 'sityper') == $param1 )
 	$erecord->snumber = $snum;
 	$erecord->lesson = $lesson_id;
 	$erecord->texttotype = str_replace("\r\n", "\n", $texttotypeePO);
-	$DB->insert_record('sityper_exercises', $erecord, false);
-	$webDir = $CFG->wwwroot . '/mod/sityper/exercises.php?id='.$id;
+	$DB->insert_record('mootyper_exercises', $erecord, false);
+	$webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
 	//header('Location: '.$webDir);
 	echo '<script type="text/javascript">window.location="'.$webDir.'";</script>';
 }
 //$context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
-//add_to_log($course->id, 'sityper', 'view', "view.php?id={$cm->id}", $sityper->name, $cm->id);
+//add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id);
 
 /// Print the page header
 
-$PAGE->set_url('/mod/sityper/exercises.php', array('id' => $course->id));
-$PAGE->set_title(get_string('etitle', 'sityper'));
-$PAGE->set_heading(get_string('eheading', 'sityper'));
+$PAGE->set_url('/mod/mootyper/exercises.php', array('id' => $course->id));
+$PAGE->set_title(get_string('etitle', 'mootyper'));
+$PAGE->set_heading(get_string('eheading', 'mootyper'));
 //$PAGE->set_context($context);
 
 // other things you may want to set - remove if not needed
 $PAGE->set_cacheable(false);
 //$PAGE->set_focuscontrol('tb1');
-//$PAGE->add_body_class('sityper-'.$somevar);
+//$PAGE->add_body_class('mootyper-'.$somevar);
 
 // Output starts here
 echo $OUTPUT->header();
 // action="?id='.$id.'&ins=true"
 echo '<form method="POST">';
 $lessons = get_typerlessons();
-echo get_string('fnewexercise', 'sityper').'&nbsp;';
+echo get_string('fnewexercise', 'mootyper').'&nbsp;';
 echo '<select onchange="this.form.submit()" name="lesson">';
-echo '<option value="-1">'.get_string('fnewlesson', 'sityper').'</option>';
+echo '<option value="-1">'.get_string('fnewlesson', 'mootyper').'</option>';
 for($ij=0; $ij<count($lessons); $ij++)
 {
 	if($lessons[$ij]['id'] == $lessonPO)
@@ -105,11 +105,11 @@ for($ij=0; $ij<count($lessons); $ij++)
 }
 echo '</select>';
 if($lessonPO == -1)
-	echo '<br><br>...'.get_string('lsnname', 'sityper').': <input type="text" name="lessonname">';
-//echo '<br><br>'.get_string('ename', 'sityper').'<input type="text" name="exercisename">';
-echo '<br><br>'.get_string('fexercise', 'sityper').':<br>'.
+	echo '<br><br>...'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname">';
+//echo '<br><br>'.get_string('ename', 'mootyper').'<input type="text" name="exercisename">';
+echo '<br><br>'.get_string('fexercise', 'mootyper').':<br>'.
 	 '<textarea name="texttotype"></textarea><br>'.
-	 '<br><input name="button" type="submit" value="'.get_string('fconfirm', 'sityper').'">'.
+	 '<br><input name="button" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
 
 echo $OUTPUT->footer();

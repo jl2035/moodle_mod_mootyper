@@ -16,13 +16,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Internal library of functions for module sityper
+ * Internal library of functions for module mootyper
  *
- * All the sityper specific functions, needed to implement the module
+ * All the mootyper specific functions, needed to implement the module
  * logic, should go here. Never include this file from your lib.php!
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -35,7 +35,7 @@ function get_typerlessons()
     $params = array();
     $lsToReturn = array();
     $sql = "SELECT id, lessonname
-              FROM ".$CFG->prefix."sityper_lessons";
+              FROM ".$CFG->prefix."mootyper_lessons";
     if ($lessons = $DB->get_records_sql($sql, $params)) 
         foreach ($lessons as $ex) {
 			$lss = array();
@@ -76,7 +76,7 @@ function get_typerexercises() {
     $params = array();
     $exesToReturn = array();
     $sql = "SELECT id, exercisename
-              FROM ".$CFG->prefix."sityper_exercises";
+              FROM ".$CFG->prefix."mootyper_exercises";
     if ($exercises = $DB->get_records_sql($sql, $params)) 
         foreach ($exercises as $ex) 
 			$exesToReturn[$ex->id] = $ex->exercisename;
@@ -87,7 +87,7 @@ function get_exercises_by_lesson($less) {
     global $USER, $CFG, $DB;
     $params = array();
     $toReturn = array();
-    $sql = "SELECT * FROM ".$CFG->prefix."sityper_exercises WHERE lesson=".$less;
+    $sql = "SELECT * FROM ".$CFG->prefix."mootyper_exercises WHERE lesson=".$less;
     if ($exercises = $DB->get_records_sql($sql, $params)) {
         foreach ($exercises as $ex) {
 			$exesToReturn = array();
@@ -118,7 +118,7 @@ function get_typerexercisesfull($lsn = 0) {
     global $USER, $CFG, $DB;
     $params = array();
     $toReturn = array();
-    $sql = "SELECT * FROM ".$CFG->prefix."sityper_exercises WHERE lesson=".$lsn." OR 0=".$lsn;
+    $sql = "SELECT * FROM ".$CFG->prefix."mootyper_exercises WHERE lesson=".$lsn." OR 0=".$lsn;
     if ($exercises = $DB->get_records_sql($sql, $params)) {
         foreach ($exercises as $ex) {
 			$exesToReturn = array();

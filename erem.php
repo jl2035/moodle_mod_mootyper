@@ -21,7 +21,7 @@
  * if you like, and it can span multiple lines.
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,11 +29,11 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 //require_once(dirname(dirname(dirname(__FILE__))).'/lib/dmllib.php');
 global $DB;
 //http://localhost/moodle/course/view.php?id=2
-//$DB->insert_record('sityper_grades', $record, false);
+//$DB->insert_record('mootyper_grades', $record, false);
 $exerciseID = $_GET['r'];
 $cID = $_GET['id'];
-$DB->delete_records('sityper_exercises', array('id'=>$exerciseID));
-$webDir = $CFG->wwwroot . '/mod/sityper/exercises.php?id='.$cID;
+$DB->delete_records('mootyper_exercises', array('id'=>$exerciseID));
+$webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cID;
 header('Location: '.$webDir);
 /*
     $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') 

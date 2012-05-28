@@ -16,7 +16,7 @@
 
 /**
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,7 +27,7 @@ if($_POST['rpAccInput'] >= $_POST['rpGoal'])
 else
 	$passField = 0;
 $record = new stdClass();
-$record->sityper = $_POST['rpSityperId'];
+$record->mootyper = $_POST['rpSityperId'];
 $record->userid = $_POST['rpUser'];
 $record->grade = 0;
 $record->mistakes = $_POST['rpMistakesInput'];
@@ -39,9 +39,9 @@ $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
 $record->pass = $passField;
 //http://localhost/moodle/course/view.php?id=2
-$DB->insert_record('sityper_grades', $record, false);
+$DB->insert_record('mootyper_grades', $record, false);
 
-$webDir = $CFG->wwwroot . '/mod/sityper/view.php?n='.$_POST['rpSityperId'];
+$webDir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$_POST['rpSityperId'];
 echo '<script type="text/javascript">window.location="'.$webDir.'";</script>';
 /*
     $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') 

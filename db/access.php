@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capability definitions for the sityper module
+ * Capability definitions for the mootyper module
  *
  * The capabilities are loaded into the database table when the module is
  * installed or updated. Whenever the capability definitions are updated,
@@ -41,7 +41,7 @@
  * The variable name for the capability definitions array is $capabilities
  *
  * @package    mod
- * @subpackage sityper
+ * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -49,7 +49,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-	'mod/sityper:setup' => array(
+	'mod/mootyper:setup' => array(
 		'captype' => 'read',
 		'contextlevel' => CONTEXT_MODULE,
 		'legacy' => array(
@@ -59,7 +59,7 @@ $capabilities = array(
 		)
 	),
 	
-	'mod/sityper:viewgrades' => array(
+	'mod/mootyper:viewgrades' => array(
 		'captype' => 'read',
 		'contextlevel' => CONTEXT_MODULE,
 		'legacy' => array(
@@ -68,7 +68,7 @@ $capabilities = array(
 			'manager' => CAP_ALLOW
 		)
 	),
-	'mod/sityper:view' => array(
+	'mod/mootyper:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'legacy' => array(
