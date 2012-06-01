@@ -82,3 +82,4 @@ $string['timetaken'] = 'Čas';
 $string['fnewlesson'] = 'ustvari novo lekcijo';
 $string['fnewexercise'] = 'Vaja bo del';
 $string['average'] = 'Povprečje';
+$string['eeditlabel'] = 'Uredi';

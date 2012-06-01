@@ -78,7 +78,7 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
 
 /// Print the page header
 
-$PAGE->set_url('/mod/mootyper/exercises.php', array('id' => $course->id));
+$PAGE->set_url('/mod/mootyper/eins.php', array('id' => $course->id));
 $PAGE->set_title(get_string('etitle', 'mootyper'));
 $PAGE->set_heading(get_string('eheading', 'mootyper'));
 //$PAGE->set_context($context);

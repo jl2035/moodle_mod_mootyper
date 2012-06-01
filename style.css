@@ -1,185 +1,185 @@
 div#mainDiv
 {
-	text-align:center;
-	width: 100%;
+text-align:center;
+width: 100%;
 }
 div#textToEnter
 {
-	width: 100%;
-	text-align: center;
+width: 100%;
+text-align: center;
 }
 #jsTime
 {
-	padding: 5px;
+padding: 5px;
 }
 #jsProgress
 {
-	padding: 5px;
+padding: 5px;
 }
 #jsAcc
 {
-	padding: 5px;
+padding: 5px;
 }
 #jsSpeed
 {
-	padding: 5px;
+padding: 5px;
 }
 .tb1
 {
-	width: 500px;
-	height: 100px;
-	font-size: extra-small;
-	font-family: Courier;
-	overflow-x: scroll;
+width: 500px;
+height: 100px;
+font-size: extra-small;
+font-family: Courier;
+overflow-x: scroll;
 }
 .txtZeleno
 {
-	font-size: medium;
-	color: green;
-	font-family: Courier;
+font-size: medium;
+color: green;
+font-family: Courier;
 }
 .txtRdece
 {
-	font-size: medium;
-	color: red;
-	font-family: Courier;
+font-size: medium;
+color: red;
+font-family: Courier;
 }
 .txtModro
 {
-	font-size: medium;
-	color: blue;
-	font-family: Courier;
+font-size: medium;
+color: blue;
+font-family: Courier;
 }
 .normal
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: black;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	text-align: center;
-	vertical-align: middle;
-	background-color: #B7B7B7;
-	font-size: small;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #999;
+border-style: solid;
+border-right-style: white-space-collapse;
+text-align: center;
+vertical-align: middle;
+background-color: #B7B7B7;
+font-size: small;
 }
 .finger4
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: black;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #FFC4C4;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #999;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #FFC4C4;
 }
 .finger3
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: black;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #B1FFB3;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #999;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #B1FFB3;
 }
 .finger2
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: black;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #FDFFC7;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #999;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #FDFFC7;
 }
 .finger1
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: black;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #A8CEFC;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #999;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #A8CEFC;
 }
 .fingerSpace
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: black;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #D6FFD2;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #999;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #D6FFD2;
 
 }
 .next1
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: #489CFF;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #A8CEFC;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #5692C4;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #A8CEFC;
 }
 .next2
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: #DDE261;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #FDFFC7;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #EFBC00;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #FDFFC7;
 }
 .next3
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: #65DB68;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #B1FFB3;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #65C270;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #B1FFB3;
 }
 .next4
 {
-	display: table-cell;
-	width: 27px;
-	height: 27px;
-	border-color: #FF8A8A;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #FFC4C4;
+display: table-cell;
+width: 27px;
+height: 27px;
+border-color: #FF8D8D;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #FFC4C4;
 }
 .nextSpace
 {
-	display: table-cell;
-	height: 27px;
-	border-color: #BE9631;
-	text-align: center;
-	vertical-align: middle;
-	border-style: solid;
-	border-right-style: white-space-collapse;
-	background-color: #DAC694;
+display: table-cell;
+height: 27px;
+border-color: #BE9631;
+text-align: center;
+vertical-align: middle;
+border-style: solid;
+border-right-style: white-space-collapse;
+background-color: #DAC694;
 }

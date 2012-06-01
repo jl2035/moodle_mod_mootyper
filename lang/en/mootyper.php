@@ -82,3 +82,4 @@ $string['timetaken'] = 'Time taken';
 $string['fnewlesson'] = 'create new lesson';
 $string['fnewexercise'] = 'Exercise will be a part of';
 $string['average'] = 'Average';
+$string['eeditlabel'] = 'Edit';

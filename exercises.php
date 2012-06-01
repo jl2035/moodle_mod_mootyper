@@ -102,7 +102,8 @@ foreach($exercises as $ex)
 		$strToCut = substr($strToCut, 0, 65).'...';
 	//$jWebDir = $CFG->wwwroot . '/course/view.php?id='.$_POST['rpCourseId'];
 	$jlink =   '<a href="erem.php?id='.$course->id.'&r='.$ex['id'].'">'.get_string('eremove', 'mootyper').'</a>';
-	echo '<tr style="border-top: solid;"><td>'.$ex['exercisename'].'</td><td>'.$strToCut.'</td><td>'.$jlink.'</td></tr>';
+	$jlink2 = '<a href="eedit.php?id='.$course->id.'&ex='.$ex['id'].'">'.get_string('eeditlabel', 'mootyper').'</a>';
+	echo '<tr style="border-top: solid;"><td>'.$ex['exercisename'].'</td><td>'.$strToCut.'</td><td>'.$jlink2.' | '.$jlink.'</td></tr>';
 }
 echo '</table>';
 
