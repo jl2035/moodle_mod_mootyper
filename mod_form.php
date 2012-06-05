@@ -36,6 +36,7 @@ require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
  */
 class mod_mootyper_mod_form extends moodleform_mod {
 
+
     /**
      * Defines forms elements
      */

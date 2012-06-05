@@ -214,6 +214,8 @@ function jget_mootyper_record($sid)
 function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
     global $DB;
     $mootyper->timemodified = time();
+    //$old = $DB->get_record('mootyper', array('id' => $mootyper->instance));
+    $mootyper->id = $mootyper->instance;
     return $DB->update_record('mootyper', $mootyper);
 }
 
