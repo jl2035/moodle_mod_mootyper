@@ -7,6 +7,11 @@ var trenutniChar;
 var fullText;
 var intervalID = -1;
 
+function emptyTE()
+{
+	document.getElementById('tb1').innerHTML = '';
+	alert('dejla');
+}
 
 function gumbPritisnjen(e)
 {

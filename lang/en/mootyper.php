@@ -80,6 +80,8 @@ $string['bymootyper'] = 'by exercise';
 $string['allstring'] = 'All';
 $string['timetaken'] = 'Time taken';
 $string['fnewlesson'] = 'create new lesson';
+$string['chere'] = 'Click here to start';
 $string['fnewexercise'] = 'Exercise will be a part of';
 $string['average'] = 'Average';
 $string['eeditlabel'] = 'Edit';
+//
