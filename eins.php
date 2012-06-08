@@ -66,7 +66,7 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
 	$erecord->exercisename = "".$snum;
 	$erecord->snumber = $snum;
 	$erecord->lesson = $lesson_id;
-	$erecord->texttotype = str_replace("\r\n", "\n", $texttotypeePO);
+	$erecord->texttotype = str_replace("\r\n", '\n', $texttotypeePO);
 	$DB->insert_record('mootyper_exercises', $erecord, false);
 	$webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
 	//header('Location: '.$webDir);

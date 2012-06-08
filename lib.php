@@ -178,17 +178,17 @@ function get_exercise_from_mootyper($mootyper_id, $lesson_id, $user_id)
     $result = $DB->get_records_select($table,$select);
     if(!is_null($result) && count($result) > 0){
 		$max = 0;
-		$maxID = 0;
+		//$maxID = 0;
 		foreach($result as $grd)
 		{
 			$exRec = $DB->get_record('mootyper_exercises', array('id' => $grd->exercise));
 			$zap_st = $exRec->snumber;
 			if($zap_st > $max){
 				$max = $zap_st;
-				$maxID = $exRec->id;
+				//$maxID = $exRec->id;
 			}
 		}
-		return $DB->get_record('mootyper_exercises', array('id' => $maxID+1));
+		return $DB->get_record('mootyper_exercises', array('snumber' => ($max+1), 'lesson' => $lesson_id));
 	}
 	else
 		return $DB->get_record('mootyper_exercises', array('snumber' => 1, 'lesson' => $lesson_id));
