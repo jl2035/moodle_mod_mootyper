@@ -47,7 +47,8 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
 	$rcrd = $DB->get_record('mootyper_exercises', array('id' => $exercise_ID), '*', MUST_EXIST);
 	$updR = new stdClass();
 	$updR->id = $rcrd->id;
-	$updR->texttotype = $newText;
+	//$updR->texttotype = $newText;
+	$updR->texttotype = str_replace("\r\n", '\n', $newText);
 	$updR->exercisename = $rcrd->exercisename;
 	$updR->lesson = $rcrd->lesson;
 	$updR->snumber = $rcrd->snumber;
