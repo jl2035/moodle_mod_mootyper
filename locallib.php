@@ -35,7 +35,8 @@ function get_typerlessons()
     $params = array();
     $lsToReturn = array();
     $sql = "SELECT id, lessonname
-              FROM ".$CFG->prefix."mootyper_lessons";
+              FROM ".$CFG->prefix."mootyper_lessons
+              ORDER BY id;";
     if ($lessons = $DB->get_records_sql($sql, $params)) 
         foreach ($lessons as $ex) {
 			$lss = array();

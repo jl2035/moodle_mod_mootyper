@@ -49,10 +49,16 @@ function doKonec()
 function keyboardElement(ltr)
 {
 	this.chr = ltr.toLowerCase();
+	this.alt = false;
 	if(isLetter(ltr))
 		this.shift = ltr.toUpperCase() == ltr;
-	else if(ltr == 'Đ')
+	else if(ltr == 'Đ' || ltr == 'Ć' || ltr == 'Č' || ltr == 'Š' || ltr == 'Ž')
 		this.shift = true;
+	else if(ltr == '@')
+	{
+		this.shift = false;
+		this.alt = true;
+	}
 	else
 	{
 		if(ltr == '!' || ltr == '"' || ltr == '#' || ltr == '$' || ltr == '%' || ltr == '&' ||
@@ -76,6 +82,8 @@ function keyboardElement(ltr)
 			document.getElementById('jkeyshiftd').className="next4";
 			document.getElementById('jkeyshiftl').className="next4";
 		}
+		if(this.alt)
+			document.getElementById('jkeyaltgr').className="nextSpace";
     }
     this.turnOff = function () {
 		if(isLetter(this.chr))
@@ -95,6 +103,8 @@ function keyboardElement(ltr)
 			document.getElementById('jkeyshiftd').className="normal";
 			document.getElementById('jkeyshiftl').className="normal";
 		}
+		if(this.alt)
+			document.getElementById('jkeyaltgr').className="normal";
 	}
 }
 
@@ -118,6 +128,14 @@ function getPressedChar(e)
 	return keychar;
 }
 
+function focusSet(e)
+{
+	document.form1.tb1.value=''; 
+	var thisEl = new keyboardElement(fullText[0]);
+	thisEl.turnOn();
+	return true;
+}
+
 function gumbPritisnjen(e)
 {
 	if(ended)
@@ -133,13 +151,14 @@ function gumbPritisnjen(e)
 	var keychar = getPressedChar(e);
 	if(keychar == trenutniChar)
 	{
+		var thisE = new keyboardElement(keychar);
+		thisE.turnOff();
 		if(trenutnaPos == fullText.length-1)    //KONEC
 	    {   
 			doKonec();
 			return true;
 	    }
-	    var thisE = new keyboardElement(keychar);
-		thisE.turnOff();
+
 		if(trenutnaPos < fullText.length-1){
 			var nextChar = fullText[trenutnaPos+1];
 			var nextE = new keyboardElement(nextChar);
@@ -202,55 +221,12 @@ function initTextToEnter(ttext)
 	}
 	document.getElementById('textToEnter').innerHTML = tempStr;
 	fullText = ttext;
+	
 	//prestaviCrke(0, ttext.length);
 	//var tipkaID = dobiTipkoId(ttext[0].toLowerCase());
 	//var fingerID = dobiFinger(ttext[0].toLowerCase());
 	//document.getElementById(tipkaID).className = "next"+fingerID;
 	//document.form1.hdnext.value = ttext[0];
-}
-
-function prestaviCrke(tPos, dolzina)
-{
-	document.getElementById('crka'+tPos).className = "txtZeleno";
-	//alert("djla crka+"+tPos);
-	if(dolzina-1 > tPos)
-		document.getElementById('crka'+(tPos+1)).className = "txtModro";
-	var crkaTmp1 = fullText.toLowerCase().charAt(tPos);
-	var tipkaName = dobiTipkoId(crkaTmp1);
-	if(tipkaName == "jkeya" || tipkaName == "jkeyč")
-		document.getElementById(tipkaName).className = "finger4";
-	else if(tipkaName == "jkeys" || tipkaName == "jkeyl")
-		document.getElementById(tipkaName).className = "finger3";
-	else if(tipkaName == "jkeyd" || tipkaName == "jkeyk")
-		document.getElementById(tipkaName).className = "finger2";
-	else if(tipkaName == "jkeyf" || tipkaName == "jkeyj")
-		document.getElementById(tipkaName).className = "finger1";
-	else if(tipkaName == "jkeyspace")
-		document.getElementById(tipkaName).className = "normal";
-	else
-		document.getElementById(tipkaName).className = "normal";
-	
-	crkaTmp1 = fullText.toLowerCase().charAt(tPos+1);
-	
-	var fingerNext = dobiFinger(crkaTmp1);
-	
-	if(fingerNext == 5){
-		document.getElementById(dobiTipkoId(crkaTmp1)).className = "nextSpace";
-	alert("se zgodi");}
-	else if(fingerNext == 6)
-	{
-		if(crkaTmp1 == ',')
-			document.getElementById('jkeyvejica').className = "next2";
-		else if(crkaTmp1 == '\n')
-			document.getElementById('jkeyenter').className = "next4";
-		else if(crkaTmp1 == '.')
-			document.getElementById('jkeypika').className = "next3";
-		else if(crkaTmp1 == '-')
-		    document.getElementById('jkeypomisljaj').className = "next4";
-	}
-	else
-		document.getElementById(dobiTipkoId(crkaTmp1)).className = "next"+fingerNext;
-	
 }
 
 function dobiTipkoId(t_crka)
@@ -289,9 +265,12 @@ function dobiTipkoId(t_crka)
 		return "jkeyvprasaj";
 	else if(t_crka == '*' || t_crka == '+')
 		return "jkeyplus";
+	else if(t_crka == '<' || t_crka == '>')
+		return "jkeyckck";
+	else if(t_crka == '@')
+		return "jkeyv";
 	else
 		return "jkey"+t_crka;
-		
 }
 
 function isDigit(aChar)
@@ -311,7 +290,7 @@ function dobiFinger(t_crka)
 	else if(t_crka == 'q' || t_crka == 'a' || t_crka == 'z' || t_crka == 'p' || t_crka == 'č' || t_crka == 'ć' ||
 			t_crka == 'š' || t_crka =='đ' || t_crka == 'ž' || t_crka == 'đ' || t_crka == 'y' || t_crka == '1' || 
 			t_crka == '2' || t_crka == '\'' || t_crka == '+' || t_crka == '*' || t_crka == '?' || t_crka == '!' ||
-			t_crka == '\n' || t_crka == '-' || t_crka == '_')
+			t_crka == '\n' || t_crka == '-' || t_crka == '_' || t_crka == '<' || t_crka == '>')
 		return 4;
 	else if(t_crka == 'w' || t_crka == 's' || t_crka == 'x' || t_crka == ':' || t_crka == 'l' || t_crka == 'o' || 
 	        t_crka == '0' || t_crka == '3' || t_crka == '#' || t_crka == '=' || t_crka == '.')
@@ -322,7 +301,7 @@ function dobiFinger(t_crka)
 	else if(t_crka == 'r' || t_crka == 't' || t_crka == 'f' || t_crka == 'v' || t_crka == 'b' || t_crka == 'g' || 
 	        t_crka == '5' || t_crka == '6' || t_crka == '7' || t_crka == '8' || t_crka == 'j' || t_crka == 'h' || 
 	        t_crka == 'n' || t_crka == 'm' || t_crka == 'u' || t_crka == 'z' || t_crka == '%' || t_crka == '&' ||
-	        t_crka == '/' || t_crka == '(')
+	        t_crka == '/' || t_crka == '(' || t_crka == '@')
 		return 1;
 	else
 		return 6;
