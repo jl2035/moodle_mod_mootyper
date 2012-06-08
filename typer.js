@@ -32,11 +32,16 @@ function doKonec()
 	var mins = razlikaT.getMinutes();
 	var secs = razlikaT.getSeconds();
 	var samoSekunde = dobiSekunde(hours, mins, secs); 
-	var reportJ = "Napake: "+napake+"<br>Cas: "+samoSekunde+" s";
+	document.form1.rpFullHits.value = (fullText.length + napake);
+	document.form1.rpTimeInput.value = samoSekunde;
+	document.form1.rpMistakesInput.value = napake;
+	document.form1.rpAccInput.value = izracunajTocnost(fullText, napake).toFixed(2);
+	document.form1.rpSpeedInput.value = izracunajHitrost(samoSekunde);
+	/*var reportJ = "Napake: "+napake+"<br>Cas: "+samoSekunde+" s";
 	reportJ += "<br>Udarci: "+(fullText.length + napake);
 	reportJ += "<br>Točnost: "+ izracunajTocnost(fullText, napake).toFixed(2)+"%";   
 	reportJ += "<br>Udarci/minuto: "+izracunajHitrost(samoSekunde).toFixed(2); 
-	document.getElementById('rdDiv2').innerHTML = reportJ;
+	document.getElementById('rdDiv2').innerHTML = reportJ;*/
 	document.form1.tb1.disabled="disabled";	
 	document.form1.btnContinue.style.visibility="visible";
 }

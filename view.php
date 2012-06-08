@@ -193,18 +193,22 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
 			}
 			?>
+							<input name='rpCourseId' type='hidden' value='<?php echo $course->id; ?>'>
+							<input name='rpSityperId' type='hidden' value='<?php echo $mootyper->id; ?>'>
+							<input name='rpUser' type='hidden' value='<?php echo $USER->id; ?>'>
+							<input name='rpExercise' type='hidden' value='<?php echo $exercise_ID; ?>'>
+							<input name='rpFullHits' type='hidden' value=''>
+							<input name='rpGoal' type='hidden' value='<?php if(isset($reqiredGoal)) echo $reqiredGoal; ?>'>
+						    <input name='rpTimeInput' type='hidden'>
+						    <input name='rpMistakesInput' type='hidden'>
+						    <input name='rpAccInput' type='hidden'>
+						    <input name='rpSpeedInput' type='hidden'>
 							<div id="rdDiv2">
-								<input name='rpCourseId' type='hidden' value='<?php echo $course->id; ?>'>
-								<input name='rpSityperId' type='hidden' value='<?php echo $mootyper->id; ?>'>
-								<input name='rpUser' type='hidden' value='<?php echo $USER->id; ?>'>
-								<input name='rpExercise' type='hidden' value='<?php echo $exercise_ID; ?>'>
-								<input name='rpFullHits' type='hidden' value=''>
-								<input name='rpGoal' type='hidden' value='<?php if(isset($reqiredGoal)) echo $reqiredGoal; ?>'>
-								<input name='rpTimeInput' type='hidden'><strong><?php echo get_string('rtime', 'mootyper'); ?></strong> <span id="jsTime">0</span> s<br>
+								<strong><?php echo get_string('rtime', 'mootyper'); ?></strong> <span id="jsTime">0</span> s<br>
 								<strong><?php echo get_string('rprogress', 'mootyper'); ?></strong> <span id="jsProgress"> 0</span><br>
-								<input name='rpMistakesInput' type='hidden'><strong><?php echo get_string('rmistakes', 'mootyper'); ?></strong> <span id="jsMistakes">0</span><br>
-								<input name='rpAccInput' type='hidden'><strong><?php echo get_string('rprecision', 'mootyper'); ?></strong> <span id="jsAcc"> 0</span>%<br>
-								<input name='rpSpeedInput' type='hidden'><strong><?php echo get_string('rhitspermin', 'mootyper'); ?></strong> <span id="jsSpeed">0</span>
+								<strong><?php echo get_string('rmistakes', 'mootyper'); ?></strong> <span id="jsMistakes">0</span><br>
+								<strong><?php echo get_string('rprecision', 'mootyper'); ?></strong> <span id="jsAcc"> 0</span>%<br>
+								<strong><?php echo get_string('rhitspermin', 'mootyper'); ?></strong> <span id="jsSpeed">0</span>
 								<br>
 							</div>
 							<br><input style="visibility: hidden;" id="btnContinue" name='btnContinue' type="submit" value=<?php echo "'".get_string('fcontinue', 'mootyper')."'"; ?>> 
