@@ -8,6 +8,7 @@ var trenutniChar;
 var fullText;
 var intervalID = -1;
 var interval2ID = -1;
+var app_url;
 
 function isLetter(str) {
   return str.length === 1 && str.match(/[a-z]/i);
@@ -43,8 +44,7 @@ function doKonec()
 	document.form1.btnContinue.style.visibility="visible";
 	var request = makeHttpObject();
     var rpAttId = document.form1.rpAttId.value;
-    var juri =  "http://localhost/moodle3/mod/mootyper/atchk.php?status=3&attemptid="+rpAttId;
-	alert(rpAttId+" "+juri);
+    var juri =  app_url+"/mod/mootyper/atchk.php?status=3&attemptid="+rpAttId;
 	request.open("GET", juri, true);
 	request.send(null);
 }
@@ -152,7 +152,7 @@ function doCheck()
     var rpMootyperId = document.form1.rpSityperId.value;
     var rpUser = document.form1.rpUser.value;
     var rpAttId = document.form1.rpAttId.value;
-    var juri =  "http://localhost/moodle3/mod/mootyper/atchk.php?status=2&attemptid="+rpAttId+"&mistakes="+napake+"&hits="+(trenutnaPos+napake);
+    var juri =  app_url+"/mod/mootyper/atchk.php?status=2&attemptid="+rpAttId+"&mistakes="+napake+"&hits="+(trenutnaPos+napake);
 	request.open("GET", juri, true);
 	request.send(null);
 }
@@ -168,10 +168,14 @@ function doStart()
     var request = makeHttpObject();
     var rpMootyperId = document.form1.rpSityperId.value;
     var rpUser = document.form1.rpUser.value;
-    var juri =  "http://localhost/moodle3/mod/mootyper/atchk.php?status=1&mootyperid="+rpMootyperId+"&userid="+rpUser+"&time="+(startTime.getTime()/1000);
-	request.open("GET", juri, false);
+    var juri =  app_url+"/mod/mootyper/atchk.php?status=1&mootyperid="+rpMootyperId+"&userid="+rpUser+"&time="+(startTime.getTime()/1000);
+    request.onreadystatechange=function()
+    {
+		if (request.readyState==4 && request.status==200)
+			document.form1.rpAttId.value = request.responseText;
+	}
+	request.open("GET", juri, true);
 	request.send(null);
-	document.form1.rpAttId.value = request.responseText;
 	interval2ID = setInterval('doCheck()', 3000);
 }
 
@@ -249,9 +253,10 @@ function timeRazlika(t1, t2)
 	return new Date(yrs, mnth, dys, ure, minute, secunde, 0);
 }
 
-function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid)
+function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl)
 {
 	fullText = ttext;
+	app_url = turl;
 	var tempStr="";
 	if(tinprogress){
 		document.form1.rpAttId.value = tattemptid;

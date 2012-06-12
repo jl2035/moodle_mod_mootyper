@@ -26,7 +26,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-global $USER;
+global $USER, $CFG;
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
@@ -232,13 +232,13 @@ for($it=0; $it<strlen($textToEnter); $it++)
 $record = get_last_check($mootyper->id);
 if(is_null($record)){
 echo '<script type="text/javascript">
-	initTextToEnter("'.$textToInit.'", 0, 0, 0, 0, 0);
+	initTextToEnter("'.$textToInit.'", 0, 0, 0, 0, 0, "'.$CFG->wwwroot.'");
 </script>';
 }
 else
 {
 	echo '<script type="text/javascript">
-	initTextToEnter("'.$textToInit.'", 1, '.$record->mistakes.', '.$record->hits.', '.$record->checktime.', '.$record->attemptid.');
+	initTextToEnter("'.$textToInit.'", 1, '.$record->mistakes.', '.$record->hits.', '.$record->timetaken.', '.$record->attemptid.', "'.$CFG->wwwroot.'");
 	</script>';
 }
 // Finish the page

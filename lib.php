@@ -236,8 +236,18 @@ function mootyper_delete_instance($id) {
     if (! $mootyper = $DB->get_record('mootyper', array('id' => $id))) {
         return false;
     }
+    mootyper_delete_all_checks($id);
+    $DB->delete_records('mootyper_attempts', array('mootyperid' => $id));
     $DB->delete_records('mootyper', array('id' => $mootyper->id));
     return true;
+}
+
+function mootyper_delete_all_checks($m_id)
+{
+	global $DB;
+	$rcs = $DB->get_records('mootyper_attempts', array('mootyperid' => $m_id));
+	foreach($rcs as $at)
+		$DB->delete_records('mootyper_checks', array('attemptid' => $at->id));
 }
 
 function mootyper_delete_all_grades($mootyper) {
