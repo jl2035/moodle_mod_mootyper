@@ -29,9 +29,25 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+
+function get_last_check($m_id)
+{
+	global $USER, $DB, $CFG;
+	$sql = "SELECT * FROM ".$CFG->prefix."mootyper_checks".
+	       " JOIN ".$CFG->prefix."mootyper_attempts ON ".$CFG->prefix."mootyper_attempts.id = ".$CFG->prefix."mootyper_checks.attemptid".
+	       " WHERE ".$CFG->prefix."mootyper_attempts.mootyperid = ".$m_id." AND userid = ".$USER->id.
+	       " AND ".$CFG->prefix."mootyper_attempts.inprogress = 1".
+	       " ORDER BY ".$CFG->prefix."mootyper_checks.checktime DESC LIMIT 1";
+	     //if ($lessons = $DB->get_records_sql($sql, $params))  
+	if($rec = $DB->get_record_sql($sql, array()))
+		return $rec;
+	else
+		return null;
+}
+
 function get_typerlessons()
 {
-	global $USER, $CFG, $DB;
+	global $CFG, $DB;
     $params = array();
     $lsToReturn = array();
     $sql = "SELECT id, lessonname

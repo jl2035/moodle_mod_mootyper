@@ -17,7 +17,7 @@
 /**
  * @package    mod
  * @subpackage mootyper
- * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
@@ -38,6 +38,7 @@ $record->precisionfield = $_POST['rpAccInput'];
 $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
 $record->pass = $passField;
+$record->attemptid = $_POST['rpAttId'];
 //http://localhost/moodle/course/view.php?id=2
 $DB->insert_record('mootyper_grades', $record, false);
 

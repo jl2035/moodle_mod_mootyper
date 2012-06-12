@@ -29,6 +29,7 @@
 global $USER;
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
+require_once(dirname(__FILE__).'/locallib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
 $n  = optional_param('n', 0, PARAM_INT);  // mootyper instance ID - it should be named as the first character of the module
@@ -197,6 +198,7 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 							<input name='rpSityperId' type='hidden' value='<?php echo $mootyper->id; ?>'>
 							<input name='rpUser' type='hidden' value='<?php echo $USER->id; ?>'>
 							<input name='rpExercise' type='hidden' value='<?php echo $exercise_ID; ?>'>
+							<input name='rpAttId' type='hidden' value=''>
 							<input name='rpFullHits' type='hidden' value=''>
 							<input name='rpGoal' type='hidden' value='<?php if(isset($reqiredGoal)) echo $reqiredGoal; ?>'>
 						    <input name='rpTimeInput' type='hidden'>
@@ -225,9 +227,20 @@ for($it=0; $it<strlen($textToEnter); $it++)
 	else
 		$textToInit .= $textToEnter[$it];
 }
+//initTextToEnter("'.$textToInit.'", 1, 3, 6, 1339333968);
+//(ttext, tinprogress, tmistakes, thits, tprogress, tstarttime)
+$record = get_last_check($mootyper->id);
+if(is_null($record)){
 echo '<script type="text/javascript">
-	initTextToEnter("'.$textToInit.'");
+	initTextToEnter("'.$textToInit.'", 0, 0, 0, 0, 0);
 </script>';
+}
+else
+{
+	echo '<script type="text/javascript">
+	initTextToEnter("'.$textToInit.'", 1, '.$record->mistakes.', '.$record->hits.', '.$record->checktime.', '.$record->attemptid.');
+	</script>';
+}
 // Finish the page
 }
 else

@@ -7,6 +7,7 @@ var ended = false;
 var trenutniChar;
 var fullText;
 var intervalID = -1;
+var interval2ID = -1;
 
 function isLetter(str) {
   return str.length === 1 && str.match(/[a-z]/i);
@@ -26,6 +27,7 @@ function doKonec()
 	document.getElementById('crka'+(fullText.length-1)).className = "txtZeleno";
 	ended = true;
 	clearInterval(intervalID);
+	clearInterval(interval2ID);
 	endTime = new Date();
 	razlikaT = timeRazlika(startTime, endTime);
 	var hours = razlikaT.getHours();
@@ -37,13 +39,14 @@ function doKonec()
 	document.form1.rpMistakesInput.value = napake;
 	document.form1.rpAccInput.value = izracunajTocnost(fullText, napake).toFixed(2);
 	document.form1.rpSpeedInput.value = izracunajHitrost(samoSekunde);
-	/*var reportJ = "Napake: "+napake+"<br>Cas: "+samoSekunde+" s";
-	reportJ += "<br>Udarci: "+(fullText.length + napake);
-	reportJ += "<br>Točnost: "+ izracunajTocnost(fullText, napake).toFixed(2)+"%";   
-	reportJ += "<br>Udarci/minuto: "+izracunajHitrost(samoSekunde).toFixed(2); 
-	document.getElementById('rdDiv2').innerHTML = reportJ;*/
 	document.form1.tb1.disabled="disabled";	
 	document.form1.btnContinue.style.visibility="visible";
+	var request = makeHttpObject();
+    var rpAttId = document.form1.rpAttId.value;
+    var juri =  "http://localhost/moodle3/mod/mootyper/atchk.php?status=3&attemptid="+rpAttId;
+	alert(rpAttId+" "+juri);
+	request.open("GET", juri, true);
+	request.send(null);
 }
 
 function keyboardElement(ltr)
@@ -130,10 +133,56 @@ function getPressedChar(e)
 
 function focusSet(e)
 {
+	if(!started)
+	{
 	document.form1.tb1.value=''; 
 	var thisEl = new keyboardElement(fullText[0]);
 	thisEl.turnOn();
 	return true;
+	}
+	else{
+	document.form1.tb1.value=fullText.substring(0, trenutnaPos); 
+	return true;
+	}
+}
+
+function doCheck()
+{
+	var request = makeHttpObject();
+    var rpMootyperId = document.form1.rpSityperId.value;
+    var rpUser = document.form1.rpUser.value;
+    var rpAttId = document.form1.rpAttId.value;
+    var juri =  "http://localhost/moodle3/mod/mootyper/atchk.php?status=2&attemptid="+rpAttId+"&mistakes="+napake+"&hits="+(trenutnaPos+napake);
+	request.open("GET", juri, true);
+	request.send(null);
+}
+
+function doStart()
+{
+	startTime = new Date();
+	napake = 0;
+	trenutnaPos = 0;
+	started = true;
+	trenutniChar = fullText[trenutnaPos];
+	intervalID = setInterval('updTimeSpeed()', 1000);
+    var request = makeHttpObject();
+    var rpMootyperId = document.form1.rpSityperId.value;
+    var rpUser = document.form1.rpUser.value;
+    var juri =  "http://localhost/moodle3/mod/mootyper/atchk.php?status=1&mootyperid="+rpMootyperId+"&userid="+rpUser+"&time="+(startTime.getTime()/1000);
+	request.open("GET", juri, false);
+	request.send(null);
+	document.form1.rpAttId.value = request.responseText;
+	interval2ID = setInterval('doCheck()', 3000);
+}
+
+function makeHttpObject() {
+	try {return new XMLHttpRequest();}
+	catch (error) {}
+	try {return new ActiveXObject("Msxml2.XMLHTTP");}
+	catch (error) {}
+	try {return new ActiveXObject("Microsoft.XMLHTTP");}
+	catch (error) {}
+	throw new Error("Could not create HTTP request object.");
 }
 
 function gumbPritisnjen(e)
@@ -141,12 +190,7 @@ function gumbPritisnjen(e)
 	if(ended)
 		return false;
 	if(!started){
-	    startTime = new Date();
-	    napake = 0;
-	    trenutnaPos = 0;
-	    started = true;
-	    trenutniChar = fullText[trenutnaPos];
-	    intervalID = setInterval('updTimeSpeed()', 1000);
+		doStart();
 	}
 	var keychar = getPressedChar(e);
 	if(keychar == trenutniChar)
@@ -205,28 +249,55 @@ function timeRazlika(t1, t2)
 	return new Date(yrs, mnth, dys, ure, minute, secunde, 0);
 }
 
-function initTextToEnter(ttext)
+function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid)
 {
-	var tempStr="";
-	for(var i=0; i<ttext.length; i++)
-	{
-		var tChar = ttext[i];
-
-		if(i==0)
-			tempStr += "<span id='crka"+i+"' class='txtModro'>"+tChar+"</span>";
-		else if(tChar == '\n')
-			tempStr += "<span id='crka"+i+"' class='txtRdece'>&darr;</span><br>";
-		else
-		    tempStr += "<span id='crka"+i+"' class='txtRdece'>"+tChar+"</span>";
-	}
-	document.getElementById('textToEnter').innerHTML = tempStr;
 	fullText = ttext;
-	
-	//prestaviCrke(0, ttext.length);
-	//var tipkaID = dobiTipkoId(ttext[0].toLowerCase());
-	//var fingerID = dobiFinger(ttext[0].toLowerCase());
-	//document.getElementById(tipkaID).className = "next"+fingerID;
-	//document.form1.hdnext.value = ttext[0];
+	var tempStr="";
+	if(tinprogress){
+		document.form1.rpAttId.value = tattemptid;
+		startTime = new Date(tstarttime*1000);
+		napake = tmistakes;
+		trenutnaPos = (thits - tmistakes);   //!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	    trenutniChar = fullText[trenutnaPos];
+	    var nextE = new keyboardElement(trenutniChar);
+	    nextE.turnOn();
+	    started = true;
+	    intervalID = setInterval('updTimeSpeed()', 1000);
+	    interval2ID = setInterval('doCheck()', 3000);
+		for(var i=0; i<trenutnaPos; i++)
+		{
+			var tChar = ttext[i];
+			if(tChar == '\n')
+				tempStr += "<span id='crka"+i+"' class='txtZeleno'>&darr;</span><br>";
+			else
+				tempStr += "<span id='crka"+i+"' class='txtZeleno'>"+tChar+"</span>";
+		}
+		tempStr += "<span id='crka"+trenutnaPos+"' class='txtModro'>"+trenutniChar+"</span>";
+		for(var j=trenutnaPos+1; j<ttext.length; j++)
+		{
+			var tChar = ttext[j];
+			if(tChar == '\n')
+				tempStr += "<span id='crka"+j+"' class='txtRdece'>&darr;</span><br>";
+			else
+				tempStr += "<span id='crka"+j+"' class='txtRdece'>"+tChar+"</span>";
+		}
+		document.getElementById('textToEnter').innerHTML = tempStr;
+	}
+	else
+	{
+		for(var i=0; i<ttext.length; i++)
+		{
+			var tChar = ttext[i];
+
+			if(i==0)
+				tempStr += "<span id='crka"+i+"' class='txtModro'>"+tChar+"</span>";
+			else if(tChar == '\n')
+				tempStr += "<span id='crka"+i+"' class='txtRdece'>&darr;</span><br>";
+			else
+				tempStr += "<span id='crka"+i+"' class='txtRdece'>"+tChar+"</span>";
+		}
+		document.getElementById('textToEnter').innerHTML = tempStr;
+	}
 }
 
 function dobiTipkoId(t_crka)
@@ -322,6 +393,7 @@ function izracunajTocnost()
 
 function updTimeSpeed()
 {
+	
 	noviCas = new Date();
 	tRazlika = timeRazlika(startTime, noviCas);
 	var secs = dobiSekunde(tRazlika.getHours(), tRazlika.getMinutes(), tRazlika.getSeconds());

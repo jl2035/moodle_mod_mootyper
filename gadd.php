@@ -34,6 +34,7 @@ $record->precisionfield = $_POST['rpAccInput'];
 $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
 $record->pass = 0;
+$record->attemptid = $_POST['rpAttId'];
 //http://localhost/moodle/course/view.php?id=2
 $DB->insert_record('mootyper_grades', $record, false);
 
