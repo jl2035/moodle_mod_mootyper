@@ -31,6 +31,7 @@ if($st == 1){
 	$record->userid = $_GET['userid'];
 	$record->timetaken = $_GET['time'];
 	$record->inprogress = 1;
+	$record->suspicion = 0;
     $newID = $DB->insert_record('mootyper_attempts', $record, true);
     echo $newID;
 }
@@ -53,6 +54,7 @@ else if($st == 3)
 	$attemptNEW->userid = $attemptOLD->userid;
 	$attemptNEW->timetaken = $attemptOLD->timetaken;
 	$attemptNEW->inprogress = 0;
+	$attemptNEW->suspicion = $attemptOLD->suspicion;
 	$DB->update_record('mootyper_attempts', $attemptNEW);
 }
 ?>

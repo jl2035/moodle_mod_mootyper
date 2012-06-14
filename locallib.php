@@ -45,6 +45,20 @@ function get_last_check($m_id)
 		return null;
 }
 
+function suspicion($checks, $starttime)
+{
+	for($i=1; $i<count($checks); $i++)
+	{
+		$udarci1 = $checks[$i]->mistakes + $checks[$i]->hits;
+		$udarci2 = $checks[($i-1)]->mistakes + $checks[($i-1)]->hits;
+		if($udarci2 > ($udarci1+60))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 function get_typerlessons()
 {
 	global $CFG, $DB;

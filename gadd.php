@@ -21,6 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once(dirname(__FILE__).'/locallib.php');
 global $DB;
 $record = new stdClass();
 $record->mootyper = $_POST['rpSityperId'];
@@ -35,33 +36,20 @@ $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
 $record->pass = 0;
 $record->attemptid = $_POST['rpAttId'];
-//http://localhost/moodle/course/view.php?id=2
+$chcks = $DB->get_records('mootyper_checks', array('attemptid' => $record->attemptid));
+$att = $DB->get_record('mootyper_attempts', array('id' => $record->attemptid));
+if(suspicion($chcks, $att->timetaken))
+{
+	$att_new = new stdClass();
+	$att_new->id = $att->id;
+	$att_new->mootyperid = $att->mootyperid;
+	$att_new->userid = $att->userid;
+	$att_new->timetaken = $att->timetaken;
+	$att_new->inprogress = $att->inprogress;
+	$att_new->suspision = 1;
+	$DB->update_record('mootyper_attempts', $att_new);
+}
 $DB->insert_record('mootyper_grades', $record, false);
-
-/*$mg = new stdClass();
-$mg->itemid = $_POST['rpSityperId'];
-$mg->userid = $_POST['rpUser'];
-$mg->rawgrade = $_POST['rpAccInput'];
-$mg->rawgrademax = 100;
-$mg->rawgrademin = 0;
-$mg->rawscaleid = 1;
-$mg->usermodified = time();
-$mg->finalgrade = $_POST['rpAccInput'];
-$mg->hidden = 0;
-$mg->locked = 0;
-$mg->locktime = 0;
-$mg->exported = 0;
-$mg->overriden = 0;
-$mg->excluded = 0;
-$mg->feedback = '-';
-$mg->feedbackformat = 0;
-$mg->information = 'MooTyper';
-$mg->informationformat = 0;
-$mg->timecreated = time();
-$mg->timemodified = time();
-$DB->insert_record('grade_grades', $mg, false);*/
-
-
 $webDir = $CFG->wwwroot . '/course/view.php?id='.$_POST['rpCourseId'];
 header('Location: '.$webDir);
 /*

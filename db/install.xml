@@ -80,7 +80,8 @@
 			<FIELD NAME="mootyperid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="userid"/>
 			<FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="mootyperid" NEXT="timetaken"/>
 			<FIELD NAME="timetaken" TYPE="int" LENGTH="32" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="inprogress" PREVIOUS="userid"/>
-			<FIELD NAME="inprogress" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="timetaken"/>		
+			<FIELD NAME="inprogress" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="timetaken" NEXT="suspicion"/>
+			<FIELD NAME="suspicion" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="inprogress"/>		
 		</FIELDS>
 		<KEYS>
             <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
