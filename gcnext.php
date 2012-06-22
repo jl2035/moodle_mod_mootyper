@@ -21,6 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once(dirname(__FILE__).'/locallib.php');
 global $DB;
 if($_POST['rpAccInput'] >= $_POST['rpGoal']) 
 	$passField = 1;
@@ -39,8 +40,8 @@ $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
 $record->pass = $passField;
 $record->attemptid = $_POST['rpAttId'];
-$chcks = $DB->get_records('mootyper_checks', array('attemptid' => $record->attemptid));
-$att = $DB->get_record('mootyper_attempt', array('id' => $record->attemptid));
+/*$chcks = $DB->get_records('mootyper_checks', array('attemptid' => $record->attemptid));
+$att = $DB->get_record('mootyper_attempts', array('id' => $record->attemptid));
 if(suspicion($chcks, $att->timetaken))
 {
 	$att_new = new stdClass();
@@ -49,9 +50,9 @@ if(suspicion($chcks, $att->timetaken))
 	$att_new->userid = $att->userid;
 	$att_new->timetaken = $att->timetaken;
 	$att_new->inprogress = $att->inprogress;
-	$att_new->suspision = 1;
+	$att_new->suspicion = 1;
 	$DB->update_record('mootyper_attempts', $att_new);
-}
+}*/
 $DB->insert_record('mootyper_grades', $record, false);
 $webDir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$_POST['rpSityperId'];
 echo '<script type="text/javascript">window.location="'.$webDir.'";</script>';

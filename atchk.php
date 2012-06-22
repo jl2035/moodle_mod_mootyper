@@ -44,9 +44,8 @@ else if($st == 2)
 	$DB->insert_record('mootyper_checks', $record, false);	
 }
 else if($st == 3)
-{//'id', 0, PARAM_INT);
+{
 	$att_id = optional_param('attemptid', 0, PARAM_INT);
-	$DB->delete_records('mootyper_checks', array('attemptid' => $att_id));
 	$attemptOLD = $DB->get_record('mootyper_attempts', array('id' => $att_id), '*', MUST_EXIST);
 	$attemptNEW = new stdClass();
 	$attemptNEW->id = $attemptOLD->id;
@@ -54,8 +53,11 @@ else if($st == 3)
 	$attemptNEW->userid = $attemptOLD->userid;
 	$attemptNEW->timetaken = $attemptOLD->timetaken;
 	$attemptNEW->inprogress = 0;
-	$attemptNEW->suspicion = $attemptOLD->suspicion;
+	$chcks = $DB->get_records('mootyper_checks', array('attemptid' => $att_id));
+	if(suspicion($chcks, $attemptOLD->timetaken))
+		$attemptNEW->suspicion = 1;			
 	$DB->update_record('mootyper_attempts', $attemptNEW);
+	$DB->delete_records('mootyper_checks', array('attemptid' => $att_id));
 }
 ?>
 

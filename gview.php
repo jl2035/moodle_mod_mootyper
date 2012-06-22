@@ -50,34 +50,15 @@ if ($id) {
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
-
 require_login($course, true, $cm);
 $context = get_context_instance(CONTEXT_MODULE, $cm->id);
-
-//add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id);
-
-/// Print the page header
-
 $PAGE->set_url('/mod/mootyper/gview.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($mootyper->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
-
-// other things you may want to set - remove if not needed
 $PAGE->set_cacheable(false);
-//$PAGE->set_focuscontrol('tb1');
-//$PAGE->add_body_class('mootyper-'.$somevar);
-// Output starts here
 echo $OUTPUT->header();
-// Replace the following lines with you own code
 echo $OUTPUT->heading($mootyper->name);
-//get_record('mootyper_exercises', array('id' => $eid));
-//$mootyper = jget_mootyper_record($n);
-//$exercise_ID = $mootyper->exercise;
-//$exercise = get_exercise_record($exercise_ID);
-//$textToEnter = $exercise->texttotype; //"N=".$n." exercise_ID=".$mootyper->exercise." fjajfjfjfj name=".$mootyper->name." fjfjfjfjfj";
-
-//onload="initTextToEnter('')"
 $htmlout = '';
 $htmlout .= '<div id="mainDiv">';
 if($mootyper->isexam)
@@ -89,7 +70,10 @@ if($mootyper->isexam)
 					'</td><td>'.get_string('precision', 'mootyper').'</td><td>'.get_string('timetaken', 'mootyper').'</td></tr>';
 		foreach($grds as $gr)
 		{
-			$htmlout .= '<tr style="border-top-style: solid;"><td>'.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->mistakes.'</td><td>'.$gr->timeinseconds.
+			$klicaj = '';
+			if($gr->suspicion)
+				$klicaj = '<font color="red">!!!</font>';
+			$htmlout .= '<tr style="border-top-style: solid;"><td>'.$klicaj.''.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->mistakes.'</td><td>'.$gr->timeinseconds.
 			' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td></tr>';
 		}
 		$avg = get_grades_avg($grds);
@@ -145,8 +129,6 @@ else
 		$htmlout .= '</select>';
 		$htmlout .= '</td></tr>';		
 	}
-
-	//now get grades with get_typer_grades_adv
 	$grds = get_typer_grades_adv($mootyper->id, $se, $us);
 	if($grds != FALSE){
 		$htmlout .= '<table style="border-style: solid;"><tr><td>'.get_string('student', 'mootyper').'</td><td>'.
@@ -160,7 +142,11 @@ else
 				$stil = 'background-color: #7FEF6C;';
 			else
 				$stil = 'background-color: #FF6C6C;';
-			$htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->exercisename.'</td><td>'.$gr->mistakes.'</td><td>'.
+			if($gr->suspicion)
+				$klicaj = '<font color="red">!!!</font>';
+			else
+				$klicaj = '';
+			$htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$klicaj.' '.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->exercisename.'</td><td>'.$gr->mistakes.'</td><td>'.
 			$gr->timeinseconds.' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td></tr>';
 		}
 		$htmlout .= '</table>';
@@ -172,7 +158,6 @@ else
 }
 $htmlout .= '</div>';
 echo $htmlout;
-// Finish the page
 echo $OUTPUT->footer();
 
 

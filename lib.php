@@ -78,14 +78,17 @@ function get_typer_grades_adv($mootyperID, $exerciseID, $userID=0)
     $gradesTblName = $CFG->prefix."mootyper_grades";
     $usersTblName = $CFG->prefix."user";
     $exerTblName = $CFG->prefix."mootyper_exercises";
+    $attTblName = $CFG->prefix."mootyper_attempts";
     $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$gradesTblName.".pass, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".
-    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename".
+    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename, ".
+    $attTblName.".suspicion".
     " FROM ".$gradesTblName.
     " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
     " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
+    " LEFT JOIN ".$attTblName." ON ".$gradesTblName.".attemptid = ".$attTblName.".id".
     " WHERE (mootyper=".$mootyperID.") AND (exercise=".$exerciseID." OR ".$exerciseID."=0) AND".
-    " (userid=".$userID." OR ".$userID."=0)";
+    " (".$gradesTblName.".userid=".$userID." OR ".$userID."=0)";
     if ($grades = $DB->get_records_sql($sql, $params)) {
         return $grades;
 	}
@@ -119,12 +122,15 @@ function get_typergradesfull($s_id) {
     $gradesTblName = $CFG->prefix."mootyper_grades";
     $usersTblName = $CFG->prefix."user";
     $exerTblName = $CFG->prefix."mootyper_exercises";
+    $attTblName = $CFG->prefix."mootyper_attempts";
     $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".
-    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename".
+    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename, ".
+    $attTblName.".suspicion".
     " FROM ".$gradesTblName.
     " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
     " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
+    " LEFT JOIN ".$attTblName." ON ".$gradesTblName.".attemptid = ".$attTblName.".id".
     " WHERE mootyper=".$s_id;
     if ($grades = $DB->get_records_sql($sql, $params)) {
         return $grades;

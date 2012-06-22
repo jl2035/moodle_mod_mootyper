@@ -25,6 +25,7 @@ function moveCursor(nextPos)
 
 function doKonec()
 {
+	alert('dokonec()');
 	document.getElementById('crka'+(fullText.length-1)).className = "txtZeleno";
 	ended = true;
 	clearInterval(intervalID);
@@ -45,6 +46,7 @@ function doKonec()
 	var request = makeHttpObject();
     var rpAttId = document.form1.rpAttId.value;
     var juri =  app_url+"/mod/mootyper/atchk.php?status=3&attemptid="+rpAttId;
+    alert(juri);
 	request.open("GET", juri, true);
 	request.send(null);
 }
@@ -190,12 +192,13 @@ function makeHttpObject() {
 }
 
 function gumbPritisnjen(e)
-{
+{alert('gumb');
 	if(ended)
 		return false;
 	if(!started){
 		doStart();
 	}
+	
 	var keychar = getPressedChar(e);
 	if(keychar == trenutniChar)
 	{
