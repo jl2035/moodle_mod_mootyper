@@ -36,7 +36,7 @@ $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
 $record->pass = 0;
 $record->attemptid = $_POST['rpAttId'];
-$chcks = $DB->get_records('mootyper_checks', array('attemptid' => $record->attemptid));
+/*$chcks = $DB->get_records('mootyper_checks', array('attemptid' => $record->attemptid));
 $att = $DB->get_record('mootyper_attempts', array('id' => $record->attemptid));
 if(suspicion($chcks, $att->timetaken))
 {
@@ -48,7 +48,7 @@ if(suspicion($chcks, $att->timetaken))
 	$att_new->inprogress = $att->inprogress;
 	$att_new->suspision = 1;
 	$DB->update_record('mootyper_attempts', $att_new);
-}
+}*/
 $DB->insert_record('mootyper_grades', $record, false);
 $webDir = $CFG->wwwroot . '/course/view.php?id='.$_POST['rpCourseId'];
 header('Location: '.$webDir);

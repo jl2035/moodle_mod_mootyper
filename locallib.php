@@ -49,12 +49,13 @@ function suspicion($checks, $starttime)
 {
 	for($i=1; $i<count($checks); $i++)
 	{
-		$udarci1 = $checks[$i]->mistakes + $checks[$i]->hits;
-		$udarci2 = $checks[($i-1)]->mistakes + $checks[($i-1)]->hits;
+		$udarci1 = $checks[$i]['mistakes'] + $checks[$i]['hits'];
+		$udarci2 = $checks[($i-1)]['mistakes'] + $checks[($i-1)]['hits'];
 		if($udarci2 > ($udarci1+60))
-		{
 			return true;
-		}
+		if($checks[($i-1)]['checktime'] > ($starttime + 300))
+			return true;
+		file_put_contents('/opt/lampp/htdocs/moodledebug.txt', "Starttime: ".$starttime."\tChecktime: ".$checks[$i]['checktime']."\n", FILE_APPEND);
 	}
 	return false;
 }

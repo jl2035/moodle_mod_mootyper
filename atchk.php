@@ -22,6 +22,7 @@
  */
  
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once(dirname(__FILE__).'/locallib.php');
 global $DB;
 $record = new stdClass();
 $st = $_GET['status'];
@@ -46,7 +47,6 @@ else if($st == 2)
 else if($st == 3)
 {//'id', 0, PARAM_INT);
 	$att_id = optional_param('attemptid', 0, PARAM_INT);
-	$DB->delete_records('mootyper_checks', array('attemptid' => $att_id));
 	$attemptOLD = $DB->get_record('mootyper_attempts', array('id' => $att_id), '*', MUST_EXIST);
 	$attemptNEW = new stdClass();
 	$attemptNEW->id = $attemptOLD->id;
@@ -54,8 +54,19 @@ else if($st == 3)
 	$attemptNEW->userid = $attemptOLD->userid;
 	$attemptNEW->timetaken = $attemptOLD->timetaken;
 	$attemptNEW->inprogress = 0;
-	$attemptNEW->suspicion = $attemptOLD->suspicion;
+	$dbchcks = $DB->get_records('mootyper_checks', array('attemptid' => $attemptOLD->id));
+	$checks = array();
+	foreach($dbchcks as $c)
+	{
+		$checks[] = array('id' => $c->id, 'mistakes' => $c->mistakes, 'hits' => $c->hits, 'checktime' => $c->checktime);
+	}
+	if(suspicion($someCH, $attemptOLD->timetaken))
+		$attemptNEW->suspicion = 1;
+	else
+		$attemptNEW->suspicion = $attemptOLD->suspicion;
 	$DB->update_record('mootyper_attempts', $attemptNEW);
+	$DB->delete_records('mootyper_checks', array('attemptid' => $att_id));
+	//file_put_contents('/opt/lampp/htdocs/moodledebug.txt', "Suspicion: ".$attemptNEW->suspicion."\nCount: ".count($chcks));
 }
 ?>
 
