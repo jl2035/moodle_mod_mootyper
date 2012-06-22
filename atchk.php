@@ -45,7 +45,7 @@ else if($st == 2)
 	$DB->insert_record('mootyper_checks', $record, false);	
 }
 else if($st == 3)
-{//'id', 0, PARAM_INT);
+{
 	$att_id = optional_param('attemptid', 0, PARAM_INT);
 	$attemptOLD = $DB->get_record('mootyper_attempts', array('id' => $att_id), '*', MUST_EXIST);
 	$attemptNEW = new stdClass();
@@ -66,7 +66,6 @@ else if($st == 3)
 		$attemptNEW->suspicion = $attemptOLD->suspicion;
 	$DB->update_record('mootyper_attempts', $attemptNEW);
 	$DB->delete_records('mootyper_checks', array('attemptid' => $att_id));
-	//file_put_contents('/opt/lampp/htdocs/moodledebug.txt', "Suspicion: ".$attemptNEW->suspicion."\nCount: ".count($chcks));
 }
 ?>
 
