@@ -60,7 +60,7 @@ else if($st == 3)
 	{
 		$checks[] = array('id' => $c->id, 'mistakes' => $c->mistakes, 'hits' => $c->hits, 'checktime' => $c->checktime);
 	}
-	if(suspicion($someCH, $attemptOLD->timetaken))
+	if(suspicion($checks, $attemptOLD->timetaken))
 		$attemptNEW->suspicion = 1;
 	else
 		$attemptNEW->suspicion = $attemptOLD->suspicion;
