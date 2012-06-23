@@ -15,8 +15,9 @@ go to Site Administration -> Notifications and click on the button below.
 
 3. USE
 
-Using MooTyper plugin is very simple. An instance can be added as new activity in a
-course just like Lesson or Quiz. This video shows how to add exercise, create an instance
-and than view grades: [Video was removed due to further development of the plugin].
+Using MooTyper activity module is very simple. An instance can be added as new activity in a
+course like Lesson or Quiz. This video shows how to add exercise, create an instance
+and than view grades: 
+[Video was removed due to futher development and changes in the module]
 
 Good luck!

@@ -70,10 +70,11 @@ if($mootyper->isexam)
 					'</td><td>'.get_string('precision', 'mootyper').'</td><td>'.get_string('timetaken', 'mootyper').'</td></tr>';
 		foreach($grds as $gr)
 		{
-			$klicaj = '';
 			if($gr->suspicion)
-				$klicaj = '<font color="red">!!!</font>';
-			$htmlout .= '<tr style="border-top-style: solid;"><td>'.$klicaj.''.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->mistakes.'</td><td>'.$gr->timeinseconds.
+				$klicaj = '<span style="color: red;">!!!!!</span>';
+			else
+				$klicaj = '';
+			$htmlout .= '<tr style="border-top-style: solid;"><td>'.$klicaj.' '.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->mistakes.'</td><td>'.$gr->timeinseconds.
 			' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td></tr>';
 		}
 		$avg = get_grades_avg($grds);
@@ -138,14 +139,14 @@ else
 		get_string('timetaken', 'mootyper').'</td></tr>';
 		foreach($grds as $gr)
 		{
+			if($gr->suspicion)
+				$klicaj = '<span style="color: red;">!!!!!</span>';
+			else
+				$klicaj = '';
 			if($gr->pass)
 				$stil = 'background-color: #7FEF6C;';
 			else
 				$stil = 'background-color: #FF6C6C;';
-			if($gr->suspicion)
-				$klicaj = '<font color="red">!!!</font>';
-			else
-				$klicaj = '';
 			$htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$klicaj.' '.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->exercisename.'</td><td>'.$gr->mistakes.'</td><td>'.
 			$gr->timeinseconds.' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td></tr>';
 		}

@@ -22,6 +22,7 @@
  */
  
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once(dirname(__FILE__).'/locallib.php');
 global $DB;
 $record = new stdClass();
 $st = $_GET['status'];
@@ -53,9 +54,16 @@ else if($st == 3)
 	$attemptNEW->userid = $attemptOLD->userid;
 	$attemptNEW->timetaken = $attemptOLD->timetaken;
 	$attemptNEW->inprogress = 0;
-	$chcks = $DB->get_records('mootyper_checks', array('attemptid' => $att_id));
-	if(suspicion($chcks, $attemptOLD->timetaken))
-		$attemptNEW->suspicion = 1;			
+	$dbchcks = $DB->get_records('mootyper_checks', array('attemptid' => $attemptOLD->id));
+	$checks = array();
+	foreach($dbchcks as $c)
+	{
+		$checks[] = array('id' => $c->id, 'mistakes' => $c->mistakes, 'hits' => $c->hits, 'checktime' => $c->checktime);
+	}
+	if(suspicion($checks, $attemptOLD->timetaken))
+		$attemptNEW->suspicion = 1;
+	else
+		$attemptNEW->suspicion = $attemptOLD->suspicion;
 	$DB->update_record('mootyper_attempts', $attemptNEW);
 	$DB->delete_records('mootyper_checks', array('attemptid' => $att_id));
 }

@@ -17,7 +17,7 @@
 /**
  * @package    mod
  * @subpackage mootyper
- * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
@@ -36,19 +36,6 @@ $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
 $record->pass = 0;
 $record->attemptid = $_POST['rpAttId'];
-/*$chcks = $DB->get_records('mootyper_checks', array('attemptid' => $record->attemptid));
-$att = $DB->get_record('mootyper_attempts', array('id' => $record->attemptid));
-if(suspicion($chcks, $att->timetaken))
-{
-	$att_new = new stdClass();
-	$att_new->id = $att->id;
-	$att_new->mootyperid = $att->mootyperid;
-	$att_new->userid = $att->userid;
-	$att_new->timetaken = $att->timetaken;
-	$att_new->inprogress = $att->inprogress;
-	$att_new->suspicion = 1;
-	$DB->update_record('mootyper_attempts', $att_new);
-}*/
 $DB->insert_record('mootyper_grades', $record, false);
 $webDir = $CFG->wwwroot . '/course/view.php?id='.$_POST['rpCourseId'];
 header('Location: '.$webDir);
