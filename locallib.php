@@ -30,6 +30,20 @@
 defined('MOODLE_INTERNAL') || die();
 
 
+function get_keyboard_layouts_db()
+{
+	global $DB;
+	$lsToReturn = array();
+    if ($layouts = $DB->get_records('mootyper_layouts', array(), array())) 
+        foreach ($layouts as $ex) {
+			$lss = array();
+			$lss['id'] = $ex->id;
+			$lss['name'] = $ex->name;
+			$lsToReturn[] = $lss;
+		}
+    return $lsToReturn;
+}
+
 function get_last_check($m_id)
 {
 	global $USER, $DB, $CFG;

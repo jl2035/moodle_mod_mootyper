@@ -84,4 +84,4 @@ $string['fnewlesson'] = 'ustvari novo lekcijo';
 $string['fnewexercise'] = 'Vaja bo del';
 $string['average'] = 'Povprečje';
 $string['eeditlabel'] = 'Uredi';
-//$string[̈́'clickhere'] = 'Klikni tukaj za start';
+$string['layout'] = 'Postavitev tipkovnice';

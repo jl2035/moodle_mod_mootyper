@@ -18,7 +18,8 @@
         <FIELD NAME="exercise" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" NEXT="lesson" PREVIOUS="password"/>
         <FIELD NAME="lesson" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" NEXT="isexam" PREVIOUS="exercise"/>
         <FIELD NAME="isexam" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="lesson" NEXT="requiredgoal"/>
-        <FIELD NAME="requiredgoal" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="isexam"/>         
+        <FIELD NAME="requiredgoal" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" NEXT="layout" PREVIOUS="isexam"/>
+        <FIELD NAME="layout" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="requiredgoal"/>                 
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

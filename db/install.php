@@ -42,6 +42,29 @@ function xmldb_mootyper_install() {
 			read_lessons_file($fl);
 		}
 	}
+	$pth2 = $CFG->dirroot."/mod/mootyper/layouts";
+	$res2 = scandir($pth2);
+	for($j=0; $j<count($res2); $j++)
+	{
+		if(is_file($pth2."/".$res2[$j]))
+		{
+			$fl2 = $res2[$j];
+			add_keyboard_layout($fl2);
+		}
+	}
+}
+
+function add_keyboard_layout($daFile)
+{
+	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
+	global $DB, $CFG;
+	$theFile = $CFG->dirroot."/mod/mootyper/layouts/".$daFile;
+	$record = new stdClass();
+	$pikapos = strrpos($daFile, '.');
+	$layoutName = substr($daFile, 0, $pikapos);
+    $record->filepath = $theFile;
+    $record->name = $layoutName;
+    $DB->insert_record('mootyper_layouts', $record, true);
 }
 
 function read_lessons_file($daFile)
