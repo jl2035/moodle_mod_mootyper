@@ -87,7 +87,7 @@
             <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
 		</KEYS>
     </TABLE>
-    <TABLE NAME="mootyper_checks" COMMENT="To prevent unauthorised actions" PREVIOUS="mootyper_attempts">
+    <TABLE NAME="mootyper_checks" COMMENT="To prevent unauthorised actions" NEXT="mootyper_layouts" PREVIOUS="mootyper_attempts">
 		<FIELDS>
 			<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="attemptid"/>
 			<FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" NEXT="mistakes" PREVIOUS="id"/>
@@ -98,6 +98,16 @@
 		<KEYS>
             <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
 		</KEYS>		
+    </TABLE>
+    <TABLE NAME="mootyper_layouts" COMMENT="Keyboard layouts" PREVIOUS="mootyper_checks">
+		<FIELDS>
+			<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="filepath"/>
+			<FIELD NAME="filepath" TYPE="char" LENGTH="500" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="name"/>
+			<FIELD NAME="name" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" PREVIOUS="filepath"/> 					
+		</FIELDS>
+		<KEYS>
+            <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		</KEYS>	
     </TABLE>
   </TABLES>
 </XMLDB>
