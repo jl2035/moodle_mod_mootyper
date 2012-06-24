@@ -113,7 +113,10 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 <h4><?php if(!$mootyper->isexam) echo $exercise->exercisename; ?></h4>
 <br>
 	<div style="float: left; padding-bottom: 10px;" id="textToEnter"></div><br>
-	
+	<?php 
+		$keyboard = get_instance_layout_file($mootyper->layout);
+		include($keyboard);
+	?>
 	
 <br>
 					    <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)" onkeypress="return gumbPritisnjen(event)"  

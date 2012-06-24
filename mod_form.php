@@ -55,6 +55,8 @@ class mod_mootyper_mod_form extends moodleform_mod {
         } else {
             $mform->setType('name', PARAM_CLEAN);
         }
+        $layouts = get_keyboard_layouts_db();
+        $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'mootypername', 'mootyper');
@@ -83,8 +85,6 @@ class mod_mootyper_mod_form extends moodleform_mod {
          $mform->addElement('static', 'description', get_string('description', 'exercise'),
     get_string('descriptionofexercise', 'exercise', $COURSE->students)); 
          */
-         $layouts = get_keyboard_layouts_db();
-         $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
         
         // Open and close dates.
         $mform->addElement('date_time_selector', 'timeopen', get_string('mootyperopentime', 'mootyper'),

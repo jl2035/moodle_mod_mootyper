@@ -84,5 +84,5 @@ $string['chere'] = 'Click here to start';
 $string['fnewexercise'] = 'Exercise will be a part of';
 $string['average'] = 'Average';
 $string['eeditlabel'] = 'Edit';
-$string['layout'] = 'Keyboard layout";
+$string['layout'] = 'Keyboard layout';
 
