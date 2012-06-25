@@ -47,6 +47,13 @@ function get_instance_layout_file($l_id)
 	return $db_rec->filepath;
 }
 
+function get_instance_layout_js_file($l_id)
+{
+	global $DB;
+	$db_rec = $DB->get_record('mootyper_layouts', array('id' => $l_id));
+	return $db_rec->jspath;
+}
+
 function get_last_check($m_id)
 {
 	global $USER, $DB, $CFG;
