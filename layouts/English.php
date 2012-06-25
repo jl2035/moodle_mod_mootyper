@@ -10,8 +10,10 @@
 <span id="jkey8" class="normal">8</span>
 <span id="jkey9" class="normal">9</span>
 <span id="jkey0" class="normal">0</span>
-<span id="jkeyvprasaj" class="normal">?</span>
-<span id="jkeyplus" class="normal">+</span>
+<span id="jkeypomislaj" class="normal">-</span>
+<!--span id="jkeyvprasaj" class="normal">?</span-->
+<!--span id="jkeyplus" class="normal">+</span-->
+<span id="jkeyequals" class="normal">=</span>
 <span id="jkeybackspace" class="normal" style="border-right-style: solid;">Backspace</span><br>
 <span id="jkeytab" class="normal" style="width: 50px;">Tab</span>
 <span id="jkeyq" class="normal">Q</span>
@@ -39,7 +41,7 @@
 <span id="jkeyl" class="finger3">L</span>
 <span id="jkeypodpicje" class="finger4">;</span>
 <span id="jkeycrtica" class="normal">'</span>
-<span id="jkeyslash" class="normal">\</span>
+<span id="jkeybackslash" class="normal">\</span>
 <span id="jkeyenter" class="normal" style="border-right-style: solid;">Enter</span>
 <br>
 <span id="jkeyshiftl" class="normal" style="width: 50px;">Shift</span>
@@ -53,7 +55,7 @@
 <span id="jkeym" class="normal">M</span>
 <span id="jkeyvejica" class="normal">,</span>
 <span id="jkeypika" class="normal">.</span>
-<span id="jkeypomislaj" class="normal">/</span>
+<span id="jkeyslash" class="normal">/</span>
 <span id="jkeyshiftd" class="normal" style="width: 75px; border-right-style: solid;">Shift</span>
 <br>
 <span id="jkeyctrll" class="normal" style="width: 40px;">Ctrl</span>

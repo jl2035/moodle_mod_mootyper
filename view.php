@@ -102,11 +102,11 @@ if(exam_already_done($mootyper, $USER->id) && $mootyper->isexam)
 else if($exercise != FALSE)
 {
 echo '<link rel="stylesheet" type="text/css" href="style.css">';
-//js_init_call !!!!!!!!!
-echo '<script type="text/javascript" src="typer.js"></script>';
+//js_init_call !!!!!!!!
 //onload="initTextToEnter('')"
 $keyboard_js = get_instance_layout_js_file($mootyper->layout);
 echo '<script type="text/javascript" src="'.$keyboard_js.'"></script>';
+echo '<script type="text/javascript" src="typer.js"></script>';
 ?>
 <div id="mainDiv">
 			<form name='form1' id='form1' method='post' action='<?php echo $insertDir; ?>'> 
