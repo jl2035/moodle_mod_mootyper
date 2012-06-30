@@ -89,7 +89,7 @@ function get_typerlessons()
     $lsToReturn = array();
     $sql = "SELECT id, lessonname
               FROM ".$CFG->prefix."mootyper_lessons
-              ORDER BY id;";
+              ORDER BY id";
     if ($lessons = $DB->get_records_sql($sql, $params)) 
         foreach ($lessons as $ex) {
 			$lss = array();
@@ -122,6 +122,12 @@ function get_grades_avg($grades)
 	$avg['hitsperminute'] = $avg['hitsperminute'] / $c;
 	$avg['fullhits'] = $avg['fullhits'] / $c;
 	$avg['precisionfield'] = $avg['precisionfield'] / $c;
+	
+    $avg['mistakes'] = round($avg['mistakes'], 0);
+	$avg['timeinseconds'] = round($avg['timeinseconds'], 0);
+	$avg['hitsperminute'] = round($avg['hitsperminute'], 2);
+	$avg['fullhits'] = round($avg['fullhits'], 0);
+	$avg['precisionfield'] = round($avg['precisionfield'], 2);
 	return $avg;
 }
 

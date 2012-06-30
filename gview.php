@@ -150,6 +150,8 @@ else
 			$htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$klicaj.' '.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->exercisename.'</td><td>'.$gr->mistakes.'</td><td>'.
 			$gr->timeinseconds.' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td></tr>';
 		}
+		$avg = get_grades_avg($grds);
+		$htmlout .= '<tr style="border-top-style: solid;"><td><strong>'.get_string('average', 'mootyper').': </strong></td><td>&nbsp;</td><td>'.$avg['mistakes'].'</td><td>'.$avg['timeinseconds'].' s</td><td>'.$avg['hitsperminute'].'</td><td>'.$avg['fullhits'].'</td><td>'.$avg['precisionfield'].'%</td><td></td></tr>';
 		$htmlout .= '</table>';
 	}
 	else
