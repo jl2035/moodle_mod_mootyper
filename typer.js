@@ -132,9 +132,9 @@ function gumbPritisnjen(e)
 		doStart();
 	}
 	var keychar = getPressedChar(e);
-	if(keychar == trenutniChar)
+	if(keychar == trenutniChar || ((trenutniChar == '\n' || trenutniChar == '\r\n' || trenutniChar == '\n\r' || trenutniChar == '\r') && (keychar == ' ')))
 	{
-		var thisE = new keyboardElement(keychar);
+		var thisE = new keyboardElement(trenutniChar);
 		thisE.turnOff();
 		if(trenutnaPos == fullText.length-1)    //KONEC
 	    {   
