@@ -22,9 +22,14 @@ course like Lesson or Quiz. This video shows how to add exercise, create an inst
 and than view grades: 
 [Video was removed due to futher development and changes in the module]
 
-4. KEYBOARD LAYOUTS
+4. ADDITIONAL KEYBOARD LAYOUTS
 
 Module currently includes support for English and Slovenian keyboard layout. If anybody wants
 to implement any other keyboard please contact me at http://github.com/jl2035
+
+What needs to be done: Create a php file with keyboard layout defined with HTML. Create
+javascript file(with the same name and .js extension) that overrides some functions for
+your layout. If you have any mistakes in your js file the module won't work, so in this
+case try to validate your code with a tool like this: http://www.javascriptlint.com/online_lint.php
 
 Good luck!
