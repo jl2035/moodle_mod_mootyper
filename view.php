@@ -163,6 +163,10 @@ for($it=0; $it<strlen($textToEnter); $it++)
 {
 	if($textToEnter[$it] == "\n")
 		$textToInit .= '\n';
+	else if($textToEnter[$it] == '"')
+		$textToInit .= '\"';
+	else if($textToEnter[$it] == "\\")
+		$textToInit .= '\\';
 	else
 		$textToInit .= $textToEnter[$it];
 }
