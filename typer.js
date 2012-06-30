@@ -67,6 +67,7 @@ function getPressedChar(e)
 
 function focusSet(e)
 {
+	
 	if(!started)
 	{
 	document.form1.tb1.value=''; 

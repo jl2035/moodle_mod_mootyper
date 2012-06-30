@@ -21,7 +21,7 @@ function keyboardElement(ltr)
 		else
 			document.getElementById(dobiTipkoId(this.chr)).className = "next"+dobiFinger(this.chr.toLowerCase());
 		if(this.chr == '\n' || this.chr == '\r\n' || this.chr == '\n\r' || this.chr == '\r')
-			document.getElementById('jkeyenter').classname = "next4";
+			document.getElementById('jkeyenter').className = "next4";
 		if(this.shift)
 		{
 			document.getElementById('jkeyshiftd').className="next4";
@@ -29,7 +29,7 @@ function keyboardElement(ltr)
 		}
 		if(this.alt)
 			document.getElementById('jkeyaltgr').className="nextSpace";
-    }
+    };
     this.turnOff = function () {
 		if(isLetter(this.chr))
         {
@@ -50,14 +50,14 @@ function keyboardElement(ltr)
 		}
 		if(this.alt)
 			document.getElementById('jkeyaltgr').className="normal";
-	}
+	};
 }
 
 function dobiFinger(t_crka)
 {
 	if(t_crka == ' ')
 		return 5;
-	else if(t_crka == 'q' || t_crka == 'a' t_crka == '1' ||  t_crka == '2' || t_crka == 'z' || t_crka == '<' || 
+	else if(t_crka == 'q' || t_crka == 'a' || t_crka == '1' ||  t_crka == '2' || t_crka == 'z' || t_crka == '<' || 
 			t_crka == 'p' || t_crka == '{' || t_crka == '}' || t_crka == ';' || 
 			t_crka == '\'' || t_crka == '\\' || t_crka == '/' || t_crka == '=' || t_crka == '-' ||
 			t_crka == '!' || t_crka == '@' || t_crka == '>' || t_crka == '[' || t_crka == ']' ||
@@ -82,11 +82,11 @@ function dobiTipkoId(t_crka)
 {
 	if(t_crka == ' ')
 		return "jkeyspace";
-	else if(t_crka == ',' || t_crka == ';')
+	else if(t_crka == ',')
 		return "jkeyvejica";
 	else if(t_crka == '\n')
 		return "jkeyenter";
-	else if(t_crka == '.' || t_crka == ':')
+	else if(t_crka == '.')
 		return "jkeypika";
 	else if(t_crka == '-' || t_crka == '_')
 		return "jkeypomislaj";            

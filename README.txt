@@ -4,9 +4,11 @@ like Moodle.
 
 1. REQUIREMENTS
 
-Plugin uses javascript which is not welcome in Moodle but it is a requirement for 
-the use of the plugin. It creates some new tables in a moodle database and inserts a 
+Module uses javascript which is not welcome in Moodle but it is a requirement for 
+the use of the module. It creates some new tables in a moodle database and inserts a 
 quite some sample typing exercises. This is all done automaticaly through the intstallation.
+After the successfull installation you will have a complete collection of exercises,
+but you can also add your owns and modify or delete the existing ones. 
 
 2. INSTALLATION
 
@@ -19,5 +21,10 @@ Using MooTyper activity module is very simple. An instance can be added as new a
 course like Lesson or Quiz. This video shows how to add exercise, create an instance
 and than view grades: 
 [Video was removed due to futher development and changes in the module]
+
+4. KEYBOARD LAYOUTS
+
+Module currently includes support for English and Slovenian keyboard layout. If anybody wants
+to implement any other keyboard please contact me at http://github.com/jl2035
 
 Good luck!
