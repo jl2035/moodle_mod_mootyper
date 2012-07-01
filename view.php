@@ -70,10 +70,7 @@ if ($mootyper->intro) { // Conditions to show the intro can change to look for o
 }
 if($mootyper->lesson != NULL)
 {
-// Replace the following lines with you own code
-//echo $OUTPUT->heading('Yay! It works!'
-//get_record('mootyper_exercises', array('id' => $eid));
-//$mootyper = jget_mootyper_record($n);
+
 if($mootyper->isexam)
 {
     $insertDir = $CFG->wwwroot . '/mod/mootyper/gadd.php';
@@ -104,8 +101,10 @@ else if($exercise != FALSE)
 echo '<link rel="stylesheet" type="text/css" href="style.css">';
 //js_init_call !!!!!!!!
 //onload="initTextToEnter('')"
-$keyboard_js = get_instance_layout_js_file($mootyper->layout);
-echo '<script type="text/javascript" src="'.$keyboard_js.'"></script>';
+if($mootyper->showkeyboard){
+	$keyboard_js = get_instance_layout_js_file($mootyper->layout);
+	echo '<script type="text/javascript" src="'.$keyboard_js.'"></script>';
+}
 echo '<script type="text/javascript" src="typer.js"></script>';
 ?>
 <div id="mainDiv">
@@ -115,8 +114,10 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 <br>
 	<div style="float: left; padding-bottom: 10px;" id="textToEnter"></div><br>
 	<?php 
+	if($mootyper->showkeyboard){
 		$keyboard = get_instance_layout_file($mootyper->layout);
 		include($keyboard);
+	}
 	?>
 	
 <br>
@@ -175,16 +176,15 @@ for($it=0; $it<strlen($textToEnter); $it++)
 $record = get_last_check($mootyper->id);
 if(is_null($record)){
 echo '<script type="text/javascript">
-	initTextToEnter("'.$textToInit.'", 0, 0, 0, 0, 0, "'.$CFG->wwwroot.'");
+	initTextToEnter("'.$textToInit.'", 0, 0, 0, 0, 0, "'.$CFG->wwwroot.'", '.$mootyper->showkeyboard.');
 </script>';
 }
 else
 {
 	echo '<script type="text/javascript">
-	initTextToEnter("'.$textToInit.'", 1, '.$record->mistakes.', '.$record->hits.', '.$record->timetaken.', '.$record->attemptid.', "'.$CFG->wwwroot.'");
+	initTextToEnter("'.$textToInit.'", 1, '.$record->mistakes.', '.$record->hits.', '.$record->timetaken.', '.$record->attemptid.', "'.$CFG->wwwroot.'", '.$mootyper->showkeyboard.');
 	</script>';
 }
-// Finish the page
 }
 else
 {

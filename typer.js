@@ -9,6 +9,7 @@ var fullText;
 var intervalID = -1;
 var interval2ID = -1;
 var app_url;
+var show_keyboard;
 
 function moveCursor(nextPos)
 {
@@ -67,17 +68,18 @@ function getPressedChar(e)
 
 function focusSet(e)
 {
-	
 	if(!started)
 	{
-	document.form1.tb1.value=''; 
-	var thisEl = new keyboardElement(fullText[0]);
-	thisEl.turnOn();
-	return true;
+		document.form1.tb1.value=''; 
+		if(show_keyboard){
+			var thisEl = new keyboardElement(fullText[0]);
+			thisEl.turnOn();
+		}
+		return true;
 	}
 	else{
-	document.form1.tb1.value=fullText.substring(0, trenutnaPos); 
-	return true;
+		document.form1.tb1.value=fullText.substring(0, trenutnaPos); 
+		return true;
 	}
 }
 
@@ -114,7 +116,8 @@ function doStart()
 	interval2ID = setInterval('doCheck()', 3000);
 }
 
-function makeHttpObject() {
+function makeHttpObject() 
+{
 	try {return new XMLHttpRequest();}
 	catch (error) {}
 	try {return new ActiveXObject("Msxml2.XMLHTTP");}
@@ -134,22 +137,26 @@ function gumbPritisnjen(e)
 	var keychar = getPressedChar(e);
 	if(keychar == trenutniChar || ((trenutniChar == '\n' || trenutniChar == '\r\n' || trenutniChar == '\n\r' || trenutniChar == '\r') && (keychar == ' ')))
 	{
-		var thisE = new keyboardElement(trenutniChar);
-		thisE.turnOff();
+		if(show_keyboard){
+			var thisE = new keyboardElement(trenutniChar);
+			thisE.turnOff();
+		}
 		if(trenutnaPos == fullText.length-1)    //KONEC
 	    {   
 			doKonec();
 			return true;
 	    }
-
-		if(trenutnaPos < fullText.length-1){
+	    if(trenutnaPos < fullText.length-1){
 			var nextChar = fullText[trenutnaPos+1];
-			var nextE = new keyboardElement(nextChar);
-			nextE.turnOn();
+			if(show_keyboard){
+				var nextE = new keyboardElement(nextChar);
+				nextE.turnOn();
+			}
 		}
 		moveCursor(trenutnaPos+1);
 		trenutniChar = fullText[trenutnaPos+1];
 		trenutnaPos++;
+		
 	    return true;	
 	}
 	else if(keychar == ' ')
@@ -188,8 +195,9 @@ function timeRazlika(t1, t2)
 	return new Date(yrs, mnth, dys, ure, minute, secunde, 0);
 }
 
-function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl)
+function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard)
 {
+	show_keyboard = tshowkeyboard;
 	fullText = ttext;
 	app_url = turl;
 	var tempStr="";
@@ -199,8 +207,10 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 		napake = tmistakes;
 		trenutnaPos = (thits - tmistakes);   //!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	    trenutniChar = fullText[trenutnaPos];
-	    var nextE = new keyboardElement(trenutniChar);
-	    nextE.turnOn();
+	    if(show_keyboard){
+			var nextE = new keyboardElement(trenutniChar);
+			nextE.turnOn();
+		}
 	    started = true;
 	    intervalID = setInterval('updTimeSpeed()', 1000);
 	    interval2ID = setInterval('doCheck()', 3000);

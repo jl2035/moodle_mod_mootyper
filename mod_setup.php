@@ -39,9 +39,13 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1)
 	$modePO = optional_param('mode', null, PARAM_INT);
 	$lessonPO = optional_param('lesson', null, PARAM_INT);
     $goalPO = optional_param('requiredgoal', null, PARAM_INT);
+    $layoutPO = optional_param('layout', 0, PARAM_INT);
+    $showKeyboardPO = optional_param('showkeyboard', null, PARAM_CLEAN);
 	global $DB, $CFG;
 	$mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
 	$mootyper->lesson = $lessonPO;
+	$mootyper->showkeyboard = $showKeyboardPO == 'on';
+	$mootyper->layout = $layoutPO;
 	$mootyper->isexam = $modePO;
 	$mootyper->requiredgoal = $goalPO;
 	if($modePO == 1){
@@ -54,6 +58,9 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1)
 
 $modePO = optional_param('mode', null, PARAM_INT);
 $lessonPO = optional_param('lesson', null, PARAM_INT);
+$showKeyboardPO = optional_param('showkeyboard', null, PARAM_CLEAN);
+$layoutPO = optional_param('layout', 0, PARAM_INT);
+$goalPO = optional_param('requiredgoal', null, PARAM_INT);
 
 if ($id) {
     $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
@@ -114,7 +121,7 @@ if($modePO == 0 || is_null($modePO))
 		else
 			$htmlout .= '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
 	}
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td><td><input style="width: 20px;" type="text" name="requiredgoal"> % </td></tr></table>';
+    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td><td><input value="'.$goalPO.'" style="width: 20px;" type="text" name="requiredgoal"> % </td></tr>';
 }
 else if($modePO == 1)
 {
@@ -137,8 +144,28 @@ else if($modePO == 1)
     {
 		$htmlout .= '<option value="'.$exercises[$ik]['id'].'">'.$exercises[$ik]['exercisename'].'</option>';
 	}
-    $htmlout .= '</select></td></tr></table>';
+    $htmlout .= '</select></td></tr>';
 }
+$htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>';
+if($showKeyboardPO == 'on'){
+	$htmlout .= '<input type="checkbox" checked="checked" onchange="this.form.submit()" name="showkeyboard">';
+	$layouts = get_keyboard_layouts_db();
+    //$mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
+    $htmlout .= '<tr><td>'.get_string('layout', 'mootyper').'</td><td><select name="layout">';
+    foreach($layouts as $lkey => $lval)
+    {
+		if($lkey == $layoutPO)
+			$htmlout .= '<option value="'.$lkey.'" selected="true">'.$lval.'</option>';
+		else
+			$htmlout .= '<option value="'.$lkey.'">'.$lval.'</option>';
+	}
+    $htmlout .= '</select>';
+}
+else
+	$htmlout .= '<input type="checkbox" onchange="this.form.submit()" name="showkeyboard">';
+$htmlout .= '</td></tr>';    
+
+$htmlout .= '</table>';
 $htmlout .= '<br><input name="button" value="'.get_string('fconfirm', 'mootyper').'" type="submit">';
 $htmlout .= '</form>';
 echo $htmlout;

@@ -55,8 +55,8 @@ class mod_mootyper_mod_form extends moodleform_mod {
         } else {
             $mform->setType('name', PARAM_CLEAN);
         }
-        $layouts = get_keyboard_layouts_db();
-        $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
+        //$layouts = get_keyboard_layouts_db();
+        //$mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'mootypername', 'mootyper');
@@ -74,7 +74,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
 		global $CFG, $COURSE;
 		//$mform->addElement('checkbox', 'isexam', get_string('isexamtext', 'mootyper'));
         //$mform->setHelpButton('enablegroupfunction', array('enablegroupfunction', get_string('enablegroupfunction', 'pluginimworkingon'), 'pluginimworkingon'));
-        $mform->setDefault('isexam', 0);
+        //$mform->setDefault('isexam', 0);
         //$mform->addElement('text', 'requiredgoal', get_string('requiredgoal', 'mootyper'));
 		$jlnk3 = $webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
         $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');

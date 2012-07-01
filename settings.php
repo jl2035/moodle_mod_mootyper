@@ -28,9 +28,9 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/mootyper/lib.php');
-
-    //$settings->add(new admin_setting_configselect('mootyper_exercise', get_string('fexercise', 'mootyper'),
-      //                 get_string('fexercise', 'mootyper'), 2, get_typerexercises()));
+    require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
+	$layouts = get_keyboard_layouts_db();
+    $settings->add(new admin_setting_configselect('mootyper_defaultlayout', get_string('defaultlayout', 'mootyper'), '', 1, $layouts));
 
     //$settings->add(new admin_setting_configcheckbox('forum_replytouser', get_string('replytouser', 'forum'),
       //                 get_string('configreplytouser', 'forum'), 1));

@@ -85,3 +85,5 @@ $string['fnewexercise'] = 'Vaja bo del';
 $string['average'] = 'Povprečje';
 $string['eeditlabel'] = 'Uredi';
 $string['layout'] = 'Postavitev tipkovnice';
+$string['defaultlayout'] = 'Privzeta tipkovnica';
+$string['showkeyboard'] = 'Pokaži tipkovnico';
