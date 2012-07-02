@@ -151,10 +151,14 @@ if($showKeyboardPO == 'on'){
 	$htmlout .= '<input type="checkbox" checked="checked" onchange="this.form.submit()" name="showkeyboard">';
 	$layouts = get_keyboard_layouts_db();
     //$mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
+    $mooCFG = get_config('mootyper');
+    $defLayout = $mooCFG->defaultlayout;
     $htmlout .= '<tr><td>'.get_string('layout', 'mootyper').'</td><td><select name="layout">';
     foreach($layouts as $lkey => $lval)
     {
-		if($lkey == $layoutPO)
+		if((count($_POST) > 1) && ($lkey == $defLayout))
+			$htmlout .= '<option value="'.$lkey.'" selected="true">'.$lval.'</option>';
+		else if($lkey == $layoutPO)
 			$htmlout .= '<option value="'.$lkey.'" selected="true">'.$lval.'</option>';
 		else
 			$htmlout .= '<option value="'.$lkey.'">'.$lval.'</option>';
