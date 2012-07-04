@@ -38,9 +38,9 @@
         <FIELD NAME="grade" TYPE="number" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" DECIMALS="5" COMMENT="The overall grade from the mootyper. Not affected by overrides in the gradebook." PREVIOUS="userid" NEXT="mistakes"/>
         <FIELD NAME="mistakes" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="How many mistakes in this exercise" PREVIOUS="grade" NEXT="timeinseconds"/>
 		<FIELD NAME="timeinseconds" TYPE="int" LENGTH="15" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Time in seconds" PREVIOUS="mistakes" NEXT="hitsperminute"/>
-		<FIELD NAME="hitsperminute" TYPE="number" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Hits per minute" PREVIOUS="timeinseconds" NEXT="fullhits"/>
+		<FIELD NAME="hitsperminute" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Hits per minute" PREVIOUS="timeinseconds" NEXT="fullhits"/>
 		<FIELD NAME="fullhits" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="hitsperminute" NEXT="precisionfield"/>
-		<FIELD NAME="precisionfield" TYPE="number" LENGHT="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="fullhits" NEXT="timetaken"/>
+		<FIELD NAME="precisionfield" TYPE="number" LENGHT="10" DECIMALS="2" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="fullhits" NEXT="timetaken"/>
 		<FIELD NAME="timetaken" TYPE="int" LENGTH="32" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="exercise" PREVIOUS="precisionfield"/>
 		<FIELD NAME="exercise" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="pass" PREVIOUS="timetaken"/> 
 		<FIELD NAME="pass" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="attemptid" PREVIOUS="exercise"/>

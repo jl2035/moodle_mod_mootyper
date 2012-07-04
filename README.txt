@@ -6,7 +6,7 @@ MooTyper is a free software just like Moodle.
 1. REQUIREMENTS
 
 Module uses javascript which is not welcome in Moodle but it is a requirement
-for the use of the module. The typing procedure cannot be done without
+for the use of the module. The typing procedure cannot be done without the
 client side logic.
 
 It creates some new tables in a moodle database and inserts a quite some sample
