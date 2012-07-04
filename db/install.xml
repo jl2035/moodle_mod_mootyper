@@ -67,7 +67,7 @@
     <TABLE NAME="mootyper_exercises" COMMENT="Text to type..." PREVIOUS="mootyper_lessons" NEXT="mootyper_attempts">
 		<FIELDS>
 			<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="texttotype"/>
-			<FIELD NAME="texttotype" TYPE="char" LENGTH="1332" NOTNULL="true" SEQUENCE="false" COMMENT="Text to type" PREVIOUS="id" NEXT="exercisename"/>
+			<FIELD NAME="texttotype" TYPE="text" LENGTH="big" NOTNULL="true" SEQUENCE="false" COMMENT="Text to type" PREVIOUS="id" NEXT="exercisename"/>
 			<FIELD NAME="exercisename" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="(Eg.: Exercise 23)" PREVIOUS="texttotype" NEXT="lesson"/>			
 			<FIELD NAME="lesson" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="exercisename" NEXT="snumber"/>
 			<FIELD NAME="snumber" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="lesson"/>
