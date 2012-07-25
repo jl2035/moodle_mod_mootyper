@@ -1,5 +1,5 @@
 This is the README file for the MooTyper project. MooTyper is
-a moodle extension, that simulates the 'typing instructor' programs. 
+a moodle extension, that adds the 'typing instructor' functionallity to Moodle. 
 
 MooTyper is a free software just like Moodle.
 
@@ -35,8 +35,11 @@ http://github.com/jl2035
 
 What needs to be done: Create a php file with keyboard layout defined with 
 HTML. Create javascript file(with the same name and .js extension) that
-overrides some functions for your layout. If you have any mistakes in your
+defines some functions for your layout. If you have any mistakes in your
 js file the module won't work, so in this case try to validate your code
 with a tool like this: http://www.javascriptlint.com/online_lint.php
+
+For more info please visit the plugins wiki on github:
+https://github.com/jl2035/moodle_mod_mootyper/wiki
 
 Good luck!
