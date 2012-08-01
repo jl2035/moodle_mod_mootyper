@@ -33,7 +33,7 @@
 function xmldb_mootyper_install() {
 	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 	global $CFG;
-	$pth = $CFG->dirroot."/mod/mootyper/db/Lessons";
+	$pth = $CFG->dirroot."/mod/mootyper/lessons";
 	$res = scandir($pth);
 	for($i=0; $i<count($res); $i++)
 	{
@@ -73,7 +73,7 @@ function read_lessons_file($daFile)
 {
 	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 	global $DB, $CFG;
-	$theFile = $CFG->dirroot."/mod/mootyper/db/Lessons/".$daFile;
+	$theFile = $CFG->dirroot."/mod/mootyper/lessons/".$daFile;
 	//echo $theFile;
 	
 	$record = new stdClass();

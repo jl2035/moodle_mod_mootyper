@@ -41,7 +41,7 @@
 		<FIELD NAME="hitsperminute" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Hits per minute" PREVIOUS="timeinseconds" NEXT="fullhits"/>
 		<FIELD NAME="fullhits" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="hitsperminute" NEXT="precisionfield"/>
 		<FIELD NAME="precisionfield" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="fullhits" NEXT="timetaken"/>
-		<FIELD NAME="timetaken" TYPE="int" LENGTH="32" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="exercise" PREVIOUS="precisionfield"/>
+		<FIELD NAME="timetaken" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="exercise" PREVIOUS="precisionfield"/>
 		<FIELD NAME="exercise" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="pass" PREVIOUS="timetaken"/> 
 		<FIELD NAME="pass" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="attemptid" PREVIOUS="exercise"/>
 		<FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="pass"/>
@@ -81,7 +81,7 @@
 			<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="mootyperid"/>
 			<FIELD NAME="mootyperid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="userid"/>
 			<FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="mootyperid" NEXT="timetaken"/>
-			<FIELD NAME="timetaken" TYPE="int" LENGTH="32" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="inprogress" PREVIOUS="userid"/>
+			<FIELD NAME="timetaken" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="inprogress" PREVIOUS="userid"/>
 			<FIELD NAME="inprogress" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="timetaken" NEXT="suspicion"/>
 			<FIELD NAME="suspicion" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="inprogress"/>		
 		</FIELDS>
@@ -95,7 +95,7 @@
 			<FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" NEXT="mistakes" PREVIOUS="id"/>
 			<FIELD NAME="mistakes" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" NEXT="hits" PREVIOUS="attemptid"/>
 			<FIELD NAME="hits" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" NEXT="checktime" PREVIOUS="mistakes"/>
-			<FIELD NAME="checktime" TYPE="int" LENGTH="32" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="hits"/>
+			<FIELD NAME="checktime" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="hits"/>
 		</FIELDS>
 		<KEYS>
             <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
