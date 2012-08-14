@@ -41,5 +41,3 @@ with a tool like this: http://www.javascriptlint.com/online_lint.php
 
 For more info please visit the plugins wiki on github:
 https://github.com/jl2035/moodle_mod_mootyper/wiki
-
-Good luck!
