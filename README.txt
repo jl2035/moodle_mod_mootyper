@@ -30,14 +30,13 @@ exercise, create an instance and than view grades:
 4. ADDITIONAL KEYBOARD LAYOUTS
 
 Module currently includes support for English and Slovenian keyboard layout.
-If anybody wants to implement any other keyboard please contact me at
-http://github.com/jl2035
 
-What needs to be done: Create a php file with keyboard layout defined with 
-HTML. Create javascript file(with the same name and .js extension) that
-defines some functions for your layout. If you have any mistakes in your
-js file the module won't work, so in this case try to validate your code
-with a tool like this: http://www.javascriptlint.com/online_lint.php
+To implement any other layout you have to:
+Create a php file with keyboard layout defined with HTML. Create javascript
+file(with the same name and .js extension) that defines some functions for
+your layout. If you have any mistakes in your js file the module won't work,
+so in this case try to validate your code with a tool like this:
+http://www.javascriptlint.com/online_lint.php
 
 For more info please visit the plugins wiki on github:
 https://github.com/jl2035/moodle_mod_mootyper/wiki
