@@ -85,5 +85,5 @@ $string['fnewexercise'] = 'Exercise will be a part of';
 $string['average'] = 'Average';
 $string['eeditlabel'] = 'Edit';
 $string['layout'] = 'Keyboard layout';
-$string['defaultlayout'] = 'Privzeta tipkovnica';
-$string['showkeyboard'] = 'Pokaži tipkovnico';
+$string['defaultlayout'] = 'Default keyboard layout';
+$string['showkeyboard'] = 'Show keyboard';
