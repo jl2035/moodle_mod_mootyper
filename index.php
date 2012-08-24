@@ -67,12 +67,12 @@ if ($course->format == 'weeks') {
 foreach ($mootypers as $mootyper) {
     if (!$mootyper->visible) {
         $link = html_writer::link(
-            new moodle_url('/mod/mootyper.php', array('id' => $mootyper->coursemodule)),
+            new moodle_url('/mod/mootyper/view.php', array('id' => $mootyper->coursemodule)),
             format_string($mootyper->name, true),
             array('class' => 'dimmed'));
     } else {
         $link = html_writer::link(
-            new moodle_url('/mod/mootyper.php', array('id' => $mootyper->coursemodule)),
+            new moodle_url('/mod/mootyper/view.php', array('id' => $mootyper->coursemodule)),
             format_string($mootyper->name, true));
     }
 
