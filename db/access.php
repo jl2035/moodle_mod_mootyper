@@ -59,6 +59,22 @@ $capabilities = array(
 		)
 	),
 	
+	//Added on 29.09.2012 as a fix for the plugin installation on Moodle 2.3.2+	
+	'mod/mootyper:addinstance' => array(
+                'riskbitmask' => RISK_XSS,
+                'captype' => 'write',
+                'contextlevel' => CONTEXT_COURSE,
+                'archetypes' => array(
+                    'editingteacher' => CAP_ALLOW,
+                    'manager' => CAP_ALLOW,
+                    'teacher' => CAP_ALLOW
+                ),
+                'clonepermissionsfrom' => 'moodle/course:manageactivities'
+        ),
+	
+	
+	
+	
 	'mod/mootyper:viewgrades' => array(
 		'captype' => 'read',
 		'contextlevel' => CONTEXT_MODULE,
