@@ -87,3 +87,4 @@ $string['eeditlabel'] = 'Uredi';
 $string['layout'] = 'Postavitev tipkovnice';
 $string['defaultlayout'] = 'Privzeta tipkovnica';
 $string['showkeyboard'] = 'Pokaži tipkovnico';
+$string['defaultprecision'] = 'Privzeta zahtevana točnost';

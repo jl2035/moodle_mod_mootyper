@@ -31,7 +31,12 @@ if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
 	$layouts = get_keyboard_layouts_db();
     $settings->add(new admin_setting_configselect('mootyper/defaultlayout', get_string('defaultlayout', 'mootyper'), '', 1, $layouts));
-
+	$precs = array();
+	for($i=0; $i<=100; $i++)
+	{
+		$precs[] = $i;
+	}
+	$settings->add(new admin_setting_configselect('mootyper/defaultprecision', get_string('defaultprecision', 'mootyper'), '', 97, $precs));
     //$settings->add(new admin_setting_configcheckbox('forum_replytouser', get_string('replytouser', 'forum'),
       //                 get_string('configreplytouser', 'forum'), 1));
     

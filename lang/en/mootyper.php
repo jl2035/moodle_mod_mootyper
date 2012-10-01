@@ -87,3 +87,4 @@ $string['eeditlabel'] = 'Edit';
 $string['layout'] = 'Keyboard layout';
 $string['defaultlayout'] = 'Default keyboard layout';
 $string['showkeyboard'] = 'Show keyboard';
+$string['defaultprecision'] = 'Default typing precision';
