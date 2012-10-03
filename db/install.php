@@ -32,14 +32,14 @@
  */
 function xmldb_mootyper_install() {
 	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
-	global $CFG;
+	global $CFG, $USER;
 	$pth = $CFG->dirroot."/mod/mootyper/lessons";
 	$res = scandir($pth);
 	for($i=0; $i<count($res); $i++)
 	{
 		if(is_file($pth."/".$res[$i])){
-			$fl = $res[$i];
-			read_lessons_file($fl);
+			$fl = $res[$i];//($daFile, $authorid_arg, $visible_arg, $editable_arg, $course_arg)
+			read_lessons_file($fl, $USER->id, 0, 2);
 		}
 	}
 	$pth2 = $CFG->dirroot."/mod/mootyper/layouts";
@@ -69,18 +69,22 @@ function add_keyboard_layout($daFile)
     $DB->insert_record('mootyper_layouts', $record, true);
 }
 
-function read_lessons_file($daFile)
+function read_lessons_file($daFile, $authorid_arg, $visible_arg, $editable_arg, $course_arg=NULL)
 {
 	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 	global $DB, $CFG;
 	$theFile = $CFG->dirroot."/mod/mootyper/lessons/".$daFile;
 	//echo $theFile;
-	
 	$record = new stdClass();
 	$pikapos = strrpos($daFile, '.');
 	$lessonName = substr($daFile, 0, $pikapos);
 	//echo $lessonName;
     $record->lessonname = $lessonName;
+    $record->authorid = $authorid_arg;
+    $record->visible = $visible_arg;
+    $record->editable = $editable_arg;
+    if(!is_null($course_arg))
+		$record->courseid = $course_arg;
     $lesson_id = $DB->insert_record('mootyper_lessons', $record, true);
 	$fh = fopen($theFile, 'r');
 	$theData = fread($fh, filesize($theFile));

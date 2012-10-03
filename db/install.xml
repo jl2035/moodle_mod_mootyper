@@ -57,7 +57,11 @@
     <TABLE NAME="mootyper_lessons" COMMENT="Exercise categories" PREVIOUS="mootyper_grades" NEXT="mootyper_exercises">
 		<FIELDS>
 			<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="lessonname"/>
-			<FIELD NAME="lessonname" TYPE="char" LENGTH="150" NOTNULL="true" SEQUENCE="false" PREVIOUS="id"/>
+			<FIELD NAME="lessonname" TYPE="char" LENGTH="150" NOTNULL="true" SEQUENCE="false" NEXT="authorid" PREVIOUS="id"/>
+			<FIELD NAME="authorid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" NEXT="visible" PREVIOUS="lessonname"/>
+			<FIELD NAME="visible" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="authorid" NEXT="editable"/>
+			<FIELD NAME="editable" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="visible" NEXT="courseid"/>
+			<FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="editable"/>
 		</FIELDS>
 	   <KEYS>
             <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

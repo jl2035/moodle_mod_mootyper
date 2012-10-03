@@ -58,6 +58,10 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
 		$lsnnamePO = $_POST['lessonname'];
 		$lsnrecord = new stdClass();
 		$lsnrecord->lessonname = $lsnnamePO;
+		$lsnrecord->visible = $_POST['visible'];
+		$lsnrecord->editable = $_POST['editable'];
+		$lsnrecord->authorid = $USER->id;
+		$lsnrecord->courseid = $course->id;
 		$lesson_id = $DB->insert_record('mootyper_lessons', $lsnrecord, true);
 	}
 	else
@@ -104,8 +108,19 @@ for($ij=0; $ij<count($lessons); $ij++)
 		echo '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
 }
 echo '</select>';
-if($lessonPO == -1)
+if($lessonPO == -1){
 	echo '<br><br>...'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname">';
+	echo '<br>'.get_string('visibility', 'mootyper').': <select name="visible">';
+	echo '<option value="2">'.get_string('vaccess2', 'mootyper').'</option>';
+	echo '<option value="1">'.get_string('vaccess1', 'mootyper').'</option>';
+	echo '<option value="0">'.get_string('vaccess0', 'mootyper').'</option>';
+	echo '</select><br><br>'.get_string('editable', 'mootyper').': <select name="editable">';
+	echo '<option value="2">'.get_string('eaccess2', 'mootyper').'</option>';
+	echo '<option value="1">'.get_string('eaccess1', 'mootyper').'</option>';
+	echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
+	echo '</select>';
+	
+}
 //echo '<br><br>'.get_string('ename', 'mootyper').'<input type="text" name="exercisename">';
 echo '<br><br>'.get_string('fexercise', 'mootyper').':<br>'.
 	 '<textarea name="texttotype"></textarea><br>'.
