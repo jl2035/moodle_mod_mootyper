@@ -109,8 +109,8 @@ for($ij=0; $ij<count($lessons); $ij++)
 }
 echo '</select>';
 if($lessonPO == -1){
-	echo '<br><br>...'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname">';
-	echo '<br>'.get_string('visibility', 'mootyper').': <select name="visible">';
+	echo '<br><br>...'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname" id="lessonname"><span style="color:red;" id="namemsg"></span>';
+	echo '<br><br>'.get_string('visibility', 'mootyper').': <select name="visible">';
 	echo '<option value="2">'.get_string('vaccess2', 'mootyper').'</option>';
 	echo '<option value="1">'.get_string('vaccess1', 'mootyper').'</option>';
 	echo '<option value="0">'.get_string('vaccess0', 'mootyper').'</option>';
@@ -121,10 +121,25 @@ if($lessonPO == -1){
 	echo '</select>';
 	
 }
+?>
+
+<script type="text/javascript">
+function clClick()
+{
+	if(document.getElementById("lessonname").value == ""){
+		document.getElementById("namemsg").innerHTML = '<?php echo get_string('reqfield', 'mootyper'); ?>';
+		return false;
+	}
+	else
+		return true;
+}
+</script>
+
+<?php
 //echo '<br><br>'.get_string('ename', 'mootyper').'<input type="text" name="exercisename">';
 echo '<br><br>'.get_string('fexercise', 'mootyper').':<br>'.
 	 '<textarea name="texttotype"></textarea><br>'.
-	 '<br><input name="button" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
+	 '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
 
 echo $OUTPUT->footer();

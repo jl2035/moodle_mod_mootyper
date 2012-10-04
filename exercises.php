@@ -23,7 +23,7 @@
  *
  * @package    mod
  * @subpackage mootyper
- * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -78,7 +78,12 @@ $lessonPO = optional_param('lesson', 0, PARAM_INT);
 
 $jlnk2 = $webDir = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id;
 echo '<a href="'.$jlnk2.'">'.get_string('eaddnew', 'mootyper').'</a><br><br>';
-$lessons = get_typerlessons();
+//$lessons = get_typerlessons();
+if(has_capability('mod/mootyper:editall', get_context_instance(CONTEXT_COURSE, $course->id)))
+	$lessons = get_typerlessons();
+else
+	$lessons = get_mootyperlessons($USER->id, $id);
+	
 if($lessonPO == 0 && count($lessons) > 0)
 	$lessonPO = $lessons[0]['id'];
 echo '<form method="post">';
@@ -103,7 +108,10 @@ foreach($exercises as $ex)
 	//$jWebDir = $CFG->wwwroot . '/course/view.php?id='.$_POST['rpCourseId'];
 	$jlink =   '<a href="erem.php?id='.$course->id.'&r='.$ex['id'].'">'.get_string('eremove', 'mootyper').'</a>';
 	$jlink2 = '<a href="eedit.php?id='.$course->id.'&ex='.$ex['id'].'">'.get_string('eeditlabel', 'mootyper').'</a>';
-	echo '<tr style="border-top: solid;"><td>'.$ex['exercisename'].'</td><td>'.$strToCut.'</td><td>'.$jlink2.' | '.$jlink.'</td></tr>';
+	echo '<tr style="border-top: solid;"><td>'.$ex['exercisename'].'</td><td>'.$strToCut.'</td>';
+	if(is_editable_by_me($USER->id, $lessonPO))
+		echo '<td>'.$jlink2.' | '.$jlink.'</td>';
+	echo '</tr>';
 }
 echo '</table>';
 

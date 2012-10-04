@@ -96,3 +96,4 @@ $string['vaccess2'] = 'samo meni';
 $string['eaccess0'] = 'vsi';
 $string['eaccess1'] = 'znotraj predmeta';
 $string['eaccess2'] = 'samo jaz';
+$string['reqfield'] = 'Obvezno polje';

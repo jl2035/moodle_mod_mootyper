@@ -96,3 +96,4 @@ $string['vaccess2'] = 'Only me';
 $string['eaccess0'] = 'Any teacher';
 $string['eaccess1'] = 'Teacher inside this course';
 $string['eaccess2'] = 'Only me';
+$string['reqfield'] = 'Required field';

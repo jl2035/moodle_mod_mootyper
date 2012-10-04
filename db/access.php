@@ -59,6 +59,16 @@ $capabilities = array(
 		)
 	),
 	
+	
+	
+	'mod/mootyper:editall' => array(
+		'captype' => 'write',
+		'contextlevel' => CONTEXT_MODULE,
+		'legacy' => array(
+			'manager' => CAP_ALLOW
+		)
+	),
+	
 	//Added on 29.09.2012 as a fix for the plugin installation on Moodle 2.3.2+	
 	'mod/mootyper:addinstance' => array(
                 'riskbitmask' => RISK_XSS,

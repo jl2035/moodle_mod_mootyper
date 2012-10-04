@@ -100,6 +100,53 @@ function get_typerlessons()
     return $lsToReturn;
 } 
 
+//Improved get_typerlessons() function
+function get_mootyperlessons($u, $c)
+{
+	global $CFG, $DB;
+    $params = array();
+    $lsToReturn = array();           // DETERMINE IF USER IS INSIDE A COURSE???
+    $sql = "SELECT id, lessonname
+              FROM ".$CFG->prefix."mootyper_lessons
+              WHERE (visible = 2 AND authorid = ".$u.") OR
+                    (visible = 1 AND ".is_user_enrolled($u, $c).") OR
+                    (visible = 0)
+              ORDER BY id";
+    if ($lessons = $DB->get_records_sql($sql, $params)) 
+        foreach ($lessons as $ex) {
+			$lss = array();
+			$lss['id'] = $ex->id;
+			$lss['lessonname'] = $ex->lessonname;
+			$lsToReturn[] = $lss;
+		}
+    return $lsToReturn;
+}
+
+function is_editable_by_me($usr, $lsn)
+{
+	global $DB;
+	$lesson = $DB->get_record('mootyper_lessons', array('id' => $lsn));
+	if(is_null($lesson->courseid))
+		$crs = 0;
+	else 
+		$crs = $lesson->courseid;
+	if(($lesson->editable == 0) ||
+	   ($lesson->editable == 1 && is_user_enrolled($usr, $crs)) ||
+	   ($lesson->editable == 2 && $lesson->authorid == $usr))
+	   return true;
+	else
+		return false;
+}
+
+function is_user_enrolled($usr, $crs)
+{
+	global $DB, $CFG;
+	$sql2 = "SELECT * FROM ".$CFG->prefix."user_enrolments
+			 WHERE userid = ".$usr." AND modifierid = ".$crs;
+    $enrolls = $DB->get_records_sql($sql2, array());
+    return (count($enrolls) == 1);
+}
+
 function get_grades_avg($grades)
 {
 	$avg = array();
