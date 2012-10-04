@@ -106,7 +106,13 @@ echo $OUTPUT->heading($mootyper->name);
 $htmlout = '';
 $htmlout .= '<form id="setupform" name="setupform" method="POST">';
 $htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td><td><select onchange="this.form.submit()" name="mode">';
-$lessons = get_typerlessons();
+//$lessons = get_typerlessons();
+
+if(has_capability('mod/mootyper:editall', get_context_instance(CONTEXT_COURSE, $course->id)))
+	$lessons = get_typerlessons();
+else
+	$lessons = get_mootyperlessons($USER->id, $id);
+
 if($modePO == 0 || is_null($modePO))
 {
 	$htmlout .= '<option selected="true" value="0">'.
