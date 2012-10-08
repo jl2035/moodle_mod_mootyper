@@ -144,7 +144,8 @@ function is_user_enrolled($usr, $crs)
 	$sql2 = "SELECT * FROM ".$CFG->prefix."user_enrolments
 			 WHERE userid = ".$usr." AND modifierid = ".$crs;
     $enrolls = $DB->get_records_sql($sql2, array());
-    return (count($enrolls) == 1);
+    $rt = count($enrolls) > 0 ? 1 : 0;
+    return $rt;
 }
 
 function get_grades_avg($grades)

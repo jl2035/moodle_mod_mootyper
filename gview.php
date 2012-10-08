@@ -63,7 +63,7 @@ $htmlout = '';
 $htmlout .= '<div id="mainDiv">';
 if($mootyper->isexam)
 {
-	$grds = get_typergradesfull($_GET['sid']);
+	$grds = get_typergradesfull($_GET['n']);
 	if($grds != FALSE){
 		$htmlout .= '<table style="border-style: solid;"><tr><td>'.get_string('student', 'mootyper').'</td><td>'.get_string('vmistakes', 'mootyper').'</td><td>'.
 					get_string('timeinseconds', 'mootyper').'</td><td>'.get_string('hitsperminute', 'mootyper').'</td><td>'.get_string('fullhits', 'mootyper').

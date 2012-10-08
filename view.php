@@ -92,7 +92,7 @@ if(exam_already_done($mootyper, $USER->id) && $mootyper->isexam)
 	echo get_string('examdone', 'mootyper');
 	echo "<br>";
 	if (has_capability('mod/mootyper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
-				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&sid='.$mootyper->id.'&n='.$mootyper->id;
+				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&n='.$mootyper->id;
 				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
     }
 }
@@ -130,7 +130,7 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 <div id="reportDiv" style="float: right; /*position: relative; right: 90px; top: 35px;*/">
 											<?php
 			if (has_capability('mod/mootyper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
-				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&sid='.$mootyper->id.'&n='.$mootyper->id;;
+				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&n='.$mootyper->id;;
 				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
 			}
 			?>
@@ -191,9 +191,14 @@ else
 	echo get_string('endlesson', 'mootyper');
 	echo "<br>";
 	if (has_capability('mod/mootyper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
-				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&sid='.$mootyper->id.'&n='.$mootyper->id;
+				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&n='.$mootyper->id;
 				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
     }
+    /*else
+    {
+		$jlnk5 = $CFG->wwwroot.'/mod/mootyper/myachievement.php?id='.$id.'&n='.$mootyper->id;
+		echo '<a href="'.$jlnk5.'"></a>';
+	}*/
 }
 }
 else
