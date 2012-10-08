@@ -30,9 +30,17 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 global $DB;
 //http://localhost/moodle/course/view.php?id=2
 //$DB->insert_record('mootyper_grades', $record, false);
-$exerciseID = $_GET['r'];
+if(isset($_GET['r'])){
+	$exerciseID = $_GET['r'];
+	$DB->delete_records('mootyper_exercises', array('id'=>$exerciseID));
+}
+else
+{
+	$lessonID = $_GET['l'];
+	$DB->delete_records('mootyper_exercises', array('lesson' =>$lessonID));
+	$DB->delete_records('mootyper_lessons', array('id' => $lessonID));
+}
 $cID = $_GET['id'];
-$DB->delete_records('mootyper_exercises', array('id'=>$exerciseID));
 $webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cID;
 header('Location: '.$webDir);
 /*

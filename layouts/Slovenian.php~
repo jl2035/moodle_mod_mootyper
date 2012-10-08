@@ -59,7 +59,7 @@
 <span id="jkeyctrll" class="normal" style="width: 40px;">Ctrl</span>
 <span id="jkeyfn" class="normal">Fn</span>
 <span id="jkeyalt" class="normal" style="width: 40px;">Alt</span>
-<span id="jkeyspace" class="normal" style="width: 250px;">Preslednica</span>
+<span id="jkeyspace" class="normal" style="width: 250px;">Space</span>
 <span id="jkeyaltgr" class="normal" style="width: 45px;">Alt gr</span>
 <!--span id="jempty" class="normal" style="width: 30px;">&nbsp;</span-->
 <span id="jkeyctrlr" class="normal" style="width: 60px; border-right-style: solid;">Ctrl</span><br>

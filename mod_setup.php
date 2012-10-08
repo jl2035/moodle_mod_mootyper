@@ -31,14 +31,18 @@ require_once(dirname(__FILE__).'/locallib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
 $n  = optional_param('n', 0, PARAM_INT);  // mootyper instance ID - it should be named as the first character of the module
-
+$mooCFG = get_config('mootyper');
 if(isset($_POST['button']))
 $param1 = $_POST['button'];
 if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1)
 {
 	$modePO = optional_param('mode', null, PARAM_INT);
 	$lessonPO = optional_param('lesson', null, PARAM_INT);
-    $goalPO = optional_param('requiredgoal', null, PARAM_INT);
+	//$mooCFG = get_config('mootyper');
+    //$defLayout = $mooCFG->defaultlayout;
+    
+    $goalPO = optional_param('requiredgoal', $mooCFG->defaultprecision, PARAM_INT);
+    if($goalPO == 0) $goalPO = $mooCFG->defaultprecision;
     $layoutPO = optional_param('layout', 0, PARAM_INT);
     $showKeyboardPO = optional_param('showkeyboard', null, PARAM_CLEAN);
 	global $DB, $CFG;
@@ -60,7 +64,7 @@ $modePO = optional_param('mode', null, PARAM_INT);
 $lessonPO = optional_param('lesson', null, PARAM_INT);
 $showKeyboardPO = optional_param('showkeyboard', null, PARAM_CLEAN);
 $layoutPO = optional_param('layout', 0, PARAM_INT);
-$goalPO = optional_param('requiredgoal', null, PARAM_INT);
+$goalPO = optional_param('requiredgoal', $mooCFG->defaultprecision, PARAM_INT);
 
 if ($id) {
     $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
@@ -157,7 +161,6 @@ if($showKeyboardPO == 'on'){
 	$htmlout .= '<input type="checkbox" checked="checked" onchange="this.form.submit()" name="showkeyboard">';
 	$layouts = get_keyboard_layouts_db();
     //$mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
-    $mooCFG = get_config('mootyper');
     $defLayout = $mooCFG->defaultlayout;
     $htmlout .= '<tr><td>'.get_string('layout', 'mootyper').'</td><td><select name="layout">';
     foreach($layouts as $lkey => $lval)

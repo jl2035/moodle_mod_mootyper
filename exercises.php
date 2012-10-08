@@ -87,15 +87,21 @@ else
 if($lessonPO == 0 && count($lessons) > 0)
 	$lessonPO = $lessons[0]['id'];
 echo '<form method="post">';
-echo '<select onchange="this.form.submit()" name="lesson">';
+echo get_string('excategory', 'mootyper').': <select onchange="this.form.submit()" name="lesson">';
 for($ij=0; $ij<count($lessons); $ij++)
 {
 	if($lessons[$ij]['id'] == $lessonPO)
+	{
 		echo '<option selected="true" value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
+		$selected_lesson_index = $ij;
+	}
 	else
 		echo '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
 }
 echo '</select>';
+echo ' <a onclick="return confirm(\''.get_string('removeconfirm', 'mootyper').$lessons[$selected_lesson_index]['lessonname'].
+    '\')" href="erem.php?id='.$course->id.'&l='.$lessons[$selected_lesson_index]['id'].'">'.
+	get_string('removeall','mootyper').'\''.$lessons[$selected_lesson_index]['lessonname'].'\'</a>';
 echo '</form><br>';
 echo '<table style="border: solid;"><tr><td>'.get_string('ename','mootyper').'</td><td>'.get_string('etext', 'mootyper').'</td><td></td></tr>';
 $exercises = get_typerexercisesfull($lessonPO);

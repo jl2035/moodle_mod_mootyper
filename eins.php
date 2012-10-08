@@ -67,6 +67,7 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
 	else
 		$lesson_id = $lessonPO;
 	$snum = get_new_snumber($lesson_id);
+	$erecord = new stdClass();
 	$erecord->exercisename = "".$snum;
 	$erecord->snumber = $snum;
 	$erecord->lesson = $lesson_id;
@@ -138,7 +139,7 @@ function clClick()
 <?php
 //echo '<br><br>'.get_string('ename', 'mootyper').'<input type="text" name="exercisename">';
 echo '<br><br>'.get_string('fexercise', 'mootyper').':<br>'.
-	 '<textarea name="texttotype"></textarea><br>'.
+	 '<textarea rows="4" cols="40" name="texttotype"></textarea><br>'.
 	 '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
 
