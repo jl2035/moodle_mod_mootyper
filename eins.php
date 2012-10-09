@@ -97,7 +97,13 @@ $PAGE->set_cacheable(false);
 echo $OUTPUT->header();
 // action="?id='.$id.'&ins=true"
 echo '<form method="POST">';
-$lessons = get_typerlessons();
+$lessonsG = get_typerlessons();
+$lessons = array();
+foreach($lessonsG as $lsnG)
+{
+	if(is_editable_by_me($USER->id, $lsnG['id']))
+		$lessons[] = $lsnG;
+}
 echo get_string('fnewexercise', 'mootyper').'&nbsp;';
 echo '<select onchange="this.form.submit()" name="lesson">';
 echo '<option value="-1">'.get_string('fnewlesson', 'mootyper').'</option>';

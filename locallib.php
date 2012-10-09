@@ -108,9 +108,9 @@ function get_mootyperlessons($u, $c)
     $lsToReturn = array();           // DETERMINE IF USER IS INSIDE A COURSE???
     $sql = "SELECT id, lessonname
               FROM ".$CFG->prefix."mootyper_lessons
-              WHERE (visible = 2 AND authorid = ".$u.") OR
+              WHERE ((visible = 2 AND authorid = ".$u.") OR
                     (visible = 1 AND ".is_user_enrolled($u, $c).") OR
-                    (visible = 0)
+                    (visible = 0)) OR ".isadmin($u)."
               ORDER BY id";
     if ($lessons = $DB->get_records_sql($sql, $params)) 
         foreach ($lessons as $ex) {
@@ -122,6 +122,8 @@ function get_mootyperlessons($u, $c)
     return $lsToReturn;
 }
 
+
+
 function is_editable_by_me($usr, $lsn)
 {
 	global $DB;
@@ -130,9 +132,10 @@ function is_editable_by_me($usr, $lsn)
 		$crs = 0;
 	else 
 		$crs = $lesson->courseid;
-	if(($lesson->editable == 0) ||
+	if((($lesson->editable == 0) ||
 	   ($lesson->editable == 1 && is_user_enrolled($usr, $crs)) ||
 	   ($lesson->editable == 2 && $lesson->authorid == $usr))
+	   || isadmin($usr));
 	   return true;
 	else
 		return false;
