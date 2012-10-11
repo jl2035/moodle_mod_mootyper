@@ -99,7 +99,8 @@ for($ij=0; $ij<count($lessons); $ij++)
 		echo '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
 }
 echo '</select>';
-echo ' <a onclick="return confirm(\''.get_string('removeconfirm', 'mootyper').$lessons[$selected_lesson_index]['lessonname'].
+if(is_editable_by_me($USER->id, $lessonPO))
+	echo ' <a onclick="return confirm(\''.get_string('removeconfirm', 'mootyper').$lessons[$selected_lesson_index]['lessonname'].
     '\')" href="erem.php?id='.$course->id.'&l='.$lessons[$selected_lesson_index]['id'].'">'.
 	get_string('removeall','mootyper').'\''.$lessons[$selected_lesson_index]['lessonname'].'\'</a>';
 echo '</form><br>';

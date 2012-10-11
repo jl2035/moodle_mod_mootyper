@@ -110,7 +110,7 @@ function get_mootyperlessons($u, $c)
               FROM ".$CFG->prefix."mootyper_lessons
               WHERE ((visible = 2 AND authorid = ".$u.") OR
                     (visible = 1 AND ".is_user_enrolled($u, $c).") OR
-                    (visible = 0)) OR ".isadmin($u)."
+                    (visible = 0)) OR ".can_view_edit_all($u, $c)."
               ORDER BY id";
     if ($lessons = $DB->get_records_sql($sql, $params)) 
         foreach ($lessons as $ex) {
@@ -122,7 +122,17 @@ function get_mootyperlessons($u, $c)
     return $lsToReturn;
 }
 
-
+function can_view_edit_all($usr, $c)
+{
+	if($c == 0) 
+		$cnt = get_context_instance (CONTEXT_SYSTEM);
+	else
+		$cnt = get_context_instance(CONTEXT_COURSE, $c);
+	if(has_capability('mod/mootyper:editall', $cnt))
+		return 1;
+	else
+		return 0;
+}
 
 function is_editable_by_me($usr, $lsn)
 {
@@ -135,7 +145,7 @@ function is_editable_by_me($usr, $lsn)
 	if((($lesson->editable == 0) ||
 	   ($lesson->editable == 1 && is_user_enrolled($usr, $crs)) ||
 	   ($lesson->editable == 2 && $lesson->authorid == $usr))
-	   || isadmin($usr));
+	   || can_view_edit_all($usr, $crs))
 	   return true;
 	else
 		return false;
