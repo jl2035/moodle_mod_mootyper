@@ -108,9 +108,9 @@ function get_mootyperlessons($u, $c)
     $lsToReturn = array();           // DETERMINE IF USER IS INSIDE A COURSE???
     $sql = "SELECT id, lessonname
               FROM ".$CFG->prefix."mootyper_lessons
-              WHERE ((visible = 2 AND authorid = ".$u.") OR
+              WHERE (((visible = 2 AND authorid = ".$u.") OR
                     (visible = 1 AND ".is_user_enrolled($u, $c).") OR
-                    (visible = 0)) OR ".can_view_edit_all($u, $c)."
+                    (visible = 0)) OR ".can_view_edit_all($u, $c).")
               ORDER BY id";
     if ($lessons = $DB->get_records_sql($sql, $params)) 
         foreach ($lessons as $ex) {

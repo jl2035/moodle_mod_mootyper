@@ -76,8 +76,6 @@ class mod_mootyper_mod_form extends moodleform_mod {
         //$mform->setHelpButton('enablegroupfunction', array('enablegroupfunction', get_string('enablegroupfunction', 'pluginimworkingon'), 'pluginimworkingon'));
         //$mform->setDefault('isexam', 0);
         //$mform->addElement('text', 'requiredgoal', get_string('requiredgoal', 'mootyper'));
-		$jlnk3 = $webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
-        $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
         //$lsns = get_typerlessons();
         //$mform->addElement('select', 'lesson', get_string('flesson', 'mootyper'), $lsns);
         //$mform->addElement('select', 'exercise', get_string('fexercise', 'mootyper'), get_typerexercises());
@@ -97,6 +95,10 @@ class mod_mootyper_mod_form extends moodleform_mod {
         //$mform->addElement('header', 'fsecurity' get_string('fsecurity', 'mootyper'));
         // Require password to begin quiz attempt.
         $mform->addElement('passwordunmask', 'password', get_string('requirepassword', 'mootyper'));
+        
+        $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
+        $jlnk3 = $webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
+        $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
         //$mform->setType('password', PARAM_TEXT);
         //$mform->addHelpButton('password', 'requirepassword', 'mootyper');
         //$mform->setAdvanced('quizpassword', $quizconfig->password_adv);
