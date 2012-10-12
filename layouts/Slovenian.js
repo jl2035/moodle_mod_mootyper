@@ -39,10 +39,8 @@ function keyboardElement(ltr)
 			document.getElementById('jkeyaltgr').className="nextSpace";
     }
     this.turnOff = function () {
-		
 		if(isLetter(this.chr))
         {
-			alert(this.chr);
 			if(this.chr == 'a' || this.chr == 's' || this.chr == 'd' || this.chr == 'f' ||
 			   this.chr == 'j' || this.chr == 'k' || this.chr == 'l' || this.chr == 'č')
 			   document.getElementById(dobiTipkoId(this.chr)).className = "finger"+dobiFinger(this.chr.toLowerCase());

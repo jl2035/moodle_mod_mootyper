@@ -54,9 +54,9 @@ font-size: 16px;
 font-weight: bold;
 font-family: Courier;
 color: black;
-background-color: #eee;
-padding: 0px 2px 0px 2px;
-border: 2px solid #2288ff;
+background-color: #D8D8D8;
+/*padding: 0px 2px 0px 2px;*/
+border: 0px solid #2288ff;
 line-hight: 1.5em;
 
 }
