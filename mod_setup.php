@@ -61,6 +61,7 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1)
 }
 
 $modePO = optional_param('mode', null, PARAM_INT);
+$exercisePO = optional_param('exercise', null, PARAM_INT);
 $lessonPO = optional_param('lesson', null, PARAM_INT);
 $showKeyboardPO = optional_param('showkeyboard', null, PARAM_CLEAN);
 $layoutPO = optional_param('layout', 0, PARAM_INT);
@@ -123,7 +124,7 @@ if($modePO == 0 || is_null($modePO))
             get_string('sflesson', 'mootyper').'</option><option value="1">'.
             get_string('isexamtext', 'mootyper').'</option>';
     $htmlout .= '</select></td></tr><tr><td>';
-    $htmlout .= get_string('flesson', 'mootyper').'</td><td><select onchange="this.form.submit()" name="lesson">';
+    $htmlout .= get_string('excategory', 'mootyper').'</td><td><select onchange="this.form.submit()" name="lesson">';
     for($ij=0; $ij<count($lessons); $ij++)
     {
 		if($lessons[$ij]['id'] == $lessonPO)
@@ -152,7 +153,10 @@ else if($modePO == 1)
     $htmlout .= '<tr><td>'.get_string('fexercise', 'mootyper').'</td><td><select name="exercise">';
     for($ik=0; $ik<count($exercises); $ik++)
     {
-		$htmlout .= '<option value="'.$exercises[$ik]['id'].'">'.$exercises[$ik]['exercisename'].'</option>';
+		if($exercises[$ik]['id'] == $exercisePO)
+			$htmlout .= '<option selected="true" value="'.$exercises[$ik]['id'].'">'.$exercises[$ik]['exercisename'].'</option>';
+		else
+			$htmlout .= '<option value="'.$exercises[$ik]['id'].'">'.$exercises[$ik]['exercisename'].'</option>';
 	}
     $htmlout .= '</select></td></tr>';
 }

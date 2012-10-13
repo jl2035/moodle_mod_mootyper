@@ -30,9 +30,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version   = 2012111100;    // The current module version (Date: YYYYMMDDXX)
+$module->version   = 2012101200;    // The current module version (Date: YYYYMMDDXX)
 $module->requires  = 2011120501.11;      // Requires this Moodle version
-$module->release   = '2.0 (Build: 2012111100)';
+$module->release   = '2.1 (Build: 2012101200)';
 $module->cron      = 60;               // Period for cron to check this module (secs)
 $module->maturity  = MATURITY_STABLE;
 $module->component = 'mod_mootyper'; // To check on upgrade, that module sits in correct place

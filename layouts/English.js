@@ -34,11 +34,13 @@ function keyboardElement(ltr)
 		if(isLetter(this.chr))
         {
 			if(this.chr == 'a' || this.chr == 's' || this.chr == 'd' || this.chr == 'f' ||
-			   this.chr == 'j' || this.chr == 'k' || this.chr == 'l' || this.chr == ';')
+			   this.chr == 'j' || this.chr == 'k' || this.chr == 'l')
 			   document.getElementById(dobiTipkoId(this.chr)).className = "finger"+dobiFinger(this.chr.toLowerCase());
 			else 
 				document.getElementById(dobiTipkoId(this.chr)).className = "normal";
 		}
+		else if(this.chr == ':' || this.chr == ';')             //English specific ; and :
+			document.getElementById(dobiTipkoId(this.chr)).className = "finger4";
 		else
 			document.getElementById(dobiTipkoId(this.chr)).className = "normal";
 		if(this.chr == '\n' || this.chr == '\r\n' || this.chr == '\n\r' || this.chr == '\r')

@@ -1,5 +1,6 @@
 function keyboardElement(ltr)
 {
+	//alert("Trenutni char: "+trenutniChar);
 	this.chr = ltr.toLowerCase();
 	this.alt = false;
 	if(isLetter(ltr))
@@ -131,5 +132,5 @@ function dobiTipkoId(t_crka)
 
 
 function isLetter(str) {
-  return str.length === 1 && str.match(/[a-z]/i);
+  return str.length === 1 && str.match(/[a-zčšžđć]/i);
 }
