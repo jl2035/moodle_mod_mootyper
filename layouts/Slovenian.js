@@ -65,7 +65,7 @@ function dobiFinger(t_crka)
 {
 	if(t_crka == ' ')
 		return 5;
-	else if(t_crka == 'q' || t_crka == 'a' || t_crka == 'z' || t_crka == 'p' || t_crka == 'č' || t_crka == 'ć' ||
+	else if(t_crka == 'q' || t_crka == 'a' || t_crka == 'p' || t_crka == 'č' || t_crka == 'ć' ||
 			t_crka == 'š' || t_crka =='đ' || t_crka == 'ž' || t_crka == 'đ' || t_crka == 'y' || t_crka == '1' || 
 			t_crka == '2' || t_crka == '\'' || t_crka == '+' || t_crka == '*' || t_crka == '?' || t_crka == '!' ||
 			t_crka == '\n' || t_crka == '-' || t_crka == '_' || t_crka == '<' || t_crka == '>')
