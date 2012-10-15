@@ -6,7 +6,7 @@ width: 100%;
 div#textToEnter
 {
 width: 100%;
-text-align: center;
+text-align: left;
 }
 #jsTime
 {
@@ -26,7 +26,7 @@ padding: 5px;
 }
 .tb1
 {
-width: 500px;
+width: 620px;
 height: 100px;
 font-size: extra-small;
 font-family: Courier;
