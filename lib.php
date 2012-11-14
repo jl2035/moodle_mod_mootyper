@@ -389,14 +389,15 @@ function mootyper_get_extra_capabilities() {
  * @return bool true if the scale is used by the given mootyper instance
  */
 function mootyper_scale_used($mootyperid, $scaleid) {
-    global $DB;
+    /**global $DB;
 
-    /** @example */
+     @example 
     if ($scaleid and $DB->record_exists('mootyper', array('id' => $mootyperid, 'grade' => -$scaleid))) {
         return true;
     } else {
         return false;
-    }
+    }*/
+    return false;
 }
 
 /**
@@ -408,14 +409,15 @@ function mootyper_scale_used($mootyperid, $scaleid) {
  * @return boolean true if the scale is used by any mootyper instance
  */
 function mootyper_scale_used_anywhere($scaleid) {
-    global $DB;
+    /**global $DB;
 
-    /** @example */
+     @example 
     if ($scaleid and $DB->record_exists('mootyper', array('grade' => -$scaleid))) {
         return true;
     } else {
         return false;
-    }
+    }*/
+    return false;
 }
 
 /**
