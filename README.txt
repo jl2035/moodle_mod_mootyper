@@ -35,7 +35,7 @@ To implement any other layout you have to:
 Create a php file with keyboard layout defined with HTML. Create javascript
 file(with the same name and .js extension) that defines some functions for
 your layout. If you have any mistakes in your js file the module won't work,
-so in this case try to validate your code with a tool like this:
+so in this case try to validate your code with a tool like this...
 http://www.javascriptlint.com/online_lint.php
 
 For more info please visit the plugins wiki on github:
