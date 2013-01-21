@@ -114,7 +114,7 @@ function get_grades_average($grads)
 	return $povprecje;
 }
 
-function get_typergradesfull($s_id) {
+function get_typergradesfull($s_id, $orderby="[]") {
     global $DB, $CFG;
     $params = array();
     $toReturn = array();
@@ -131,6 +131,13 @@ function get_typergradesfull($s_id) {
     " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
     " LEFT JOIN ".$attTblName." ON ".$attTblName.".id = ".$gradesTblName.".attemptid".
     " WHERE mootyper=".$s_id;
+    if($orderby=="[]")
+		$oby = " ORDER BY ".$gradesTblName.".id";
+    else if($orderby=="lastname")
+		$oby = " ORDER BY ".$usersTblName.".lastname";
+    else
+		$oby = "";
+	$sql .= $oby;
     if ($grades = $DB->get_records_sql($sql, $params)) {
         return $grades;
 	}

@@ -35,80 +35,26 @@ require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
  * Module instance settings form
  */
 class mod_mootyper_mod_form extends moodleform_mod {
-
-
-    /**
-     * Defines forms elements
-     */
     public function definition() {
-
         $mform = $this->_form;
-
-        //-------------------------------------------------------------------------------
-        // Adding the "general" fieldset, where all the common settings are showed
         $mform->addElement('header', 'general', get_string('general', 'form'));
-
-        // Adding the standard "name" field
         $mform->addElement('text', 'name', get_string('mootypername', 'mootyper'), array('size'=>'64'));
-        if (!empty($CFG->formatstringstriptags)) {
+        if (!empty($CFG->formatstringstriptags))
             $mform->setType('name', PARAM_TEXT);
-        } else {
+        else
             $mform->setType('name', PARAM_CLEAN);
-        }
-        //$layouts = get_keyboard_layouts_db();
-        //$mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'mootypername', 'mootyper');
-
-        // Adding the standard "intro" and "introformat" fields
         $this->add_intro_editor();
-
-        //-------------------------------------------------------------------------------
-        // Adding the rest of mootyper settings, spreeading all them into this fieldset
-        // or adding more fieldsets ('header' elements) if needed for better logic
-        //$mform->addElement('static', 'label1', 'mootypersetting1', 'Your mootyper fields go here. Replace me!');
-        //$mform->addElement('header', 'fexercise', get_string('fexercise', 'mootyper'));
-        //$mform->addElement('static', 'label2', 'mootypersetting2', 'Your mootyper fields go here. Replace me!');
-		//!!!!$mform->addElement('select', 'type', get_string('forumtype', 'forum'), $FORUM_TYPES, $attributes);
 		global $CFG, $COURSE;
-		//$mform->addElement('checkbox', 'isexam', get_string('isexamtext', 'mootyper'));
-        //$mform->setHelpButton('enablegroupfunction', array('enablegroupfunction', get_string('enablegroupfunction', 'pluginimworkingon'), 'pluginimworkingon'));
-        //$mform->setDefault('isexam', 0);
-        //$mform->addElement('text', 'requiredgoal', get_string('requiredgoal', 'mootyper'));
-        //$lsns = get_typerlessons();
-        //$mform->addElement('select', 'lesson', get_string('flesson', 'mootyper'), $lsns);
-        //$mform->addElement('select', 'exercise', get_string('fexercise', 'mootyper'), get_typerexercises());
-        /*
-         $mform->addElement('static', 'description', get_string('description', 'exercise'),
-    get_string('descriptionofexercise', 'exercise', $COURSE->students)); 
-         */
-        
-        // Open and close dates.
-        $mform->addElement('date_time_selector', 'timeopen', get_string('mootyperopentime', 'mootyper'),
-                array('optional' => true, 'step' => 1));
-        //$mform->addHelpButton('timeopen', 'quizopenclose', 'quiz');
-
-        $mform->addElement('date_time_selector', 'timeclose', get_string('mootyperclosetime', 'mootyper'),
-                array('optional' => true, 'step' => 1));
-                
-        //$mform->addElement('header', 'fsecurity' get_string('fsecurity', 'mootyper'));
-        // Require password to begin quiz attempt.
+        $mform->addElement('date_time_selector', 'timeopen', get_string('mootyperopentime', 'mootyper'), array('optional' => true, 'step' => 1));
+        $mform->addElement('date_time_selector', 'timeclose', get_string('mootyperclosetime', 'mootyper'), array('optional' => true, 'step' => 1));
         $mform->addElement('passwordunmask', 'password', get_string('requirepassword', 'mootyper'));
-        
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
         $jlnk3 = $webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
         $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
-        //$mform->setType('password', PARAM_TEXT);
-        //$mform->addHelpButton('password', 'requirepassword', 'mootyper');
-        //$mform->setAdvanced('quizpassword', $quizconfig->password_adv);
-        //$mform->setDefault('password', $quizconfig->password); 
-        //$mform->addElement('header', 'zakaj', "to plus");
-        //-------------------------------------------------------------------------------
-        // add standard elements, common to all modules
         $this->standard_coursemodule_elements();
-        //-------------------------------------------------------------------------------
-        // add standard buttons, common to all modules
         $this->add_action_buttons();
     }
 }
