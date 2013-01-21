@@ -34,6 +34,8 @@ $n  = optional_param('n', 0, PARAM_INT);  // mootyper instance ID - it should be
 $se = optional_param('exercise', 0, PARAM_INT);
 $md = optional_param('jmode', 0, PARAM_INT);
 $us = optional_param('juser', 0, PARAM_INT);
+$orderBy = optional_param('orderby', -1, PARAM_INT);
+$des = optional_param('desc', -1, PARAM_INT);
 if($md == 1)
     $us = 0;
 else if($md == 0)
@@ -58,16 +60,44 @@ $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->set_cacheable(false);
 echo $OUTPUT->header();
+echo '<link rel="stylesheet" type="text/css" href="style.css">';
 echo $OUTPUT->heading($mootyper->name);
 $htmlout = '';
 $htmlout .= '<div id="mainDiv">';
 if($mootyper->isexam)
 {
-	$grds = get_typergradesfull($_GET['n']);
+	$grds = get_typergradesfull($_GET['n'], $orderBy, $des);
+	if($des == -1 || $des == 0)
+		$grds = get_typergradesfull($_GET['n'], $orderBy, 0);
+	else if($des == 1)
+		$grds = get_typergradesfull($_GET['n'], $orderBy, 1);
+	
+	if($des == -1 || $des == 1){
+		$lnkAdd = "&desc=0";
+	}
+	else{
+		$lnkAdd = "&desc=1";
+	}
+	$arrTextAdds = array();
+	$arrTextAdds[2] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+	$arrTextAdds[4] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+	$arrTextAdds[5] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+	$arrTextAdds[6] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+	$arrTextAdds[7] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+	$arrTextAdds[8] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+	$arrTextAdds[9] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+	$arrTextAdds[$orderBy] = $des == -1 || $des == 1 ? 
+		'<span class="arrow-s" style="font-size:1em;"></span>' : 
+		'<span class="arrow-n" style="font-size:1em;"></span>';
 	if($grds != FALSE){
-		$htmlout .= '<table style="border-style: solid;"><tr><td>'.get_string('student', 'mootyper').'</td><td>'.get_string('vmistakes', 'mootyper').'</td><td>'.
-					get_string('timeinseconds', 'mootyper').'</td><td>'.get_string('hitsperminute', 'mootyper').'</td><td>'.get_string('fullhits', 'mootyper').
-					'</td><td>'.get_string('precision', 'mootyper').'</td><td>'.get_string('timetaken', 'mootyper').'</td></tr>';
+		$htmlout .= '<table style="border-style: solid;"><tr><td><a href="?id='.$id.'&n='.$n.'&orderby=2'.$lnkAdd.'">'.
+		get_string('student', 'mootyper').'</a>'.$arrTextAdds[2].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=4'.$lnkAdd.'">'.
+		get_string('vmistakes', 'mootyper').'</a>'.$arrTextAdds[4].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=5'.$lnkAdd.'">'.
+		get_string('timeinseconds', 'mootyper').'</a>'.$arrTextAdds[5].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=6'.$lnkAdd.'">'.
+		get_string('hitsperminute', 'mootyper').'</a>'.$arrTextAdds[6].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=7'.$lnkAdd.'">'.
+		get_string('fullhits', 'mootyper').'</a>'.$arrTextAdds[7].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=8'.$lnkAdd.'">'.
+		get_string('precision', 'mootyper').'</a>'.$arrTextAdds[8].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=9'.$lnkAdd.'">'.
+		get_string('timetaken', 'mootyper').'</a>'.$arrTextAdds[9].'</td></tr>';
 		foreach($grds as $gr)
 		{
 			if($gr->suspicion)
@@ -129,14 +159,44 @@ else
 		}         
 		$htmlout .= '</select>';
 		$htmlout .= '</td></tr>';		
-	}
-	$grds = get_typer_grades_adv($mootyper->id, $se, $us);
+	}		
+	if($des == -1 || $des == 0)
+		$grds = get_typer_grades_adv($mootyper->id, $se, $us, $orderBy, 0);
+	else if($des == 1)
+		$grds = get_typer_grades_adv($mootyper->id, $se, $us, $orderBy, 1);
+		
 	if($grds != FALSE){
-		$htmlout .= '<table style="border-style: solid;"><tr><td>'.get_string('student', 'mootyper').'</td><td>'.
-		get_string('fexercise', 'mootyper').'</td><td>'.get_string('vmistakes', 'mootyper').'</td><td>'.
-		get_string('timeinseconds', 'mootyper').'</td><td>'.get_string('hitsperminute', 'mootyper').'</td><td>'.
-		get_string('fullhits', 'mootyper').'</td><td>'.get_string('precision', 'mootyper').'</td><td>'.
-		get_string('timetaken', 'mootyper').'</td></tr>';
+		
+
+		if($des == -1 || $des == 1){
+			$lnkAdd = "&desc=0";
+		}
+		else{
+			$lnkAdd = "&desc=1";
+		}
+		$arrTextAdds = array();
+		$arrTextAdds[2] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+		$arrTextAdds[4] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+		$arrTextAdds[5] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+		$arrTextAdds[6] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+		$arrTextAdds[7] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+		$arrTextAdds[8] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+		$arrTextAdds[9] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+		$arrTextAdds[10] = '<span class="arrow-s" style="font-size:1em;"></span>';
+		$arrTextAdds[11] = '<span class="arrow-s" style="font-size:1em;"></span>';
+		$arrTextAdds[$orderBy] = $des == -1 || $des == 1 ? 
+			'<span class="arrow-s" style="font-size:1em;"></span>' : 
+			'<span class="arrow-n" style="font-size:1em;"></span>';
+		
+		$htmlout .= '<table style="border-style: solid;"><tr><td><a href="?id='.$id.'&n='.$n.'&orderby=2'.$lnkAdd.'">'.
+		get_string('student', 'mootyper').'</a>'.$arrTextAdds[2].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=10'.$lnkAdd.'">'.
+		get_string('fexercise', 'mootyper').'</a>'.$arrTextAdds[10].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=4'.$lnkAdd.'">'.
+		get_string('vmistakes', 'mootyper').'</a>'.$arrTextAdds[4].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=5'.$lnkAdd.'">'.
+		get_string('timeinseconds', 'mootyper').'</a>'.$arrTextAdds[5].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=6'.$lnkAdd.'">'.
+		get_string('hitsperminute', 'mootyper').'</a>'.$arrTextAdds[6].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=7'.$lnkAdd.'">'.
+		get_string('fullhits', 'mootyper').'</a>'.$arrTextAdds[7].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=8'.$lnkAdd.'">'.
+		get_string('precision', 'mootyper').'</a>'.$arrTextAdds[8].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=9'.$lnkAdd.'">'.
+		get_string('timetaken', 'mootyper').'</a>'.$arrTextAdds[9].'</td></tr>';
 		foreach($grds as $gr)
 		{
 			if($gr->suspicion)

@@ -38,6 +38,7 @@ $string['pluginadministration'] = 'MooTyper Administration';
 $string['pluginname'] = 'MooTyper';
 $string['fexercise'] = 'Exercise';
 $string['fsecurity'] = 'Security';
+$string['fsettings'] = 'Settings';
 $string['mootyperopentime'] = 'Open time';
 $string['mootyperclosetime'] = 'Close time';
 $string['requirepassword'] = 'Require password';

@@ -44,7 +44,13 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1)
     $goalPO = optional_param('requiredgoal', $mooCFG->defaultprecision, PARAM_INT);
     if($goalPO == 0) $goalPO = $mooCFG->defaultprecision;
     $layoutPO = optional_param('layout', 0, PARAM_INT);
-    $showKeyboardPO = optional_param('showkeyboard', null, PARAM_CLEAN);
+    if(empty($_POST))
+    {
+		//$mootyper->showkeyboard = $showKeyboardPO == 'on';
+		$showKeyboardPO = $mootyper->showkeyboard == 1 ? "on" : "off";
+	}
+	else
+		$showKeyboardPO = optional_param('showkeyboard', 'on', PARAM_CLEAN);
 	global $DB, $CFG;
 	$mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
 	$mootyper->lesson = $lessonPO;
@@ -60,13 +66,6 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1)
 	header('Location: '.$CFG->wwwroot.'/mod/mootyper/view.php?n='.$n);
 }
 
-$modePO = optional_param('mode', null, PARAM_INT);
-$exercisePO = optional_param('exercise', null, PARAM_INT);
-$lessonPO = optional_param('lesson', null, PARAM_INT);
-$showKeyboardPO = optional_param('showkeyboard', null, PARAM_CLEAN);
-$layoutPO = optional_param('layout', 0, PARAM_INT);
-$goalPO = optional_param('requiredgoal', $mooCFG->defaultprecision, PARAM_INT);
-
 if ($id) {
     $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
@@ -78,7 +77,31 @@ if ($id) {
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
+$ePO = optional_param('e', 0, PARAM_INT);
+$modePO = optional_param('mode', $mootyper->isexam, PARAM_INT);
+$exercisePO = optional_param('exercise', $mootyper->exercise, PARAM_INT);
+$lessonPO = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 
+    if(empty($_POST))
+    {
+		//$mootyper->showkeyboard = $showKeyboardPO == 'on';
+		$showKeyboardPO = $mootyper->showkeyboard == 1 ? "on" : "off";
+	}
+	else
+		$showKeyboardPO = optional_param('showkeyboard', 'on', PARAM_TEXT);
+
+
+//$showKeyboardPO = optional_param('showkeyboard', $mootyper->showkeyboard == 1 ? "on" : "off", PARAM_CLEAN);
+if($mootyper->layout == NULL || is_null($mootyper->layout))
+	$dfLy = $mooCFG->defaultlayout;
+else
+	$dfLy = $mootyper->layout;
+$layoutPO = optional_param('layout', $dfLy, PARAM_INT);
+if($mootyper->requiredgoal == NULL || is_null($mootyper->requiredgoal))
+	$dfGoal =  $mooCFG->defaultprecision;
+else
+	$dfGoal = $mootyper->requiredgoal;
+$goalPO = optional_param('requiredgoal', $dfGoal, PARAM_INT);
 require_login($course, true, $cm);
 $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
@@ -110,7 +133,8 @@ echo $OUTPUT->heading($mootyper->name);
 //$grds = get_typergradesfull($_GET['sid']);
 $htmlout = '';
 $htmlout .= '<form id="setupform" name="setupform" method="POST">';
-$htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td><td><select onchange="this.form.submit()" name="mode">';
+$disSelect = $ePO == 1 ? ' disabled="disabled"' : '';
+$htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td><td><select'.$disSelect.' onchange="this.form.submit()" name="mode">';
 //$lessons = get_typerlessons();
 
 if(has_capability('mod/mootyper:editall', get_context_instance(CONTEXT_COURSE, $course->id)))
@@ -124,7 +148,7 @@ if($modePO == 0 || is_null($modePO))
             get_string('sflesson', 'mootyper').'</option><option value="1">'.
             get_string('isexamtext', 'mootyper').'</option>';
     $htmlout .= '</select></td></tr><tr><td>';
-    $htmlout .= get_string('excategory', 'mootyper').'</td><td><select onchange="this.form.submit()" name="lesson">';
+    $htmlout .= get_string('excategory', 'mootyper').'</td><td><select'.$disSelect.' onchange="this.form.submit()" name="lesson">';
     for($ij=0; $ij<count($lessons); $ij++)
     {
 		if($lessons[$ij]['id'] == $lessonPO)
@@ -160,7 +184,7 @@ else if($modePO == 1)
 	}
     $htmlout .= '</select></td></tr>';
 }
-$htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>';
+$htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>'.$showKeyboardPO.'</td><td>';
 if($showKeyboardPO == 'on'){
 	$htmlout .= '<input type="checkbox" checked="checked" onchange="this.form.submit()" name="showkeyboard">';
 	$layouts = get_keyboard_layouts_db();

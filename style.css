@@ -379,4 +379,36 @@ vertical-align: middle;
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
-}                   
+}     
+
+.arrow-n,
+.arrow-e,
+.arrow-s,
+.arrow-w {
+  border-style: dashed;
+  border-color: transparent;
+  border-width: 0.53em;
+  display: -moz-inline-box;
+  display: inline-block;
+  font-size: 100px;
+  height: 0;
+  line-height: 0;
+  position: relative;
+  vertical-align: middle;
+  left: 3px;
+  width: 0;
+}
+
+.arrow-n {
+  border-bottom-width: 0.7em;
+  border-bottom-style: solid;
+  border-bottom-color: #666;
+  bottom: 0.25em;
+}
+                    
+.arrow-s {
+  border-top-width: 0.7em;
+  border-top-style: solid;
+  border-top-color: #666;
+  top: 0.25em;
+}              

@@ -38,6 +38,7 @@ $string['pluginadministration'] = 'MooTyper Administracija';
 $string['pluginname'] = 'MooTyper';
 $string['fexercise'] = 'Vaja';
 $string['fsecurity'] = 'Varnost';
+$string['fsettings'] = 'Uredi';
 $string['mootyperopentime'] = 'Začetek';
 $string['mootyperclosetime'] = 'Konec';
 $string['requirepassword'] = 'Zahteva geslo';

@@ -70,7 +70,7 @@ function get_users_of_one_instance($mootyperID)
     return FALSE;
 }
 
-function get_typer_grades_adv($mootyperID, $exerciseID, $userID=0)
+function get_typer_grades_adv($mootyperID, $exerciseID, $userID=0, $orderby=-1, $desc=FALSE)
 {
 	global $DB, $CFG;
     $params = array();
@@ -88,6 +88,35 @@ function get_typer_grades_adv($mootyperID, $exerciseID, $userID=0)
     " LEFT JOIN ".$attTblName." ON ".$attTblName.".id = ".$gradesTblName.".attemptid".
     " WHERE (mootyper=".$mootyperID.") AND (exercise=".$exerciseID." OR ".$exerciseID."=0) AND".
     " (".$gradesTblName.".userid=".$userID." OR ".$userID."=0)";
+    if($orderby==0 || $orderby ==-1)
+		$oby = " ORDER BY ".$gradesTblName.".id";
+	else if($orderby==1)
+		$oby = " ORDER BY ".$usersTblName.".firstname";
+    else if($orderby==2)
+		$oby = " ORDER BY ".$usersTblName.".lastname";
+	else if($orderby==3)
+		$oby = " ORDER BY ".$attTblName.".suspicion";
+    else if($orderby==4)
+		$oby = " ORDER BY ".$gradesTblName.".mistakes";
+	else if($orderby==5)
+		$oby = " ORDER BY ".$gradesTblName.".timeinseconds";
+    else if($orderby==6)
+		$oby = " ORDER BY ".$gradesTblName.".hitsperminute";
+	else if($orderby==7)
+		$oby = " ORDER BY ".$gradesTblName.".fullhits";
+	else if($orderby==8)
+		$oby = " ORDER BY ".$gradesTblName.".precisionfield";
+	else if($orderby==9)
+		$oby = " ORDER BY ".$gradesTblName.".timetaken";
+	else if($orderby==10)
+		$oby = " ORDER BY ".$exerTblName.".exercisename";
+    else if($orderBy==11)
+		$oby = " ORDER BY ".$gradesTblName.".pass";
+    else
+		$oby = "";
+	$sql .= $oby;
+	if($desc)
+		$sql .= " DESC";
     if ($grades = $DB->get_records_sql($sql, $params)) {
         return $grades;
 	}
@@ -114,7 +143,7 @@ function get_grades_average($grads)
 	return $povprecje;
 }
 
-function get_typergradesfull($s_id, $orderby=-1) {
+function get_typergradesfull($s_id, $orderby=-1, $desc=FALSE) {
     global $DB, $CFG;
     $params = array();
     $toReturn = array();
@@ -124,37 +153,39 @@ function get_typergradesfull($s_id, $orderby=-1) {
     $attTblName = $CFG->prefix."mootyper_attempts";
     $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$attTblName.".suspicion, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".
-    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename, ".
+    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename".
     " FROM ".$gradesTblName.
     " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
     " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
     " LEFT JOIN ".$attTblName." ON ".$attTblName.".id = ".$gradesTblName.".attemptid".
     " WHERE mootyper=".$s_id;
-    if($orderby=="[]")
+    if($orderby==0 || $orderby ==-1)
 		$oby = " ORDER BY ".$gradesTblName.".id";
-    else if($orderby=="suspicion")
-		$oby = " ORDER BY ".$attTblName.".suspicion";
-    else if($orderby=="lastname")
+	else if($orderby==1)
+		$oby = " ORDER BY ".$usersTblName.".firstname";
+    else if($orderby==2)
 		$oby = " ORDER BY ".$usersTblName.".lastname";
-    else if($orderby=="mistakes")
-		$oby = " ORDER BY ".$gradesTblName.".mistakes";
-	else if($orderby=="timeinseconds")
-		$oby = " ORDER BY ".$gradesTblName.".timeinseconds";
-    else if($orderby=="hitsperminute")
-		$oby = " ORDER BY ".$gradesTblName.".hitsperminute";
-	else if($orderby=="fullhits")
-		$oby = " ORDER BY ".$gradesTblName.".fullhits";
-	else if($orderby=="precisionfield")
-		$oby = " ORDER BY ".$gradesTblName.".precisionfield";
-	else if($orderby=="timetaken")
-		$oby = " ORDER BY ".$gradesTblName.".timetaken";
-	else if($orderby=="exercisename")
-		$oby = " ORDER BY ".$exerTblName.".exercisename";
-	else if($orderby=="suspicion")
+	else if($orderby==3)
 		$oby = " ORDER BY ".$attTblName.".suspicion";
+    else if($orderby==4)
+		$oby = " ORDER BY ".$gradesTblName.".mistakes";
+	else if($orderby==5)
+		$oby = " ORDER BY ".$gradesTblName.".timeinseconds";
+    else if($orderby==6)
+		$oby = " ORDER BY ".$gradesTblName.".hitsperminute";
+	else if($orderby==7)
+		$oby = " ORDER BY ".$gradesTblName.".fullhits";
+	else if($orderby==8)
+		$oby = " ORDER BY ".$gradesTblName.".precisionfield";
+	else if($orderby==9)
+		$oby = " ORDER BY ".$gradesTblName.".timetaken";
+	else if($orderby==10)
+		$oby = " ORDER BY ".$exerTblName.".exercisename";
     else
 		$oby = "";
 	$sql .= $oby;
+	if($desc)
+		$sql .= " DESC";
     if ($grades = $DB->get_records_sql($sql, $params)) {
         return $grades;
 	}
