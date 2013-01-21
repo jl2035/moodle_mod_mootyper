@@ -114,7 +114,7 @@ function get_grades_average($grads)
 	return $povprecje;
 }
 
-function get_typergradesfull($s_id, $orderby="[]") {
+function get_typergradesfull($s_id, $orderby=-1) {
     global $DB, $CFG;
     $params = array();
     $toReturn = array();
@@ -125,7 +125,6 @@ function get_typergradesfull($s_id, $orderby="[]") {
     $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$attTblName.".suspicion, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".
     $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename, ".
-    $attTblName.".suspicion".
     " FROM ".$gradesTblName.
     " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
     " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
@@ -133,8 +132,26 @@ function get_typergradesfull($s_id, $orderby="[]") {
     " WHERE mootyper=".$s_id;
     if($orderby=="[]")
 		$oby = " ORDER BY ".$gradesTblName.".id";
+    else if($orderby=="suspicion")
+		$oby = " ORDER BY ".$attTblName.".suspicion";
     else if($orderby=="lastname")
 		$oby = " ORDER BY ".$usersTblName.".lastname";
+    else if($orderby=="mistakes")
+		$oby = " ORDER BY ".$gradesTblName.".mistakes";
+	else if($orderby=="timeinseconds")
+		$oby = " ORDER BY ".$gradesTblName.".timeinseconds";
+    else if($orderby=="hitsperminute")
+		$oby = " ORDER BY ".$gradesTblName.".hitsperminute";
+	else if($orderby=="fullhits")
+		$oby = " ORDER BY ".$gradesTblName.".fullhits";
+	else if($orderby=="precisionfield")
+		$oby = " ORDER BY ".$gradesTblName.".precisionfield";
+	else if($orderby=="timetaken")
+		$oby = " ORDER BY ".$gradesTblName.".timetaken";
+	else if($orderby=="exercisename")
+		$oby = " ORDER BY ".$exerTblName.".exercisename";
+	else if($orderby=="suspicion")
+		$oby = " ORDER BY ".$attTblName.".suspicion";
     else
 		$oby = "";
 	$sql .= $oby;
