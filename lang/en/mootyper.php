@@ -101,4 +101,5 @@ $string['reqfield'] = 'Required field';
 $string['excategory'] = 'Exercises category';
 $string['removeall'] = 'Remove all from ';
 $string['removeconfirm'] = 'You are about to completly remove ';
+$string['wpm'] = 'WPM';
 

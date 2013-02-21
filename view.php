@@ -73,19 +73,19 @@ if($mootyper->lesson != NULL)
 
 if($mootyper->isexam)
 {
-    $insertDir = $CFG->wwwroot . '/mod/mootyper/gadd.php';
     $exercise_ID = $mootyper->exercise;
     $exercise = get_exercise_record($exercise_ID);
     $textToEnter = $exercise->texttotype; //"N=".$n." exercise_ID=".$mootyper->exercise." fjajfjfjfj name=".$mootyper->name." fjfjfjfjfj";
+    $insertDir = $CFG->wwwroot . '/mod/mootyper/gadd.php?words='.str_word_count($textToEnter);
 }
 else
 {
 	$reqiredGoal = $mootyper->requiredgoal;
-	$insertDir = $CFG->wwwroot . '/mod/mootyper/gcnext.php';
 	$exercise = get_exercise_from_mootyper($mootyper->id, $mootyper->lesson, $USER->id);
 	if($exercise != FALSE){
 	$exercise_ID = $exercise->id;
 	$textToEnter = $exercise->texttotype;}
+	$insertDir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?words='.str_word_count($textToEnter);
 }
 if(exam_already_done($mootyper, $USER->id) && $mootyper->isexam)
 {

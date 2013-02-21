@@ -44,7 +44,8 @@
 		<FIELD NAME="timetaken" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="exercise" PREVIOUS="precisionfield"/>
 		<FIELD NAME="exercise" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="pass" PREVIOUS="timetaken"/> 
 		<FIELD NAME="pass" TYPE="int" LENGTH="1" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" NEXT="attemptid" PREVIOUS="exercise"/>
-		<FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="pass"/>
+		<FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="pass" NEXT="wpm"/>
+		<FIELD NAME="wpm" TYPE="number" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="attemptid"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

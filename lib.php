@@ -81,7 +81,7 @@ function get_typer_grades_adv($mootyperID, $exerciseID, $userID=0, $orderby=-1, 
     $attTblName = $CFG->prefix."mootyper_attempts";
     $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$gradesTblName.".pass, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".$attTblName.".suspicion, ".
-    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename".
+    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename, ".$gradesTblName.".wpm".
     " FROM ".$gradesTblName.
     " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
     " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
@@ -110,8 +110,10 @@ function get_typer_grades_adv($mootyperID, $exerciseID, $userID=0, $orderby=-1, 
 		$oby = " ORDER BY ".$gradesTblName.".timetaken";
 	else if($orderby==10)
 		$oby = " ORDER BY ".$exerTblName.".exercisename";
-    else if($orderBy==11)
+    else if($orderby==11)
 		$oby = " ORDER BY ".$gradesTblName.".pass";
+	else if($orderby==12)
+		$oby = " ORDER BY ".$gradesTblName.".wpm";
     else
 		$oby = "";
 	$sql .= $oby;
@@ -153,7 +155,7 @@ function get_typergradesfull($s_id, $orderby=-1, $desc=FALSE) {
     $attTblName = $CFG->prefix."mootyper_attempts";
     $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$attTblName.".suspicion, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".
-    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename".
+    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename, ".$gradesTblName.".wpm".
     " FROM ".$gradesTblName.
     " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
     " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
@@ -181,6 +183,8 @@ function get_typergradesfull($s_id, $orderby=-1, $desc=FALSE) {
 		$oby = " ORDER BY ".$gradesTblName.".timetaken";
 	else if($orderby==10)
 		$oby = " ORDER BY ".$exerTblName.".exercisename";
+	else if($orderby==12)
+		$oby = " ORDER BY ".$gradesTblName.".wpm";
     else
 		$oby = "";
 	$sql .= $oby;

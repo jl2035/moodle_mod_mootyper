@@ -86,6 +86,7 @@ if($mootyper->isexam)
 	$arrTextAdds[7] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
 	$arrTextAdds[8] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
 	$arrTextAdds[9] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
+	$arrTextAdds[12] = '<span class="arrow-s" style="font-size:1em;"></span>';
 	$arrTextAdds[$orderBy] = $des == -1 || $des == 1 ? 
 		'<span class="arrow-s" style="font-size:1em;"></span>' : 
 		'<span class="arrow-n" style="font-size:1em;"></span>';
@@ -97,15 +98,18 @@ if($mootyper->isexam)
 		get_string('hitsperminute', 'mootyper').'</a>'.$arrTextAdds[6].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=7'.$lnkAdd.'">'.
 		get_string('fullhits', 'mootyper').'</a>'.$arrTextAdds[7].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=8'.$lnkAdd.'">'.
 		get_string('precision', 'mootyper').'</a>'.$arrTextAdds[8].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=9'.$lnkAdd.'">'.
-		get_string('timetaken', 'mootyper').'</a>'.$arrTextAdds[9].'</td></tr>';
+		get_string('timetaken', 'mootyper').'</a>'.$arrTextAdds[9].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkAdd.'">'.
+		get_string('wpm', 'mootyper').'</a>'.$arrTextAdds[12].'</td><td>'.get_string('eremove', 'mootyper').'</td></tr>';
 		foreach($grds as $gr)
 		{
 			if($gr->suspicion)
 				$klicaj = '<span style="color: red;">!!!!!</span>';
 			else
 				$klicaj = '';
+			
+			$remove_lnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.$_GET['id'].'&m_id='.$_GET['n'].'&g='.$gr->id.'">'.get_string('eremove', 'mootyper').'</a>';
 			$htmlout .= '<tr style="border-top-style: solid;"><td>'.$klicaj.' '.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->mistakes.'</td><td>'.$gr->timeinseconds.
-			' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td></tr>';
+			' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td><td>'.$gr->wpm.'</td><td>'.$remove_lnk.'</td></tr>';
 		}
 		$avg = get_grades_avg($grds);
 		$htmlout .= '<tr style="border-top-style: solid;"><td><strong>'.get_string('average', 'mootyper').': </strong></td><td>'.$avg['mistakes'].'</td><td>'.$avg['timeinseconds'].' s</td><td>'.$avg['hitsperminute'].'</td><td>'.$avg['fullhits'].'</td><td>'.$avg['precisionfield'].'%</td><td></td></tr>';
@@ -184,6 +188,7 @@ else
 		$arrTextAdds[9] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
 		$arrTextAdds[10] = '<span class="arrow-s" style="font-size:1em;"></span>';
 		$arrTextAdds[11] = '<span class="arrow-s" style="font-size:1em;"></span>';
+		$arrTextAdds[12] = '<span class="arrow-s" style="font-size:1em;"></span>';
 		$arrTextAdds[$orderBy] = $des == -1 || $des == 1 ? 
 			'<span class="arrow-s" style="font-size:1em;"></span>' : 
 			'<span class="arrow-n" style="font-size:1em;"></span>';
@@ -196,7 +201,8 @@ else
 		get_string('hitsperminute', 'mootyper').'</a>'.$arrTextAdds[6].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=7'.$lnkAdd.'">'.
 		get_string('fullhits', 'mootyper').'</a>'.$arrTextAdds[7].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=8'.$lnkAdd.'">'.
 		get_string('precision', 'mootyper').'</a>'.$arrTextAdds[8].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=9'.$lnkAdd.'">'.
-		get_string('timetaken', 'mootyper').'</a>'.$arrTextAdds[9].'</td></tr>';
+		get_string('timetaken', 'mootyper').'</a>'.$arrTextAdds[9].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkAdd.'">'.
+		get_string('wpm', 'mootyper').'</a>'.$arrTextAdds[12].'</td><td>'.get_string('eremove', 'mootyper').'</td></tr>';
 		foreach($grds as $gr)
 		{
 			if($gr->suspicion)
@@ -207,8 +213,9 @@ else
 				$stil = 'background-color: #7FEF6C;';
 			else
 				$stil = 'background-color: #FF6C6C;';
+			$remove_lnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.$_GET['id'].'&m_id='.$_GET['n'].'&g='.$gr->id.'">'.get_string('eremove', 'mootyper').'</a>';
 			$htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$klicaj.' '.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->exercisename.'</td><td>'.$gr->mistakes.'</td><td>'.
-			$gr->timeinseconds.' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td></tr>';
+			$gr->timeinseconds.' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td><td>'.$gr->wpm.'</td><td>'.$remove_lnk.'</td></tr>';
 		}
 		$avg = get_grades_avg($grds);
 		$htmlout .= '<tr style="border-top-style: solid;"><td><strong>'.get_string('average', 'mootyper').': </strong></td><td>&nbsp;</td><td>'.$avg['mistakes'].'</td><td>'.$avg['timeinseconds'].' s</td><td>'.$avg['hitsperminute'].'</td><td>'.$avg['fullhits'].'</td><td>'.$avg['precisionfield'].'%</td><td></td></tr>';
