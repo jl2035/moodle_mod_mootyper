@@ -154,7 +154,8 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 								<strong><?php echo get_string('rprogress', 'mootyper'); ?></strong> <span id="jsProgress"> 0</span><br>
 								<strong><?php echo get_string('rmistakes', 'mootyper'); ?></strong> <span id="jsMistakes">0</span><br>
 								<strong><?php echo get_string('rprecision', 'mootyper'); ?></strong> <span id="jsAcc"> 0</span>%<br>
-								<strong><?php echo get_string('rhitspermin', 'mootyper'); ?></strong> <span id="jsSpeed">0</span>
+								<strong><?php echo get_string('rhitspermin', 'mootyper'); ?></strong> <span id="jsSpeed">0</span><br>
+								<strong><?php echo get_string('wpm', 'mootyper'); ?></strong>: <span id="jsWpm">0</span>
 								<br>
 							</div>
 							<br><input style="visibility: hidden;" id="btnContinue" name='btnContinue' type="submit" value=<?php echo "'".get_string('fcontinue', 'mootyper')."'"; ?>> 

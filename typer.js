@@ -35,10 +35,14 @@ function doKonec()
 	document.form1.rpFullHits.value = (fullText.length + napake);
 	document.form1.rpTimeInput.value = samoSekunde;
 	document.form1.rpMistakesInput.value = napake;
+	var speed = izracunajHitrost(samoSekunde);
 	document.form1.rpAccInput.value = izracunajTocnost(fullText, napake).toFixed(2);
-	document.form1.rpSpeedInput.value = izracunajHitrost(samoSekunde);
+	document.form1.rpSpeedInput.value = speed;
 	document.form1.tb1.disabled="disabled";	
 	document.form1.btnContinue.style.visibility="visible";
+	var wpm = (speed / 5) - napake;
+	document.getElementById('jsWpm').innerHTML = wpm.toFixed(2);
+	alert(wpm);
 	var request = makeHttpObject();
     var rpAttId = document.form1.rpAttId.value;
     var juri =  app_url+"/mod/mootyper/atchk.php?status=3&attemptid="+rpAttId;
