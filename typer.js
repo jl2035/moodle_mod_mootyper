@@ -42,7 +42,7 @@ function doKonec()
 	document.form1.btnContinue.style.visibility="visible";
 	var wpm = (speed / 5) - napake;
 	document.getElementById('jsWpm').innerHTML = wpm.toFixed(2);
-	alert(wpm);
+	//alert(wpm);
 	var request = makeHttpObject();
     var rpAttId = document.form1.rpAttId.value;
     var juri =  app_url+"/mod/mootyper/atchk.php?status=3&attemptid="+rpAttId;

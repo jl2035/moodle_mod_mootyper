@@ -68,7 +68,18 @@ function xmldb_mootyper_upgrade($oldversion) {
     // and to play with the XMLDB Editor (in the admin menu) and its
     // PHP generation posibilities.
 
+//<!--FIELD NAME="wpm" TYPE="number" LENGTH="10" NOTNULL="false" UNSIGNED="true" -->
+
     // First example, some fields were added to install.xml on 2007/04/01
+    if($oldversion < 2013012100) {
+		$table = new xmldb_table('mootyper_grades');
+        $field = new xmldb_field('wpm', XMLDB_TYPE_NUMBER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '0', 'attemptid');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        upgrade_mod_savepoint(true, 2013012100, 'mootyper');
+	}
+    
     if ($oldversion < 2007040100) {
 
         // Define field course to be added to mootyper
