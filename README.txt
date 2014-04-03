@@ -1,5 +1,6 @@
 This is the README file for the MooTyper project. MooTyper is
 a moodle extension, that adds the 'typing instructor' functionallity to Moodle. 
+The plugin url is: https://moodle.org/plugins/view.php?plugin=mod_mootyper
 
 MooTyper is a free software just like Moodle.
 
