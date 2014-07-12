@@ -94,6 +94,13 @@ $capabilities = array(
 			'manager' => CAP_ALLOW
 		)
 	),
+	'mod/mootyper:viewmygrades' => array(
+		'captype' => 'read',
+		'contextlevel' => CONTEXT_MODULE,
+		'legacy' => array(
+			'student' => CAP_ALLOW
+		)
+	),
 	'mod/mootyper:aftersetup' => array(
 		'captype' => 'write',
 		'contextlevel' => CONTEXT_MODULE,

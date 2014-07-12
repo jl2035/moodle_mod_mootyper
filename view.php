@@ -137,6 +137,10 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 				$jlnk6 = $CFG->wwwroot."/mod/mootyper/mod_setup.php?n=".$mootyper->id."&e=1";
 				echo '<a href="'.$jlnk6.'">'.get_string('fsettings', 'mootyper').'</a><br><br>';
 			}
+			if (has_capability('mod/mootyper:viewmygrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
+				$jlnk7 = $CFG->wwwroot."/mod/mootyper/owngrades.php?id=".$id."&n=".$mootyper->id;
+				echo '<a href="'.$jlnk7.'">'.get_string('viewmygrades', 'mootyper').'</a><br><br>';
+			}
 			?>
 							<input name='rpCourseId' type='hidden' value='<?php echo $course->id; ?>'>
 							<input name='rpSityperId' type='hidden' value='<?php echo $mootyper->id; ?>'>

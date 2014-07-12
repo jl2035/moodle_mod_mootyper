@@ -57,6 +57,7 @@ $string['eheading'] = 'Manage MooTyper exercises';
 $string['eaddnew'] = 'Add new exercise / category';
 $string['emanage'] = 'To manage exercises and categories click here';
 $string['viewgrades'] = 'View all grades';
+$string['viewmygrades'] = 'View my grades';
 $string['vmistakes'] = 'Mistakes';
 $string['student'] = 'Student';
 $string['timeinseconds'] = 'Time';

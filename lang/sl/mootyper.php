@@ -57,6 +57,7 @@ $string['eheading'] = 'MooTyper Administracija';
 $string['eaddnew'] = 'Dodaj novo vajo / kategorijo';
 $string['emanage'] = 'Upravljaj MooTyper vaje in kategorije / lekcije';
 $string['viewgrades'] = 'Poglej rezultate';
+$string['viewmygrades'] = 'Poglej rezultate';
 $string['vmistakes'] = 'Napake';
 $string['student'] = 'Učenec';
 $string['timeinseconds'] = 'Čas';
