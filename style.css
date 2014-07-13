@@ -30,6 +30,11 @@ div#mainDiv
 text-align:center;
 width: 100%;
 }
+div#mainDiv table td
+{
+padding-right: 7px;
+text-align: center;
+}
 div#textToEnter
 {
 width: 100%;

@@ -47,8 +47,9 @@ if ($id) {
 }
 
 require_login($course, true, $cm);
-$context = get_context_instance(CONTEXT_MODULE, $cm->id);
-add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id);
+//$context = get_context_instance(CONTEXT_MODULE, $cm->id); 
+$context = context_module::instance($cm->id); 
+//add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id); //D
 
 /// Print the page header
 
@@ -91,10 +92,14 @@ if(exam_already_done($mootyper, $USER->id) && $mootyper->isexam)
 {
 	echo get_string('examdone', 'mootyper');
 	echo "<br>";
-	if (has_capability('mod/mootyper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
+	if (has_capability('mod/mootyper:viewgrades', context_module::instance($course->id))) {
 		$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&n='.$mootyper->id;
 		echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
     }
+    if (has_capability('mod/mootyper:viewmygrades', context_module::instance($course->id))) {
+		$jlnk7 = $CFG->wwwroot."/mod/mootyper/owngrades.php?id=".$id."&n=".$mootyper->id;
+		echo '<a href="'.$jlnk7.'">'.get_string('viewmygrades', 'mootyper').'</a><br><br>';
+	}
 }
 else if($exercise != FALSE)
 {
@@ -129,15 +134,15 @@ echo '<script type="text/javascript" src="typer.js"></script>';
 </div>				
 <div id="reportDiv" style="float: right; /*position: relative; right: 90px; top: 35px;*/">
 											<?php
-			if (has_capability('mod/mootyper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
+			if (has_capability('mod/mootyper:viewgrades', context_module::instance($course->id))) {
 				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&n='.$mootyper->id;;
 				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
 			}
-			if (has_capability('mod/mootyper:aftersetup', get_context_instance(CONTEXT_COURSE, $course->id))) {
+			if (has_capability('mod/mootyper:aftersetup', context_module::instance($course->id))) {
 				$jlnk6 = $CFG->wwwroot."/mod/mootyper/mod_setup.php?n=".$mootyper->id."&e=1";
 				echo '<a href="'.$jlnk6.'">'.get_string('fsettings', 'mootyper').'</a><br><br>';
 			}
-			if (has_capability('mod/mootyper:viewmygrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
+			if (has_capability('mod/mootyper:viewmygrades', context_module::instance($course->id))) {
 				$jlnk7 = $CFG->wwwroot."/mod/mootyper/owngrades.php?id=".$id."&n=".$mootyper->id;
 				echo '<a href="'.$jlnk7.'">'.get_string('viewmygrades', 'mootyper').'</a><br><br>';
 			}
@@ -199,7 +204,7 @@ else
 {
 	echo get_string('endlesson', 'mootyper');
 	echo "<br>";
-	if (has_capability('mod/mootyper:viewgrades', get_context_instance(CONTEXT_COURSE, $course->id))) {
+	if (has_capability('mod/mootyper:viewgrades', context_module::instance($course->id))) {
 				$jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$id.'&n='.$mootyper->id;
 				echo '<a href="'.$jlnk4.'">'.get_string('viewgrades', 'mootyper').'</a><br><br>';
     }
@@ -213,7 +218,7 @@ else
 }
 else
 {
-	if (has_capability('mod/mootyper:setup', get_context_instance(CONTEXT_COURSE, $course->id)))
+	if (has_capability('mod/mootyper:setup', context_module::instance($course->id)))
 	{
 		$vaLnk = $CFG->wwwroot."/mod/mootyper/mod_setup.php?n=".$mootyper->id;
 		echo '<a href="'.$vaLnk.'">'.get_string('fsetup', 'mootyper').'</a>';

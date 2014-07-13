@@ -197,6 +197,59 @@ function get_typergradesfull($s_id, $orderby=-1, $desc=FALSE) {
     //select Message.ID, Message.FromUser, User.PhoneNum, User.Nick, Message.Contents, Message.Type from Message left join User on Message.FromUser = User.ID where Message.ID=".$msgID"
 }
 
+function get_typergradesuser($s_id, $u_id, $orderby=-1, $desc=FALSE) {
+    global $DB, $CFG;
+    $params = array();
+    $toReturn = array();
+    $gradesTblName = $CFG->prefix."mootyper_grades";
+    $usersTblName = $CFG->prefix."user";
+    $exerTblName = $CFG->prefix."mootyper_exercises";
+    $attTblName = $CFG->prefix."mootyper_attempts";
+    $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$attTblName.".suspicion, ".
+    $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".
+    $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".pass, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename, ".$gradesTblName.".wpm".
+    " FROM ".$gradesTblName.
+    " LEFT JOIN ".$usersTblName." ON ".$gradesTblName.".userid = ".$usersTblName.".id".
+    " LEFT JOIN ".$exerTblName." ON ".$gradesTblName.".exercise = ".$exerTblName.".id".
+    " LEFT JOIN ".$attTblName." ON ".$attTblName.".id = ".$gradesTblName.".attemptid".
+    " WHERE mootyper=".$s_id." AND ".$gradesTblName.".userid=".$u_id;
+    if($orderby==0 || $orderby ==-1)
+		$oby = " ORDER BY ".$gradesTblName.".id";
+	else if($orderby==1)
+		$oby = " ORDER BY ".$usersTblName.".firstname";
+    else if($orderby==2)
+		$oby = " ORDER BY ".$usersTblName.".lastname";
+	else if($orderby==3)
+		$oby = " ORDER BY ".$attTblName.".suspicion";
+    else if($orderby==4)
+		$oby = " ORDER BY ".$gradesTblName.".mistakes";
+	else if($orderby==5)
+		$oby = " ORDER BY ".$gradesTblName.".timeinseconds";
+    else if($orderby==6)
+		$oby = " ORDER BY ".$gradesTblName.".hitsperminute";
+	else if($orderby==7)
+		$oby = " ORDER BY ".$gradesTblName.".fullhits";
+	else if($orderby==8)
+		$oby = " ORDER BY ".$gradesTblName.".precisionfield";
+	else if($orderby==9)
+		$oby = " ORDER BY ".$gradesTblName.".timetaken";
+	else if($orderby==10)
+		$oby = " ORDER BY ".$exerTblName.".exercisename";
+	else if($orderby==12)
+		$oby = " ORDER BY ".$gradesTblName.".wpm";
+    else
+		$oby = "";
+	$sql .= $oby;
+	if($desc)
+		$sql .= " DESC";
+    if ($grades = $DB->get_records_sql($sql, $params)) {
+        return $grades;
+	}
+    return FALSE;
+    //select Message.ID, Message.FromUser, User.PhoneNum, User.Nick, Message.Contents, Message.Type from Message left join User on Message.FromUser = User.ID where Message.ID=".$msgID"
+}
+
+
 /**
  * Saves a new instance of the mootyper into the database
  *
