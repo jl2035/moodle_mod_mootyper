@@ -53,7 +53,7 @@ if ($id) {
     error('You must specify a course_module ID or an instance ID');
 }
 require_login($course, true, $cm);
-$context = get_context_instance(CONTEXT_MODULE, $cm->id);
+$context = context_module::instance($cm->id);
 $PAGE->set_url('/mod/mootyper/gview.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($mootyper->name));
 $PAGE->set_heading(format_string($course->fullname));

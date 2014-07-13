@@ -97,7 +97,7 @@ $PAGE->set_cacheable(false);
 echo $OUTPUT->header();
 // action="?id='.$id.'&ins=true"
 $lessonsG = get_typerlessons();
-if(has_capability('mod/mootyper:editall', get_context_instance(CONTEXT_COURSE, $course->id)))
+if(has_capability('mod/mootyper:editall', context_module::instance($course->id)))
 {
 	$lessons = $lessonsG;
 }

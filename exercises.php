@@ -79,7 +79,7 @@ $lessonPO = optional_param('lesson', 0, PARAM_INT);
 $jlnk2 = $webDir = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id;
 echo '<a href="'.$jlnk2.'">'.get_string('eaddnew', 'mootyper').'</a><br><br>';
 //$lessons = get_typerlessons();
-if(has_capability('mod/mootyper:editall', get_context_instance(CONTEXT_COURSE, $course->id)))
+if(has_capability('mod/mootyper:editall', context_module::instance($course->id)))
 	$lessons = get_typerlessons();
 else
 	$lessons = get_mootyperlessons($USER->id, $id);

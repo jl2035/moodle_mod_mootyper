@@ -63,7 +63,7 @@ else
 	$dfGoal = $mootyper->requiredgoal;
 $goalPO = optional_param('requiredgoal', $dfGoal, PARAM_INT);
 require_login($course, true, $cm);
-$context = get_context_instance(CONTEXT_MODULE, $cm->id);
+$context = context_module::instance($cm->id);
 
 if(isset($_POST['button']))
 $param1 = $_POST['button'];
@@ -137,7 +137,7 @@ $disSelect = $ePO == 1 ? ' disabled="disabled"' : '';
 $htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td><td><select'.$disSelect.' onchange="this.form.submit()" name="mode" id="mode">';
 //$lessons = get_typerlessons();
 
-if(has_capability('mod/mootyper:editall', get_context_instance(CONTEXT_COURSE, $course->id)))
+if(has_capability('mod/mootyper:editall', context_module::instance($course->id)))
 	$lessons = get_typerlessons();
 else
 	$lessons = get_mootyperlessons($USER->id, $course->id);
