@@ -138,9 +138,34 @@ if($lessonPO == -1){
 ?>
 
 <script type="text/javascript">
+function isLetter(str) {
+  return str.length === 1 && str.match(/[a-z]/i);
+}
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+var passthru = true;
+
 function clClick()
 {
-	if(document.getElementById("lessonname").value == ""){
+	var exercise_text = document.getElementById("texttotype").value;
+	var allowed_chars = ['!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','|','{','}','>','<','?','\'','-','/','=','.',' '];
+	var shown_text = "";
+	passthru = true;
+	for(var i=0; i<exercise_text.length; i++) {
+		if(!isLetter(exercise_text[i]) && !isNumber(exercise_text[i]) && allowed_chars.indexOf(exercise_text[i]) == -1) {
+			shown_text += '<span style="color: red;">'+exercise_text[i]+'</span>';
+			passthru = false;
+		}
+		else
+			shown_text += exercise_text[i];
+	}
+	if(!passthru) {
+		document.getElementById('text_holder_span').innerHTML = shown_text;
+		return false;
+	}
+	if(document.getElementById("lessonname").value == "") {
 		document.getElementById("namemsg").innerHTML = '<?php echo get_string('reqfield', 'mootyper'); ?>';
 		return false;
 	}
@@ -150,9 +175,8 @@ function clClick()
 </script>
 
 <?php
-//echo '<br><br>'.get_string('ename', 'mootyper').'<input type="text" name="exercisename">';
-echo '<br><br>'.get_string('fexercise', 'mootyper').':<br>'.
-	 '<textarea rows="4" cols="40" name="texttotype"></textarea><br>'.
+echo '<br><span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
+	 '<textarea rows="4" cols="40" name="texttotype" id="texttotype"></textarea><br>'.
 	 '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
 
