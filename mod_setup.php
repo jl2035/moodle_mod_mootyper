@@ -137,7 +137,7 @@ $disSelect = $ePO == 1 ? ' disabled="disabled"' : '';
 $htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td><td><select'.$disSelect.' onchange="this.form.submit()" name="mode" id="mode">';
 //$lessons = get_typerlessons();
 
-if(has_capability('mod/mootyper:editall', context_module::instance($course->id)))
+if(has_capability('mod/mootyper:editall', context_module::instance($cm->id)))
 	$lessons = get_typerlessons();
 else
 	$lessons = get_mootyperlessons($USER->id, $course->id);
