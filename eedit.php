@@ -62,10 +62,44 @@ $PAGE->set_title(get_string('etitle', 'mootyper'));
 $PAGE->set_heading(get_string('eheading', 'mootyper'));
 $PAGE->set_cacheable(false);
 echo $OUTPUT->header();
-$exerciseToEdit = $DB->get_record('mootyper_exercises', array('id' => $exercise_ID), 'texttotype', MUST_EXIST);
-echo '<form method="POST">';
-echo '<br>'.get_string('fexercise', 'mootyper').':<br>'.
-	 '<textarea name="texttotype">'.$exerciseToEdit->texttotype.'</textarea><br>'.
-	 '<br><input name="button" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
+$exerciseToEdit = $DB->get_record('mootyper_exercises', array('id' => $exercise_ID), 'texttotype', MUST_EXIST); ?>
+
+<script type="text/javascript">
+function isLetter(str) {
+	var pattern = /[a-zčšžđć]/i;
+	return str.length === 1 && str.match(pattern);
+}
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+var ok = true;
+
+function clClick()
+{
+	var exercise_text = document.getElementById("texttotype").value;
+	var allowed_chars = ['!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','{','}','>','<','?','\'','-','/','=','.',',',' ','|'];
+	var shown_text = "";
+	ok = true;
+	for(var i=0; i<exercise_text.length; i++) {
+		if(!isLetter(exercise_text[i]) && !isNumber(exercise_text[i]) && allowed_chars.indexOf(exercise_text[i]) == -1) {
+			shown_text += '<span style="color: red;">'+exercise_text[i]+'</span>';
+			ok = false;
+		}
+		else
+			shown_text += exercise_text[i];
+	}
+	if(!ok) {
+		document.getElementById('text_holder_span').innerHTML = shown_text;
+		return false;
+	}
+	else 
+		return true;
+}
+</script>
+<?php echo '<form method="POST">';
+echo '<span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
+	 '<textarea name="texttotype" id="texttotype">'.$exerciseToEdit->texttotype.'</textarea><br>'.
+	 '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
 echo $OUTPUT->footer();
