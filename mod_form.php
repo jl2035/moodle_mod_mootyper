@@ -50,7 +50,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
 		global $CFG, $COURSE;
         $mform->addElement('date_time_selector', 'timeopen', get_string('mootyperopentime', 'mootyper'), array('optional' => true, 'step' => 1));
         $mform->addElement('date_time_selector', 'timeclose', get_string('mootyperclosetime', 'mootyper'), array('optional' => true, 'step' => 1));
-        $mform->addElement('passwordunmask', 'password', get_string('requirepassword', 'mootyper'));
+        //$mform->addElement('passwordunmask', 'password', get_string('requirepassword', 'mootyper'));
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
         $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
         $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
