@@ -45,7 +45,7 @@ else {
 }
 
 require_login($course, true);
-//$context = get_context_instance(CONTEXT_MODULE, $cm->id);
+$context = context_course::instance($id);
 
 //add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id);
 
@@ -63,31 +63,22 @@ $PAGE->set_cacheable(false);
 
 // Output starts here
 echo $OUTPUT->header();
-
-
-
-
-
 require_once(dirname(__FILE__).'/locallib.php');
+
 $lessonPO = optional_param('lesson', 0, PARAM_INT);
-
-
-
-
-
-
-$jlnk2 = $webDir = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id;
+$jlnk2 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id;
 echo '<a href="'.$jlnk2.'">'.get_string('eaddnew', 'mootyper').'</a><br><br>';
 //$lessons = get_typerlessons();
-if(has_capability('mod/mootyper:editall', context_module::instance($course->id)))
+/*if(has_capability('mod/mootyper:editall', context_module::instance($id)))
 	$lessons = get_typerlessons();
-else
-	$lessons = get_mootyperlessons($USER->id, $id);
+else */
+$lessons = get_mootyperlessons($USER->id, $id);
 	
 if($lessonPO == 0 && count($lessons) > 0)
 	$lessonPO = $lessons[0]['id'];
 echo '<form method="post">';
 echo get_string('excategory', 'mootyper').': <select onchange="this.form.submit()" name="lesson">';
+$selected_lesson_index = 0;
 for($ij=0; $ij<count($lessons); $ij++)
 {
 	if($lessons[$ij]['id'] == $lessonPO)
@@ -121,12 +112,5 @@ foreach($exercises as $ex)
 	echo '</tr>';
 }
 echo '</table>';
-
-
-
-
-
-
-
 
 echo $OUTPUT->footer();

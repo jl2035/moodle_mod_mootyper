@@ -63,7 +63,7 @@ $capabilities = array(
 	
 	'mod/mootyper:editall' => array(
 		'captype' => 'write',
-		'contextlevel' => CONTEXT_MODULE,
+		'contextlevel' => CONTEXT_COURSE,
 		'legacy' => array(
 			'manager' => CAP_ALLOW
 		)

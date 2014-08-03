@@ -35,13 +35,10 @@ require_once(dirname(__FILE__).'/locallib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
 
-if ($id) {
-    //$cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+if ($id)
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
-}
-else {
+else
     error('You must specify a course_module ID or an instance ID');
-}
 require_login($course, true);
 $lessonPO = optional_param('lesson', -1, PARAM_INT);
 if(isset($_POST['button']))
@@ -97,18 +94,14 @@ $PAGE->set_cacheable(false);
 echo $OUTPUT->header();
 // action="?id='.$id.'&ins=true"
 $lessonsG = get_typerlessons();
-if(has_capability('mod/mootyper:editall', context_module::instance($course->id)))
-{
+if(has_capability('mod/mootyper:editall', context_course::instance($course->id)))
 	$lessons = $lessonsG;
-}
 else
 {
 	$lessons = array();
 	foreach($lessonsG as $lsnG)
-	{
 		if(is_editable_by_me($USER->id, $lsnG['id']))
 			$lessons[] = $lsnG;
-	}
 }
 echo '<form method="POST">';
 echo get_string('fnewexercise', 'mootyper').'&nbsp;';

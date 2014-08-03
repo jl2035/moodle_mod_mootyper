@@ -108,10 +108,17 @@ function get_mootyperlessons($u, $c)
     $lsToReturn = array();           // DETERMINE IF USER IS INSIDE A COURSE???
     $sql = "SELECT id, lessonname
               FROM ".$CFG->prefix."mootyper_lessons
-              WHERE (((visible = 2 AND authorid = ".$u.") OR
+              WHERE ((visible = 2 AND authorid = ".$u.") OR
                     (visible = 1 AND ".is_user_enrolled($u, $c).") OR
-                    (visible = 0)) OR ".can_view_edit_all($u, $c).")
+                    (".can_view_edit_all($u, $c)."))
               ORDER BY id";
+	/*
+	/// This was taken out, because we have some context_module::instance confusion
+	  OR
+                    (visible = 0)) OR ".can_view_edit_all($u, $c).")
+    /// ... was added again 
+                    
+	*/
     if ($lessons = $DB->get_records_sql($sql, $params)) 
         foreach ($lessons as $ex) {
 			$lss = array();
@@ -125,9 +132,9 @@ function get_mootyperlessons($u, $c)
 function can_view_edit_all($usr, $c)
 {
 	if($c == 0) 
-		$cnt = context_module::instance(CONTEXT_SYSTEM);
+		$cnt = context_course::instance(CONTEXT_SYSTEM);
 	else
-		$cnt = context_module::instance($c);
+		$cnt = context_course::instance($c);    ///!!!!THIS IS NOW FIXED????!!!!
 	if(has_capability('mod/mootyper:editall', $cnt))
 		return 1;
 	else
