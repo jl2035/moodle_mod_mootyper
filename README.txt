@@ -48,4 +48,4 @@ For more info please visit the plugins wiki on github:
 https://github.com/jl2035/moodle_mod_mootyper/wiki
 
 This plugin is being maintained for 3 years now, by only one person, so
-donations are welcome: 1EHY4bD2hwfeygfVCoah1JzVWgPNyHfk6s
+donations are welcome: 1LxKs67fXMQemeAsSx3ancVZGtRD7kKBEE
