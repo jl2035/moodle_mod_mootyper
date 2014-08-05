@@ -13,9 +13,8 @@ var show_keyboard;
 
 function moveCursor(nextPos)
 {
-	if(nextPos > 0 && nextPos <= fullText.length){
+	if(nextPos > 0 && nextPos <= fullText.length)
 		document.getElementById('crka'+(nextPos-1)).className = "txtZeleno";
-		}
 	if(nextPos < fullText.length)
 		document.getElementById('crka'+(nextPos)).className = "txtModro";
 }
@@ -52,17 +51,13 @@ function doKonec()
 
 function getPressedChar(e)
 {
-	var keynum
-	var keychar
-	var numcheck
+	var keynum;
+	var keychar;
+	var numcheck;
 	if(window.event) // IE
-	{
-	    keynum = e.keyCode
-	}
+	    keynum = e.keyCode;
 	else if(e.which) // Netscape/Firefox/Opera
-	{
-	    keynum = e.which
-	}
+	    keynum = e.which;
 	if(keynum == 13)
 		keychar = '\n';
 	else
@@ -76,6 +71,7 @@ function focusSet(e)
 	{
 		document.form1.tb1.value=''; 
 		if(show_keyboard){
+			alert('da show = true '+fullText[0]);
 			var thisEl = new keyboardElement(fullText[0]);
 			thisEl.turnOn();
 		}
@@ -142,6 +138,7 @@ function gumbPritisnjen(e)
 	if(keychar == trenutniChar || ((trenutniChar == '\n' || trenutniChar == '\r\n' || trenutniChar == '\n\r' || trenutniChar == '\r') && (keychar == ' ')))
 	{
 		if(show_keyboard){
+			alert('da show = true');
 			var thisE = new keyboardElement(trenutniChar);
 			thisE.turnOff();
 		}
@@ -205,16 +202,20 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 	fullText = ttext;
 	app_url = turl;
 	var tempStr="";
+	alert('init going'+tinprogress);
 	if(tinprogress){
 		document.form1.rpAttId.value = tattemptid;
 		startTime = new Date(tstarttime*1000);
 		napake = tmistakes;
 		trenutnaPos = (thits - tmistakes);   //!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	    trenutniChar = fullText[trenutnaPos];
+	    alert('4');
 	    if(show_keyboard){
+			alert('show = true'+trenutniChar+" ["+trenutnaPos+"]");
 			var nextE = new keyboardElement(trenutniChar);
 			nextE.turnOn();
 		}
+		alert('5');
 	    started = true;
 	    intervalID = setInterval('updTimeSpeed()', 1000);
 	    interval2ID = setInterval('doCheck()', 3000);
@@ -226,6 +227,7 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 			else
 				tempStr += "<span id='crka"+i+"' class='txtZeleno'>"+tChar+"</span>";
 		}
+		alert('6');
 		tempStr += "<span id='crka"+trenutnaPos+"' class='txtModro'>"+trenutniChar+"</span>";
 		for(var j=trenutnaPos+1; j<ttext.length; j++)
 		{
@@ -236,6 +238,7 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 				tempStr += "<span id='crka"+j+"' class='txtRdece'>"+tChar+"</span>";
 		}
 		document.getElementById('textToEnter').innerHTML = tempStr;
+		alert('1 done');
 	}
 	else
 	{
@@ -252,6 +255,7 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 		}
 		document.getElementById('textToEnter').innerHTML = tempStr;
 	}
+	alert('init done');
 }
 
 function isDigit(aChar)

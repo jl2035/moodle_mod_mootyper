@@ -1,6 +1,6 @@
 function keyboardElement(ltr)
 {
-	//alert("Trenutni char: "+trenutniChar);
+	alert("Trenutni char: "+ltr);
 	this.chr = ltr.toLowerCase();
 	this.alt = false;
 	if(isLetter(ltr))
@@ -37,7 +37,7 @@ function keyboardElement(ltr)
 		}
 		if(this.alt)
 			document.getElementById('jkeyaltgr').className="nextSpace";
-    }
+    };
     this.turnOff = function () {
 		if(isLetter(this.chr))
         {
@@ -58,7 +58,7 @@ function keyboardElement(ltr)
 		}
 		if(this.alt)
 			document.getElementById('jkeyaltgr').className="normal";
-	}
+	};
 }
 
 function dobiFinger(t_crka)
