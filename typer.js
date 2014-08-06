@@ -106,11 +106,9 @@ function doStart() {
 function gumbPritisnjen(e) {
 	if(ended)
 		return false;
-	if(!started){
+	if(!started)
 		doStart();
-	}
 	var keychar = getPressedChar(e);
-	//alert(keychar);
 	if(keychar == trenutniChar || ((trenutniChar == '\n' || trenutniChar == '\r\n' || trenutniChar == '\n\r' || trenutniChar == '\r') && (keychar == ' ')))
 	{
 		if(show_keyboard){
@@ -128,6 +126,8 @@ function gumbPritisnjen(e) {
 				var nextE = new keyboardElement(nextChar);
 				nextE.turnOn();
 			}
+			if(isCombined(nextChar))
+				$("#form1").on("keyup", "#tb1", function(e) { keyup(e); });
 		}
 		moveCursor(trenutnaPos+1);
 		trenutniChar = fullText[trenutnaPos+1];
@@ -136,8 +136,7 @@ function gumbPritisnjen(e) {
 	}
 	else if(keychar == ' ')  //I don't remember why we're having this if
 		return false;
-	else
-	{
+	else {
 		napake++;
 		return false;
 	}

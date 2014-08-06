@@ -126,7 +126,7 @@ if ($mootyper->lesson != NULL) {
 ?>
 <br />
     <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)" onkeypress="return gumbPritisnjen(event)"  
-            onpaste="return false" onselectstart="return false" onkeyup="return keyup(event)"
+            onpaste="return false" onselectstart="return false"
             onCopy="return false" onCut="return false" 
             onDrag="return false" onDrop="return false" autocomplete="off"><?php
         echo get_string('chere', 'mootyper') . '...'; ?></textarea>

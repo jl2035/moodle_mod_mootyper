@@ -1,7 +1,3 @@
-function isCombined(chr) {
-	
-}
-
 function keyboardElement(ltr) {
 	this.chr = ltr.toLowerCase();
 	this.alt = false;
@@ -23,9 +19,8 @@ function keyboardElement(ltr) {
 	}
 	if(ltr == 'è' || ltr == 'é' || ltr == 'à')
 		this.shift = true;
-	if(ltr == 'î' || ltr == 'â') {
+	if(ltr == 'â' || ltr == 'î' || ltr == 'ô' || ltr == 'ê')
 		this.pow = true;
-	}
 	if(ltr == 'Ö' || ltr == 'Ä' || ltr == 'Ü' || ltr == 'Ë') {
 		this.uppercase_umlaut = true;
 		this.shift = false;
@@ -59,7 +54,7 @@ function keyboardElement(ltr) {
 			document.getElementById('jkeygerklicaj').className = 'normal';
 			document.getElementById('jkey'+ukey).className = 'normal';
 		}
-		else if(this.chr == 'a' || this.chr == 's' || this.chr == 'd' || this.chr == 'f' ||
+		else if(this.chr == 'a' || this.chr == 'â' || this.chr == 's' || this.chr == 'd' || this.chr == 'f' ||
 			this.chr == 'j' || this.chr == 'k' || this.chr == 'l' || this.chr == 'ö' || this.chr == 'é')
 			document.getElementById(dobiTipkoId(this.chr)).className = "finger"+dobiFinger(this.chr.toLowerCase());
 		else 
@@ -78,9 +73,61 @@ function keyboardElement(ltr) {
 	};
 }
 
+function combinedIsEqual(a, b) {
+	if(a == 'A' && (b=='â' || b=='ä' || b=='Â' || b=='Ä'))
+		return true;
+	else if(a == 'O' && (b=='ô' || b=='ö' || b=='Ô' || b=='Ö'))
+		return true;
+	else if(a == 'E' && (b=='ê' || b=='ë' || b=='Ê' || b=='Ë'))
+		return true;
+	else if(a == 'I' && (b=='î' || b=='ï' || b=='Î' || b=='Ï'))
+		return true;
+	else
+		return false;
+}
+
+function isCombined(chr) {
+	return (chr == 'â' || chr == 'î' || chr == 'ô' || chr == 'ê');
+}
+
 function keyup(e) {
-	alert(e.which);
-	return true;
+	if(ended)
+		return false;
+	if(!started)
+		doStart();
+	var keychar = getPressedChar(e);
+	if(keychar == null)
+		return false;
+	if(combinedIsEqual(keychar, trenutniChar)){
+		$("#form1").off("keyup", "#tb1");
+		if(show_keyboard){
+			var thisE = new keyboardElement(trenutniChar);
+			thisE.turnOff();
+		}
+		if(trenutnaPos == fullText.length-1)    //KONEC
+		{   
+			doKonec();
+			return true;
+		}
+		if(trenutnaPos < fullText.length-1){
+			var nextChar = fullText[trenutnaPos+1];
+			if(show_keyboard){
+				var nextE = new keyboardElement(nextChar);
+				nextE.turnOn();
+			}
+			if(isCombined(nextChar))
+				$("#form1").on("keyup", "#tb1", function(e) { keyup(e); });
+		}
+		moveCursor(trenutnaPos+1);
+		trenutniChar = fullText[trenutnaPos+1];
+		trenutnaPos++;
+		return true;	
+	}
+	else
+	{
+		napake++;
+		return false;
+	}
 }
 
 function convertFromUpperUmlaut(c) {
@@ -96,14 +143,14 @@ function convertFromUpperUmlaut(c) {
 		return null;
 }
 
-function dobiFinger(t_crka) {
+function dobiFinger(t_crka) {    //ltr == 'â' || ltr == 'î' || ltr == 'ô' || ltr == 'ê'
 	if(t_crka == ' ')
 		return 5;
-	else if(t_crka == 'q' || t_crka == 'a' || t_crka == 'p' || t_crka == 'ö' || t_crka == 'ä' || t_crka == 'ü' || t_crka == 'è' || t_crka == 'é' || t_crka == 'à' || t_crka == '$' || t_crka == '¨' || t_crka == 'y' || t_crka == '1' || t_crka == '2' || t_crka == '\'' || t_crka == '+' || t_crka == '?' || t_crka == '@' || t_crka == '\n' || t_crka == '-' || t_crka == '_' || t_crka == '<' || t_crka == '>' || t_crka == '!' || t_crka == '°' || t_crka == 'â')
+	else if(t_crka == 'q' || t_crka == 'a' || t_crka == 'â' || t_crka == 'p' || t_crka == 'ö' || t_crka == 'ä' || t_crka == 'ü' || t_crka == 'è' || t_crka == 'é' || t_crka == 'à' || t_crka == '$' || t_crka == '¨' || t_crka == 'y' || t_crka == '1' || t_crka == '2' || t_crka == '\'' || t_crka == '+' || t_crka == '?' || t_crka == '@' || t_crka == '\n' || t_crka == '-' || t_crka == '_' || t_crka == '<' || t_crka == '>' || t_crka == '!' || t_crka == '°' || t_crka == 'â')
 		return 4;
-	else if(t_crka == 'w' || t_crka == 's' || t_crka == 'x' || t_crka == ':' || t_crka == 'l' || t_crka == 'o' || t_crka == '0' || t_crka == '3' || t_crka == '#' || t_crka == '=' || t_crka == '.' || t_crka == '*')
+	else if(t_crka == 'w' || t_crka == 's' || t_crka == 'x' || t_crka == ':' || t_crka == 'l' || t_crka == 'o' || t_crka == '0' || t_crka == '3' || t_crka == '#' || t_crka == '=' || t_crka == '.' || t_crka == '*' || t_crka == 'ô')
 		return 3;
-	else if(t_crka == 'd' || t_crka == 'e' || t_crka == 'c' || t_crka == '4' || t_crka == 'k' || t_crka == 'i' || t_crka == '9' || t_crka == ',' || t_crka == ')' || t_crka == ';' || t_crka == 'ç' || t_crka == 'î')
+	else if(t_crka == 'd' || t_crka == 'e' || t_crka == 'c' || t_crka == '4' || t_crka == 'k' || t_crka == 'i' || t_crka == '9' || t_crka == ',' || t_crka == ')' || t_crka == ';' || t_crka == 'ç' || t_crka == 'î' || t_crka == 'ê')
 		return 2;
 	else if(t_crka == 'r' || t_crka == 't' || t_crka == 'f' || t_crka == 'v' || t_crka == 'b' || t_crka == 'g' || t_crka == '5' || t_crka == '6' || t_crka == '7' || t_crka == '8' || t_crka == 'j' || t_crka == 'h' || t_crka == 'n' || t_crka == 'm' || t_crka == 'u' || t_crka == 'z' || t_crka == '%' || t_crka == '&' || t_crka == '/' || t_crka == '(')
 		return 1;
@@ -164,6 +211,10 @@ function dobiTipkoId(t_crka) {
 		return "jkeyi";
 	else if(t_crka == 'â')
 		return "jkeya";
+	else if(t_crka == 'ô')
+		return "jkeyo";
+	else if(t_crka == 'ê')
+		return "jkeye";
 	else
 		return "jkey"+t_crka;
 }
