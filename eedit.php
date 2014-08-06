@@ -66,7 +66,7 @@ $exerciseToEdit = $DB->get_record('mootyper_exercises', array('id' => $exercise_
 
 <script type="text/javascript">
 function isLetter(str) {
-	var pattern = /[a-zčšžđćüöäèéàçâ]/i;
+	var pattern = /[a-zčšžđćüöäèéàçâêîô]/i;
 	return str.length === 1 && str.match(pattern);
 }
 function isNumber(n) {
@@ -82,9 +82,16 @@ function clClick()
 	var shown_text = "";
 	ok = true;
 	for(var i=0; i<exercise_text.length; i++) {
-		if(!isLetter(exercise_text[i]) && !isNumber(exercise_text[i]) && allowed_chars.indexOf(exercise_text[i]) == -1) {
+		if((exercise_text[i] != '\n' && exercise_text[i] != '\r\n' && exercise_text[i] != '\n\r' && exercise_text[i] != '\r') && !isLetter(exercise_text[i]) && !isNumber(exercise_text[i]) && allowed_chars.indexOf(exercise_text[i]) == -1) {
 			shown_text += '<span style="color: red;">'+exercise_text[i]+'</span>';
 			ok = false;
+			/*var text = (i-3)+'-'+exercise_text[i-3]+"\n";
+			text += (i-2)+'-'+exercise_text[i-2]+"\n";
+			text += (i-1)+'-'+exercise_text[i-1]+"\n";
+			text += i+'-'+exercise_text[i]+"\n";
+			text += (i+1)+'-'+exercise_text[i+1]+"\n";
+			text += (i+2)+'-'+exercise_text[i+2];
+			alert(text);*/
 		}
 		else
 			shown_text += exercise_text[i];

@@ -65,8 +65,7 @@ function getPressedChar(e) {
 }
 
 function focusSet(e) {
-	if(!started)
-	{
+	if(!started) {
 		$('#tb1').val('');
 		if(show_keyboard){
 			var thisEl = new keyboardElement(fullText[0]);
@@ -99,8 +98,7 @@ function doStart() {
     var rpUser = $('input[name="rpUser"]').val();
     var juri =  app_url+"/mod/mootyper/atchk.php?status=1&mootyperid="+rpMootyperId+"&userid="+rpUser+"&time="+(startTime.getTime()/1000);
     $.get(juri, function( data ) { 
-		if (request.readyState==4 && request.status==200)
-			document.form1.rpAttId.value = request.responseText;		
+		$('input[name="rpAttId"]').val(data);
 	});
 	interval2ID = setInterval('doCheck()', 4000);
 }
@@ -112,6 +110,7 @@ function gumbPritisnjen(e) {
 		doStart();
 	}
 	var keychar = getPressedChar(e);
+	//alert(keychar);
 	if(keychar == trenutniChar || ((trenutniChar == '\n' || trenutniChar == '\r\n' || trenutniChar == '\n\r' || trenutniChar == '\r') && (keychar == ' ')))
 	{
 		if(show_keyboard){
@@ -135,7 +134,7 @@ function gumbPritisnjen(e) {
 		trenutnaPos++;
 	    return true;	
 	}
-	else if(keychar == ' ')  //Don't remember why we're having this if
+	else if(keychar == ' ')  //I don't remember why we're having this if
 		return false;
 	else
 	{
@@ -174,20 +173,16 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 	fullText = ttext;
 	app_url = turl;
 	var tempStr="";
-	//alert('init going'+tinprogress);
 	if(tinprogress) {
 		$('input[name="rpAttId"]').val(tattemptid);
 		startTime = new Date(tstarttime*1000);
 		napake = tmistakes;
 		trenutnaPos = (thits - tmistakes);   //!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	    trenutniChar = fullText[trenutnaPos];
-	    //alert('4');
 	    if(show_keyboard) {
-			//alert('show = true'+trenutniChar+" ["+trenutnaPos+"]");
 			var nextE = new keyboardElement(trenutniChar);
 			nextE.turnOn();
 		}
-		//alert('5');
 	    started = true;
 	    intervalID = setInterval('updTimeSpeed()', 1000);
 	    interval2ID = setInterval('doCheck()', 3000);
@@ -198,10 +193,8 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 			else
 				tempStr += "<span id='crka"+i+"' class='txtZeleno'>"+tChar+"</span>";
 		}
-		//alert('6');
 		tempStr += "<span id='crka"+trenutnaPos+"' class='txtModro'>"+trenutniChar+"</span>";
-		for(var j=trenutnaPos+1; j<ttext.length; j++)
-		{
+		for(var j=trenutnaPos+1; j<ttext.length; j++) {
 			var tChar = ttext[j];
 			if(tChar == '\n')
 				tempStr += "<span id='crka"+j+"' class='txtRdece'>&darr;</span><br>";

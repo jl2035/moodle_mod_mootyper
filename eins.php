@@ -25,9 +25,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-//require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-//require_once(dirname(__FILE__).'/lib.php');
 global $USER;
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
@@ -132,7 +129,7 @@ if($lessonPO == -1){
 
 <script type="text/javascript">
 function isLetter(str) {
-	var pattern = /[a-zčšžđćüöäèéàçâ]/i;
+	var pattern = /[a-zčšžđćüöäèéàçâêîô]/i;
 	return str.length === 1 && str.match(pattern);
 }
 function isNumber(n) {

@@ -38,20 +38,12 @@ $n = optional_param('n', 0, PARAM_INT); // mootyper instance ID - it should be n
 
 if ($id) {
     $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
-    $course = $DB->get_record('course', array(
-        'id' => $cm->course
-    ) , '*', MUST_EXIST);
-    $mootyper = $DB->get_record('mootyper', array(
-        'id' => $cm->instance
-    ) , '*', MUST_EXIST);
+    $course = $DB->get_record('course', array('id' => $cm->course) , '*', MUST_EXIST);
+    $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
 }
 elseif ($n) {
-    $mootyper = $DB->get_record('mootyper', array(
-        'id' => $n
-    ) , '*', MUST_EXIST);
-    $course = $DB->get_record('course', array(
-        'id' => $mootyper->course
-    ) , '*', MUST_EXIST);
+    $mootyper = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
+    $course = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
     $cm = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 }
 else {
@@ -134,7 +126,7 @@ if ($mootyper->lesson != NULL) {
 ?>
 <br />
     <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)" onkeypress="return gumbPritisnjen(event)"  
-            onpaste="return false" onselectstart="return false"
+            onpaste="return false" onselectstart="return false" onkeyup="return keyup(event)"
             onCopy="return false" onCut="return false" 
             onDrag="return false" onDrop="return false" autocomplete="off"><?php
         echo get_string('chere', 'mootyper') . '...'; ?></textarea>

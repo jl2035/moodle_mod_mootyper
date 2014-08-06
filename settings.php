@@ -37,9 +37,4 @@ if ($ADMIN->fulltree) {
 		$precs[] = $i;
 	}
 	$settings->add(new admin_setting_configselect('mootyper/defaultprecision', get_string('defaultprecision', 'mootyper'), '', 97, $precs));
-    //$settings->add(new admin_setting_configcheckbox('forum_replytouser', get_string('replytouser', 'forum'),
-      //                 get_string('configreplytouser', 'forum'), 1));
-    
-    //require_once($CFG->dirroot.'/mod/mootyper/exercises.php');  
-    
 }
