@@ -132,7 +132,7 @@ if($lessonPO == -1){
 
 <script type="text/javascript">
 function isLetter(str) {
-	var pattern = /[a-zčšžđć]/i;
+	var pattern = /[a-zčšžđćüöäèéàçâ]/i;
 	return str.length === 1 && str.match(pattern);
 }
 function isNumber(n) {
