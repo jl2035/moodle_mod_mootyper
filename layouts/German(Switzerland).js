@@ -81,16 +81,34 @@ function keyboardElement(ltr) {
 }
 
 function combinedIsEqual(a, b) {
-	if(a == 'A' && (b=='â' || b=='ä' || b=='Â' || b=='Ä'))
-		return true;
-	else if(a == 'O' && (b=='ô' || b=='ö' || b=='Ô' || b=='Ö'))
-		return true;
-	else if(a == 'E' && (b=='ê' || b=='ë' || b=='Ê' || b=='Ë'))
-		return true;
-	else if(a == 'I' && (b=='î' || b=='ï' || b=='Î' || b=='Ï'))
-		return true;
-	else if(a == 'U' && (b=='Ü' || b=='Û'))
-		return true;
+	if(b=='â' || b=='ô' || b=='ê' || b=='î' || b=='û' || b=='Â' || b=='Ô' || b=='Ê' || b=='Î' || b=='Û'){
+		if(a == 'A' && (b=='â' || b=='Â'))
+			return true;
+		else if(a == 'O' && (b=='ô' || b=='Ô'))
+			return true;
+		else if(a == 'E' && (b=='ê' || b=='Ê'))
+			return true;
+		else if(a == 'I' && (b=='î' || b=='Î'))
+			return true;
+		else if(a == 'U' && (b=='û' || b=='Û'))
+			return true;
+		else
+			return false;
+	}
+	else if(b=='ä' || b=='ö' || b=='ë' || b=='ï' || b=='ü' || b=='Ä' || b=='Ö' || b=='Ë' || b=='Ï' || b=='Ü') {
+		if(a == 'A' && (b=='ä' || b=='Ä'))
+			return true;
+		else if(a == 'O' && (b=='ö' || b=='Ö'))
+			return true;
+		else if(a == 'E' && (b=='ë' || b=='Ë'))
+			return true;
+		else if(a == 'I' && (b=='ï' || b=='Ï'))
+			return true;
+		else if(a == 'U' && (b=='ü' || b=='Ü'))
+			return true;
+		else
+			return false;
+	}	
 	else
 		return false;
 }
@@ -99,7 +117,7 @@ function isCombined(chr) {
 	return (chr == 'â' || chr == 'î' || chr == 'ô' || chr == 'ê' || chr == 'Ü' || chr == 'Ä' || chr == 'Ö' || chr == 'Ë' || chr == 'Û' || chr == 'Â' || chr == 'Ô' || chr == 'Ê');
 }
 
-function keyup(e) {
+function keyupCombined(e) {
 	if(ended)
 		return false;
 	if(!started)
@@ -109,9 +127,9 @@ function keyup(e) {
 		combinedChar = true;
 		return true;
 	}
-	if(combinedChar && combinedIsEqual(keychar, trenutniChar)){
-		$("#form1").off("keyup", "#tb1");
-		$("#form1").on("keypress", "#tb1", gumbPritisnjen);
+	var isItEqual = combinedIsEqual(keychar, trenutniChar);
+	//alert(isItEqual+" "+keychar+" "+trenutniChar);
+	if(combinedChar && isItEqual && ((trenutniChar.toUpperCase() == trenutniChar && e.shiftKey) || (trenutniChar.toUpperCase() != trenutniChar))) {
 		if(show_keyboard){
 			var thisE = new keyboardElement(trenutniChar);
 			thisE.turnOff();
@@ -127,21 +145,32 @@ function keyup(e) {
 				var nextE = new keyboardElement(nextChar);
 				nextE.turnOn();
 			}
-			if(isCombined(nextChar))
-				$("#form1").on("keyup", "#tb1", function(e) { keyup(e); });
+			if(!isCombined(nextChar)) {            //If next char is not combined char
+				$("#form1").off("keyup", "#tb1");
+				$("#form1").on("keypress", "#tb1", gumbPritisnjen);
+				
+			}
 		}
+		combinedChar = false;
 		moveCursor(trenutnaPos+1);
 		trenutniChar = fullText[trenutnaPos+1];
 		trenutnaPos++;
-		combinedChar = false;
 		return true;
 	}
 	else
 	{
 		combinedChar = false;
 		napake++;
+		var tbval = $('#tb1').val();
+		$('#tb1').val(tbval.substring(0, trenutnaPos));
 		return false;
-	}
+	}	
+}
+
+function keyupFirst(event) {
+	$("#form1").off("keyup", "#tb1", keyupFirst);
+	$("#form1").on("keyup", "#tb1", keyupCombined);
+	return false;
 }
 
 function convertFromUpperUmlaut(c) {

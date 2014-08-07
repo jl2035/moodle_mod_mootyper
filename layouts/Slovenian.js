@@ -1,3 +1,15 @@
+function isCombined(chr) {
+	return false;
+}
+
+function keyupCombined(e) {
+	return false;	
+}
+
+function keyupFirst(event) {
+	return false;
+}
+
 function keyboardElement(ltr) {
 	this.chr = ltr.toLowerCase();
 	this.alt = false;
@@ -19,8 +31,6 @@ function keyboardElement(ltr) {
 	}
 	this.turnOn = function () { 
         if(this.chr == ' ') {
-			//$('#'+dobiTipkoId(this.chr)).removeClass('normal');
-			//$('#'+dobiTipkoId(this.chr)).addClass('next'+dobiFinger(this.chr.toLowerCase()));
 			document.getElementById(dobiTipkoId(this.chr)).className = "nextSpace";
 		}
 		else

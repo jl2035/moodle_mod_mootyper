@@ -1,3 +1,15 @@
+function isCombined(chr) {
+	return false;
+}
+
+function keyupCombined(e) {
+	return false;	
+}
+
+function keyupFirst(event) {
+	return false;
+}
+
 function keyboardElement(ltr)
 {
 	this.chr = ltr.toLowerCase();

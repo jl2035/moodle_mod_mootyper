@@ -105,10 +105,6 @@ function doStart() {
 	interval2ID = setInterval('doCheck()', 4000);
 }
 
-$(document).ready(function() {
-	$("#form1").on("keypress", "#tb1", gumbPritisnjen);
-});
-
 function gumbPritisnjen(e) {
 	if(ended)
 		return false;
@@ -134,7 +130,7 @@ function gumbPritisnjen(e) {
 			}
 			if(isCombined(nextChar)) {
 				$("#form1").off("keypress", "#tb1", gumbPritisnjen);
-				$("#form1").on("keyup", "#tb1", function(e) { keyup(e); });
+				$("#form1").on("keyup", "#tb1", keyupFirst);
 			}
 		}
 		moveCursor(trenutnaPos+1);
@@ -176,6 +172,7 @@ function timeRazlika(t1, t2) {
 }
 
 function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard) {
+	$("#form1").on("keypress", "#tb1", gumbPritisnjen);
 	show_keyboard = tshowkeyboard;
 	fullText = ttext;
 	app_url = turl;
@@ -191,7 +188,7 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 			nextE.turnOn();
 			if(isCombined(trenutniChar)) {
 				$("#form1").off("keypress", "#tb1", gumbPritisnjen);
-				$("#form1").on("keyup", "#tb1", function(e) { keyup(e); });
+				$("#form1").on("keyup", "#tb1", keyupCombined);
 			}
 		}
 	    started = true;
@@ -223,8 +220,8 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 				tempStr += "<span id='crka"+i+"' class='txtModro'>"+tChar+"</span>";
 				if(isCombined(tChar)) {
 					$("#form1").off("keypress", "#tb1", gumbPritisnjen);
-					$("#form1").on("keyup", "#tb1", function(e) { keyup(e); });
-				}	
+					$("#form1").on("keyup", "#tb1", keyupCombined);
+				}
 			}
 			else if(tChar == '\n')
 				tempStr += "<span id='crka"+i+"' class='txtRdece'>&darr;</span><br>";
