@@ -85,7 +85,8 @@ if ($mootyper->lesson != NULL) {
             $exercise_ID = $exercise->id;
             $textToEnter = $exercise->texttotype;
         }
-        $insertDir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?words=' . str_word_count($textToEnter);
+        if(isset($textToEnter))
+			$insertDir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?words=' . str_word_count($textToEnter);
     }
     if (exam_already_done($mootyper, $USER->id) && $mootyper->isexam) {
         echo get_string('examdone', 'mootyper');
@@ -125,7 +126,7 @@ if ($mootyper->lesson != NULL) {
         }
 ?>
 <br />
-    <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)" onkeypress="return gumbPritisnjen(event)"  
+    <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)"  
             onpaste="return false" onselectstart="return false"
             onCopy="return false" onCut="return false" 
             onDrag="return false" onDrop="return false" autocomplete="off"><?php

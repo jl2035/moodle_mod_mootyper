@@ -59,6 +59,8 @@ function getPressedChar(e) {
 	    keynum = e.which;
 	if(keynum == 13)
 		keychar = '\n';
+	else if(!keynum)
+		keychar = '[not_yet_defined]';
 	else
 		keychar = String.fromCharCode(keynum);
 	return keychar;
@@ -103,6 +105,10 @@ function doStart() {
 	interval2ID = setInterval('doCheck()', 4000);
 }
 
+$(document).ready(function() {
+	$("#form1").on("keypress", "#tb1", gumbPritisnjen);
+});
+
 function gumbPritisnjen(e) {
 	if(ended)
 		return false;
@@ -126,8 +132,10 @@ function gumbPritisnjen(e) {
 				var nextE = new keyboardElement(nextChar);
 				nextE.turnOn();
 			}
-			if(isCombined(nextChar))
+			if(isCombined(nextChar)) {
+				$("#form1").off("keypress", "#tb1", gumbPritisnjen);
 				$("#form1").on("keyup", "#tb1", function(e) { keyup(e); });
+			}
 		}
 		moveCursor(trenutnaPos+1);
 		trenutniChar = fullText[trenutnaPos+1];
@@ -181,6 +189,10 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 	    if(show_keyboard) {
 			var nextE = new keyboardElement(trenutniChar);
 			nextE.turnOn();
+			if(isCombined(trenutniChar)) {
+				$("#form1").off("keypress", "#tb1", gumbPritisnjen);
+				$("#form1").on("keyup", "#tb1", function(e) { keyup(e); });
+			}
 		}
 	    started = true;
 	    intervalID = setInterval('updTimeSpeed()', 1000);
@@ -207,8 +219,13 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 		{
 			var tChar = ttext[i];
 
-			if(i==0)
+			if(i==0) {
 				tempStr += "<span id='crka"+i+"' class='txtModro'>"+tChar+"</span>";
+				if(isCombined(tChar)) {
+					$("#form1").off("keypress", "#tb1", gumbPritisnjen);
+					$("#form1").on("keyup", "#tb1", function(e) { keyup(e); });
+				}	
+			}
 			else if(tChar == '\n')
 				tempStr += "<span id='crka"+i+"' class='txtRdece'>&darr;</span><br>";
 			else

@@ -1,3 +1,5 @@
+var combinedChar = false;
+
 function keyboardElement(ltr) {
 	this.chr = ltr.toLowerCase();
 	this.alt = false;
@@ -21,9 +23,14 @@ function keyboardElement(ltr) {
 		this.shift = true;
 	if(ltr == 'â' || ltr == 'î' || ltr == 'ô' || ltr == 'ê')
 		this.pow = true;
+	if(ltr == 'Ô' || ltr == 'Â' || ltr == 'Ê' || ltr == 'Û') {
+		this.shift = true;
+		this.alt = false;
+		this.pow = true;
+	}
 	if(ltr == 'Ö' || ltr == 'Ä' || ltr == 'Ü' || ltr == 'Ë') {
 		this.uppercase_umlaut = true;
-		this.shift = false;
+		this.shift = true;
 		this.alt = false;
 	}
 	this.turnOn = function () {
@@ -82,12 +89,14 @@ function combinedIsEqual(a, b) {
 		return true;
 	else if(a == 'I' && (b=='î' || b=='ï' || b=='Î' || b=='Ï'))
 		return true;
+	else if(a == 'U' && (b=='Ü' || b=='Û'))
+		return true;
 	else
 		return false;
 }
 
 function isCombined(chr) {
-	return (chr == 'â' || chr == 'î' || chr == 'ô' || chr == 'ê');
+	return (chr == 'â' || chr == 'î' || chr == 'ô' || chr == 'ê' || chr == 'Ü' || chr == 'Ä' || chr == 'Ö' || chr == 'Ë' || chr == 'Û' || chr == 'Â' || chr == 'Ô' || chr == 'Ê');
 }
 
 function keyup(e) {
@@ -96,10 +105,13 @@ function keyup(e) {
 	if(!started)
 		doStart();
 	var keychar = getPressedChar(e);
-	if(keychar == null)
-		return false;
-	if(combinedIsEqual(keychar, trenutniChar)){
+	if(keychar == '[not_yet_defined]') {
+		combinedChar = true;
+		return true;
+	}
+	if(combinedChar && combinedIsEqual(keychar, trenutniChar)){
 		$("#form1").off("keyup", "#tb1");
+		$("#form1").on("keypress", "#tb1", gumbPritisnjen);
 		if(show_keyboard){
 			var thisE = new keyboardElement(trenutniChar);
 			thisE.turnOff();
@@ -121,29 +133,31 @@ function keyup(e) {
 		moveCursor(trenutnaPos+1);
 		trenutniChar = fullText[trenutnaPos+1];
 		trenutnaPos++;
-		return true;	
+		combinedChar = false;
+		return true;
 	}
 	else
 	{
+		combinedChar = false;
 		napake++;
 		return false;
 	}
 }
 
 function convertFromUpperUmlaut(c) {
-	if(c == 'Ü')
+	if(c == 'Ü' || c == 'Û')
 		return 'u';
-	else if(c == 'Ä')
+	else if(c == 'Ä' || c == 'Â')
 		return 'a';
-	else if(c == 'Ö')
+	else if(c == 'Ö' || c == 'Ô')
 		return 'o';
-	else if(c == 'Ë')
+	else if(c == 'Ë' || c == 'Ê')
 		return 'e';
 	else
 		return null;
 }
 
-function dobiFinger(t_crka) {    //ltr == 'â' || ltr == 'î' || ltr == 'ô' || ltr == 'ê'
+function dobiFinger(t_crka) {
 	if(t_crka == ' ')
 		return 5;
 	else if(t_crka == 'q' || t_crka == 'a' || t_crka == 'â' || t_crka == 'p' || t_crka == 'ö' || t_crka == 'ä' || t_crka == 'ü' || t_crka == 'è' || t_crka == 'é' || t_crka == 'à' || t_crka == '$' || t_crka == '¨' || t_crka == 'y' || t_crka == '1' || t_crka == '2' || t_crka == '\'' || t_crka == '+' || t_crka == '?' || t_crka == '@' || t_crka == '\n' || t_crka == '-' || t_crka == '_' || t_crka == '<' || t_crka == '>' || t_crka == '!' || t_crka == '°' || t_crka == 'â')
@@ -215,6 +229,14 @@ function dobiTipkoId(t_crka) {
 		return "jkeyo";
 	else if(t_crka == 'ê')
 		return "jkeye";
+	else if(t_crka == 'Ü' || t_crka == 'Û')
+		return "jkeyu";
+	else if(t_crka == 'Ö' || t_crka == 'Ô')
+		return "jkeyo";
+	else if(t_crka == 'Ë' || t_crka == 'Ê')
+		return "jkeye";
+	else if(t_crka == 'Ä' || t_crka == 'Â')
+		return "jkeya";
 	else
 		return "jkey"+t_crka;
 }
