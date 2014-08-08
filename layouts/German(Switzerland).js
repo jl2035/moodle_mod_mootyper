@@ -80,39 +80,6 @@ function keyboardElement(ltr) {
 	};
 }
 
-function combinedIsEqual(a, b) {
-	if(b=='â' || b=='ô' || b=='ê' || b=='î' || b=='û' || b=='Â' || b=='Ô' || b=='Ê' || b=='Î' || b=='Û'){
-		if(a == 'A' && (b=='â' || b=='Â'))
-			return true;
-		else if(a == 'O' && (b=='ô' || b=='Ô'))
-			return true;
-		else if(a == 'E' && (b=='ê' || b=='Ê'))
-			return true;
-		else if(a == 'I' && (b=='î' || b=='Î'))
-			return true;
-		else if(a == 'U' && (b=='û' || b=='Û'))
-			return true;
-		else
-			return false;
-	}
-	else if(b=='ä' || b=='ö' || b=='ë' || b=='ï' || b=='ü' || b=='Ä' || b=='Ö' || b=='Ë' || b=='Ï' || b=='Ü') {
-		if(a == 'A' && (b=='ä' || b=='Ä'))
-			return true;
-		else if(a == 'O' && (b=='ö' || b=='Ö'))
-			return true;
-		else if(a == 'E' && (b=='ë' || b=='Ë'))
-			return true;
-		else if(a == 'I' && (b=='ï' || b=='Ï'))
-			return true;
-		else if(a == 'U' && (b=='ü' || b=='Ü'))
-			return true;
-		else
-			return false;
-	}	
-	else
-		return false;
-}
-
 function isCombined(chr) {
 	return (chr == 'â' || chr == 'î' || chr == 'ô' || chr == 'ê' || chr == 'Ü' || chr == 'Ä' || chr == 'Ö' || chr == 'Ë' || chr == 'Û' || chr == 'Â' || chr == 'Ô' || chr == 'Ê');
 }
@@ -127,9 +94,10 @@ function keyupCombined(e) {
 		combinedChar = true;
 		return true;
 	}
-	var isItEqual = combinedIsEqual(keychar, trenutniChar);
-	//alert(isItEqual+" "+keychar+" "+trenutniChar);
-	if(combinedChar && isItEqual && ((trenutniChar.toUpperCase() == trenutniChar && e.shiftKey) || (trenutniChar.toUpperCase() != trenutniChar))) {
+	var currentText = $('#tb1').val();
+	var lastChar = currentText.substring(currentText.length-1);
+	if(combinedChar && lastChar==trenutniChar) // && ((trenutniChar.toUpperCase() == trenutniChar && e.shiftKey) || (trenutniChar.toUpperCase() != trenutniChar))) 
+	{
 		if(show_keyboard){
 			var thisE = new keyboardElement(trenutniChar);
 			thisE.turnOff();

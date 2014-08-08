@@ -117,8 +117,8 @@ function gumbPritisnjen(e) {
 			var thisE = new keyboardElement(trenutniChar);
 			thisE.turnOff();
 		}
-		if(trenutnaPos == fullText.length-1)    //KONEC
-	    {   
+		if(trenutnaPos == fullText.length-1) {  //END
+			$('#tb1').val($('#tb1').val()+trenutniChar);
 			doKonec();
 			return true;
 	    }

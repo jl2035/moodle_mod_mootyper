@@ -10,8 +10,7 @@ function keyupFirst(event) {
 	return false;
 }
 
-function keyboardElement(ltr)
-{
+function keyboardElement(ltr) {
 	this.chr = ltr.toLowerCase();
 	this.alt = false;
 	if(isLetter(ltr))
@@ -67,8 +66,7 @@ function keyboardElement(ltr)
 	};
 }
 
-function dobiFinger(t_crka)
-{
+function dobiFinger(t_crka) {
 	if(t_crka == ' ')
 		return 5;
 	else if(t_crka == 'q' || t_crka == 'a' || t_crka == '1' ||  t_crka == '2' || t_crka == 'z' || t_crka == '<' || 
@@ -92,8 +90,7 @@ function dobiFinger(t_crka)
 		return 6;
 }
 
-function dobiTipkoId(t_crka)
-{
+function dobiTipkoId(t_crka) {
 	if(t_crka == ' ')
 		return "jkeyspace";
 	else if(t_crka == ',')
