@@ -103,4 +103,5 @@ $string['excategory'] = 'Exercises category';
 $string['removeall'] = 'Remove all from ';
 $string['removeconfirm'] = 'You are about to completly remove ';
 $string['wpm'] = 'WPM';
-
+$string['csvexport'] = 'Export to .csv';
+$string['gradesfilename'] = 'grades.csv';

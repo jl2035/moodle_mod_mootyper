@@ -102,3 +102,5 @@ $string['reqfield'] = 'Obvezno polje';
 $string['excategory'] = 'Kategorija';
 $string['removeall'] = 'Odstrani vse vaje iz ';
 $string['removeconfirm'] = 'Ali ste prepričani, da želite odstraniti celotno kategorijo ';
+$string['csvexport'] = 'Izvoz v .csv';
+$string['gradesfilename'] = 'rezultati.csv';

@@ -66,11 +66,10 @@ $htmlout = '';
 $htmlout .= '<div id="mainDiv">';
 if($mootyper->isexam)
 {
-	$grds = get_typergradesfull($_GET['n'], $orderBy, $des);
-	if($des == -1 || $des == 0)
-		$grds = get_typergradesfull($_GET['n'], $orderBy, 0);
-	else if($des == 1)
-		$grds = get_typergradesfull($_GET['n'], $orderBy, 1);
+	//$grds = get_typergradesfull($_GET['n'], $orderBy, $des);
+	if($des == -1)
+	    $des = 0;
+	$grds = get_typergradesfull($mootyper->id, $orderBy, $des);
 	
 	if($des == -1 || $des == 1){
 		$lnkAdd = "&desc=0";
@@ -120,8 +119,6 @@ if($mootyper->isexam)
 }
 else
 {
-	
-	
 	$htmlout .= '<form method="post">';
 	$htmlout .= '<table><tr><td>'.get_string('gviewmode', 'mootyper').'</td><td>';
 	$htmlout .= '<select onchange="this.form.submit()" name="jmode"><option value="0">'.get_string('byuser', 'mootyper').'</option>';
@@ -164,10 +161,9 @@ else
 		$htmlout .= '</select>';
 		$htmlout .= '</td></tr>';		
 	}		
-	if($des == -1 || $des == 0)
-		$grds = get_typer_grades_adv($mootyper->id, $se, $us, $orderBy, 0);
-	else if($des == 1)
-		$grds = get_typer_grades_adv($mootyper->id, $se, $us, $orderBy, 1);
+	if($des == -1)
+		$des = 0;
+	$grds = get_typer_grades_adv($mootyper->id, $se, $us, $orderBy, $des);
 		
 	if($grds != FALSE){
 		
@@ -227,6 +223,7 @@ else
 	$htmlout .= '</form>';
 }
 $htmlout .= '</div>';
+$htmlout .= '<p style="text-align: left;"><a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mootyper->id.'&isexam='.$mootyper->isexam.'">'.get_string('csvexport', 'mootyper').'</a></p>';
 echo $htmlout;
 echo $OUTPUT->footer();
 
