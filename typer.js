@@ -12,11 +12,12 @@ var app_url;
 var show_keyboard;
 
 function moveCursor(nextPos) {
-	if(nextPos > 0 && nextPos <= fullText.length)
+	if(nextPos > 0 && nextPos <= fullText.length) {
 		$('#crka'+(nextPos-1)).addClass('txtZeleno');
 		$('#crka'+(nextPos-1)).removeClass('txtModro');
 		$('#crka'+(nextPos-1)).removeClass('txtRdece');
 		//document.getElementById('crka'+(nextPos-1)).className = "txtZeleno";
+	}
 	if(nextPos < fullText.length)
 		$('#crka'+nextPos).addClass('txtModro');
 		//document.getElementById('crka'+(nextPos)).className = "txtModro";

@@ -97,14 +97,21 @@ function read_lessons_file($daFile, $authorid_arg, $visible_arg, $editable_arg, 
 	for($j=0; $j<count($splitted); $j++)
 	{
 		$vaja = trim($splitted[$j]);
+		$allowed = array('!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','{','}','>','<','?','\'','-','/','=','.',',',' ','|');
 		$nm = "".($j+1);
 		$textToType = "";
 		for($k=0; $k<strlen($vaja); $k++)
 		{
+			//TODO
+			// * if it is not a letter
+			// * and if it is not a number
+			// * compare against $allowed array
+			// *    if not included
+			// *        die; // or something
 			$ch = $vaja[$k];
-			/*if($ch == "\n")
+			if($ch == "\n")
 				$textToType .= '\n';
-			else*/
+			else
 				$textToType .= $ch;
 		}
 		$erecord = new stdClass();
