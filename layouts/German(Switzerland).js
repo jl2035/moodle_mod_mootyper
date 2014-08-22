@@ -1,4 +1,5 @@
 var combinedChar = false;
+var combinedCharWait = false;
 
 function keyboardElement(ltr) {
 	this.chr = ltr.toLowerCase();
@@ -94,16 +95,22 @@ function keyupCombined(e) {
 		combinedChar = true;
 		return true;
 	}
+	if(combinedCharWait) {
+		combinedCharWait = false;
+		return true;
+	}
 	var currentText = $('#tb1').val();
 	var lastChar = currentText.substring(currentText.length-1);
-	if(combinedChar && lastChar==trenutniChar) // && ((trenutniChar.toUpperCase() == trenutniChar && e.shiftKey) || (trenutniChar.toUpperCase() != trenutniChar))) 
+	if(combinedChar && lastChar==trenutniChar) 
+	// && ((trenutniChar.toUpperCase() == trenutniChar && e.shiftKey) || (trenutniChar.toUpperCase() != trenutniChar))) 
 	{
 		if(show_keyboard){
 			var thisE = new keyboardElement(trenutniChar);
 			thisE.turnOff();
+			if(thisE.shift)
+				combinedCharWait = true;
 		}
-		if(trenutnaPos == fullText.length-1)    //KONEC
-		{   
+		if(trenutnaPos == fullText.length-1) {   //END   
 			doKonec();
 			return true;
 		}
@@ -116,7 +123,6 @@ function keyupCombined(e) {
 			if(!isCombined(nextChar)) {            //If next char is not combined char
 				$("#form1").off("keyup", "#tb1");
 				$("#form1").on("keypress", "#tb1", gumbPritisnjen);
-				
 			}
 		}
 		combinedChar = false;

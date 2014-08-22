@@ -216,7 +216,7 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 		for(var i=0; i<ttext.length; i++)
 		{
 			var tChar = ttext[i];
-
+			
 			if(i==0) {
 				tempStr += "<span id='crka"+i+"' class='txtModro'>"+tChar+"</span>";
 				if(isCombined(tChar)) {
