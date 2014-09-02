@@ -60,7 +60,7 @@ function getPressedChar(e) {
 	    keynum = e.which;
 	if(keynum == 13)
 		keychar = '\n';
-	else if(!keynum)
+	else if(!keynum || keynum == 160 || keynum == 161)
 		keychar = '[not_yet_defined]';
 	else
 		keychar = String.fromCharCode(keynum);
@@ -114,18 +114,20 @@ function gumbPritisnjen(e) {
 	var keychar = getPressedChar(e);
 	if(keychar == trenutniChar || ((trenutniChar == '\n' || trenutniChar == '\r\n' || trenutniChar == '\n\r' || trenutniChar == '\r') && (keychar == ' ')))
 	{
-		if(show_keyboard){
-			var thisE = new keyboardElement(trenutniChar);
-			thisE.turnOff();
-		}
 		if(trenutnaPos == fullText.length-1) {  //END
 			$('#tb1').val($('#tb1').val()+trenutniChar);
+			var elemOff = new keyboardElement(trenutniChar);
+			elemOff.turnOff();
 			doKonec();
 			return true;
 	    }
 	    if(trenutnaPos < fullText.length-1){
 			var nextChar = fullText[trenutnaPos+1];
 			if(show_keyboard){
+				var thisE = new keyboardElement(trenutniChar);
+				thisE.turnOff();
+				if(isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow || thisE.uppercase_umlaut))
+					combinedCharWait = true;
 				var nextE = new keyboardElement(nextChar);
 				nextE.turnOn();
 			}

@@ -107,8 +107,6 @@ function keyupCombined(e) {
 		if(show_keyboard){
 			var thisE = new keyboardElement(trenutniChar);
 			thisE.turnOff();
-			if(thisE.shift)
-				combinedCharWait = true;
 		}
 		if(trenutnaPos == fullText.length-1) {   //END   
 			doKonec();
