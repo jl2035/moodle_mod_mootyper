@@ -132,7 +132,8 @@ function get_mootyperlessons($u, $c)
 function can_view_edit_all($usr, $c)
 {
 	if($c == 0) 
-		$cnt = context_course::instance(CONTEXT_SYSTEM);
+		//$cnt = context_course::instance(CONTEXT_SYSTEM);
+		$cnt = context_system::instance();
 	else
 		$cnt = context_course::instance($c);    ///!!!!THIS IS NOW FIXED????!!!!
 	if(has_capability('mod/mootyper:editall', $cnt))

@@ -185,25 +185,23 @@ else if($modePO == 1)
     $htmlout .= '</select></td></tr>';
 }
 $htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>';
-if($showKeyboardPO == 'on'){
-	$htmlout .= '<input type="checkbox" checked="checked" onchange="this.form.submit()" name="showkeyboard">';
-	$layouts = get_keyboard_layouts_db();
-    //$mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
-    $defLayout = $mooCFG->defaultlayout;
-    $htmlout .= '<tr><td>'.get_string('layout', 'mootyper').'</td><td><select name="layout">';
-    foreach($layouts as $lkey => $lval)
-    {
-		if((count($_POST) > 1) && ($lkey == $defLayout))
-			$htmlout .= '<option value="'.$lkey.'" selected="true">'.$lval.'</option>';
-		else if($lkey == $layoutPO)
-			$htmlout .= '<option value="'.$lkey.'" selected="true">'.$lval.'</option>';
-		else
-			$htmlout .= '<option value="'.$lkey.'">'.$lval.'</option>';
-	}
-    $htmlout .= '</select>';
+$show_keyboard_checked = $showKeyboardPO == 'on' ? ' checked="checked"' : '';
+$htmlout .= '<input type="checkbox"'.$show_keyboard_checked.' onchange="this.form.submit()" name="showkeyboard">';
+$layouts = get_keyboard_layouts_db();
+//$mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
+$defLayout = $mooCFG->defaultlayout;
+$htmlout .= '<tr><td>'.get_string('layout', 'mootyper').'</td><td><select name="layout">';
+foreach($layouts as $lkey => $lval)
+{
+	if((count($_POST) > 1) && ($lkey == $defLayout))
+		$htmlout .= '<option value="'.$lkey.'" selected="true">'.$lval.'</option>';
+	else if($lkey == $layoutPO)
+		$htmlout .= '<option value="'.$lkey.'" selected="true">'.$lval.'</option>';
+	else
+		$htmlout .= '<option value="'.$lkey.'">'.$lval.'</option>';
 }
-else
-	$htmlout .= '<input type="checkbox" onchange="this.form.submit()" name="showkeyboard">';
+$htmlout .= '</select>';
+
 $htmlout .= '</td></tr>';    
 
 $htmlout .= '</table>';

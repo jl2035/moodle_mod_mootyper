@@ -1,4 +1,4 @@
-<div id="innerTipkovnica" style="margin: 0px auto;display: inline-block;"><br>
+<div id="innerTipkovnica" style="margin: 0px auto;display: inline-block;<?php echo (isset($display_none) && ($display_none==true)) ? 'display:none;' : ''; ?>"><br>
 <span id="jkeytildo" class="normal">¸</span>
 <span id="jkey1" class="normal">1</span>
 <span id="jkey2" class="normal">2</span>

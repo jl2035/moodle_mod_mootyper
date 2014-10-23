@@ -49,7 +49,6 @@ elseif ($n) {
 else {
     error('You must specify a course_module ID or an instance ID');
 }
-
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 $PAGE->set_url('/mod/mootyper/view.php', array(
@@ -70,7 +69,6 @@ echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 if ($mootyper->intro) {
     echo $OUTPUT->box(format_module_intro('mootyper', $mootyper, $cm->id) , 'generalbox mod_introbox', 'mootyperintro');
 }
-
 if ($mootyper->lesson != NULL) {
     if ($mootyper->isexam) {
         $exercise_ID = $mootyper->exercise;
@@ -90,7 +88,7 @@ if ($mootyper->lesson != NULL) {
     }
     if (exam_already_done($mootyper, $USER->id) && $mootyper->isexam) {
         echo get_string('examdone', 'mootyper');
-        echo "<br />";
+        echo "<br>";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
             $jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id=' . $id . '&n=' . $mootyper->id;
             echo '<a href="' . $jlnk4 . '">' . get_string('viewgrades', 'mootyper') . '</a><br /><br />';
@@ -103,27 +101,29 @@ if ($mootyper->lesson != NULL) {
     }
     else if ($exercise != FALSE) {
         echo '<link rel="stylesheet" type="text/css" href="style.css">';
-        // js_init_call !!!!!!!!
-        // onload="initTextToEnter('')"
-        if ($mootyper->showkeyboard) {
-            $keyboard_js = get_instance_layout_js_file($mootyper->layout);
-            echo '<script type="text/javascript" src="' . $keyboard_js . '"></script>';
-        }
+        if ($mootyper->showkeyboard)
+			$display_none = false;
+        else
+			$display_none = true;
+		$keyboard_js = get_instance_layout_js_file($mootyper->layout);
+		echo '<script type="text/javascript" src="' . $keyboard_js . '"></script>';
         echo '<script type="text/javascript" src="typer.js"></script>';
 ?>
 <div id="mainDiv">
-<form name='form1' id='form1' method='post' action='<?php
-        echo $insertDir; ?>'> 
+<form name='form1' id='form1' method='post' action='<?php echo $insertDir; ?>'> 
 <div id="tipkovnica" style="float: left; text-align:center; margin-left: auto; margin-right: auto;">
 <h4><?php
         if (!$mootyper->isexam) echo $exercise->exercisename; ?></h4>
 <br />
 <div style="float: left; padding-bottom: 10px;" id="textToEnter"></div><br />
 <?php
-        if ($mootyper->showkeyboard) {
-            $keyboard = get_instance_layout_file($mootyper->layout);
-            include ($keyboard);
-        }
+            
+        if ($mootyper->showkeyboard)
+			$display_none = false;
+        else
+			$display_none = true;
+		$keyboard = get_instance_layout_file($mootyper->layout);
+		include ($keyboard);
 ?>
 <br />
     <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)"  

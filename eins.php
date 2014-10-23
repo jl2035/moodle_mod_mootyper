@@ -25,15 +25,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-global $USER;
+global $USER, $DB;
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
 
-if ($id)
+if ($id){
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
+}
 else
     error('You must specify a course_module ID or an instance ID');
 require_login($course, true);
@@ -43,7 +44,6 @@ if(isset($_POST['button']))
 if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
   //DB insert
 {
-	global $DB;
 	//$lessonPO = optional_param('lesson', -1, PARAM_INT);
 	$texttotypeePO = $_POST['texttotype'];
 	//$enamePO = $_POST['exercisename'];
@@ -60,6 +60,7 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
 	}
 	else
 		$lesson_id = $lessonPO;
+	
 	$snum = get_new_snumber($lesson_id);
 	$erecord = new stdClass();
 	$erecord->exercisename = "".$snum;
