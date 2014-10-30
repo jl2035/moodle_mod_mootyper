@@ -130,7 +130,7 @@ if($lessonPO == -1){
 
 <script type="text/javascript">
 function isLetter(str) {
-	var pattern = /[a-zčšžđćüöäèéàçâêîô]/i;
+	var pattern = /[a-zčšžđćüöäèéàçâêîôº¡çñ]/i;
 	return str.length === 1 && str.match(pattern);
 }
 function isNumber(n) {
@@ -142,7 +142,7 @@ var ok = true;
 function clClick()
 {
 	var exercise_text = document.getElementById("texttotype").value;
-	var allowed_chars = ['!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','{','}','>','<','?','\'','-','/','=','.',',',' ','|'];
+	var allowed_chars = ['!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','{','}','>','<','?','\'','-','/','=','.',',',' ','|','¡','`','ç','ñ','º','¿','ª','·','\n','\r','\r\n', '\n\r'];
 	var shown_text = "";
 	ok = true;
 	for(var i=0; i<exercise_text.length; i++) {

@@ -10,17 +10,36 @@ function keyupFirst(event) {
 	return false;
 }
 
-THE_LAYOUT = 'English';
+THE_LAYOUT = 'Spanish';
+
+/*
+ º1234567890'¡
+qwertyuiop`+
+asdfghjklñ'ç
+&lt;zxcvbnm,.-
+
+Shitf:
+!"·$%&amp;/()=?¿
+QWERTYUIOP^*
+ASDFGHJKLÑ"Ç
+
+ZXCVBNM;:_
+
+Alt_gr:
+|@#  ¬
+[]
+{} 
+ */
 
 function keyboardElement(ltr) {
 	this.chr = ltr.toLowerCase();
 	this.alt = false;
 	if(isLetter(ltr))
-		this.shift = ltr.toUpperCase() == ltr;
+		this.shift = ltr.toUpperCase() == ltr && ltr != '¡';
 	else
 	{
-		if(ltr == '!' || ltr == '@' || ltr == '#' || ltr == '$' || ltr == '%' || ltr == '^' ||
-		   ltr == '&' || ltr == '(' || ltr == ')' || ltr == '*' || ltr == '_' || ltr == '+' || 
+		if(ltr == '!' || ltr == '@' || ltr == '#' || ltr == '$' || ltr == '%' || ltr == '^' || ltr == '·' ||
+		   ltr == '&' || ltr == '(' || ltr == ')' || ltr == '*' || ltr == '_' || ltr == 'ª' || ltr == '¿' ||
 		   ltr == ':' || ltr == '"' || ltr == '|' || ltr == '{' || ltr == '}' || ltr == '>' || ltr == '?')
 		    this.shift = true;
 		else
@@ -71,20 +90,16 @@ function keyboardElement(ltr) {
 function dobiFinger(t_crka) {
 	if(t_crka == ' ')
 		return 5;
-	else if(t_crka == 'q' || t_crka == 'a' || t_crka == '1' ||  t_crka == '2' || t_crka == 'z' || t_crka == '<' || 
-			t_crka == 'p' || t_crka == '{' || t_crka == '}' || t_crka == ';' || 
-			t_crka == '\'' || t_crka == '\\' || t_crka == '/' || t_crka == '=' || t_crka == '-' ||
-			t_crka == '!' || t_crka == '@' || t_crka == '>' || t_crka == '[' || t_crka == ']' ||
-			t_crka == ':' || t_crka == '"' || t_crka == '|' || t_crka == '?' || t_crka == '+' || t_crka == '_')
+	else if(t_crka == 'q' || t_crka == 'a' || t_crka == '1' ||  t_crka == '2' || t_crka == 'z' || t_crka == '<' || t_crka == 'p' || t_crka == '\'' || t_crka == '=' || t_crka == '-' || t_crka == '!' || t_crka == '@' || t_crka == '>' || t_crka == '[' || t_crka == ']' || t_crka == ':' || t_crka == '"' || t_crka == '|' || t_crka == '?' || t_crka == "'" || t_crka == '_' || t_crka == '+' || t_crka == '¡' || t_crka == '¿' || t_crka == 'ç' || t_crka == 'ñ' || t_crka == 'ª' || t_crka == 'º')
 		return 4;
-	else if(t_crka == 'w' || t_crka == 's' || t_crka == 'x' || t_crka == '3' || t_crka == '#' || t_crka == '.' || 
-	        t_crka == 'l' || t_crka == 'o' || t_crka == '0' || t_crka == ')')
+	else if(t_crka == 'w' || t_crka == 's' || t_crka == 'x' || t_crka == '3' || t_crka == '#' || t_crka == '.' || t_crka == ':' || 
+	        t_crka == 'l' || t_crka == 'o' || t_crka == '0' || t_crka == ')' || t_crka == '·')
 		return 3;
 	else if(t_crka == 'd' || t_crka == 'e' || t_crka == 'c' || t_crka == '4' || t_crka == 'k' || t_crka == 'i' || 
-	        t_crka == '9' || t_crka == ',' || t_crka == '$' || t_crka == '(')
+	        t_crka == '9' || t_crka == ',' || t_crka == ';' || t_crka == '$' || t_crka == '(')
 		return 2;
 	else if(t_crka == 'v' || t_crka == 'b' || t_crka == 'f' || t_crka == 'g' || t_crka == 'r' || t_crka == 't' || 
-	        t_crka == '5' || t_crka == '6' || t_crka == '7' || t_crka == '8' || t_crka == '%' || t_crka == '^' || 
+	        t_crka == '5' || t_crka == '6' || t_crka == '7' || t_crka == '8' || t_crka == '%' || t_crka == '^' || t_crka == '/' || 
 	        t_crka == 'm' || t_crka == 'n' || t_crka == 'j' || t_crka == 'h' || t_crka == 'u' || t_crka == 'y' ||
 	        t_crka == '*' || t_crka == '&')
 		return 1;
@@ -105,50 +120,44 @@ function dobiTipkoId(t_crka) {
 		return "jkeypomislaj";            
 	else if(t_crka == '!')
 		return "jkey1";
-	else if(t_crka == '@')
+	else if(t_crka == '"')
 		return "jkey2";
-	else if(t_crka == '#')
+	else if(t_crka == '·')
 		return "jkey3";
 	else if(t_crka == '$')
 		return "jkey4";
 	else if(t_crka == '%')
 		return "jkey5";
-	else if(t_crka == '^')
-		return "jkey6";
 	else if(t_crka == '&')
+		return "jkey6";
+	else if(t_crka == '/')
 		return "jkey7";
-	else if(t_crka == '*')
-		return "jkey8";
 	else if(t_crka == '(')
-		return "jkey9";
+		return "jkey8";
 	else if(t_crka == ')')
+		return "jkey9";
+	else if(t_crka == '=')
 		return "jkey0";
 	else if(t_crka ==  '-' || t_crka == '_')	
 		return "jkeypomislaj";
-	else if(t_crka == '[' || t_crka == '{')	
-		return "jkeyoglokl";
-	else if(t_crka == ']' || t_crka == '}')
-		return "jkeyoglzak";
-	else if(t_crka == ';' || t_crka == ':')
-		return "jkeypodpicje";
-	else if(t_crka == "'" || t_crka == '"')
+	else if(t_crka == "'" || t_crka == '?')
 		return "jkeycrtica";
-	else if(t_crka == "\\" || t_crka == '|')
-		return "jkeybackslash";
-	else if(t_crka == ',')
+	else if(t_crka == ',' || t_crka == ';')
 		return "jkeyvejica";
-	else if(t_crka == '.')
+	else if(t_crka == '.' || t_crka == ':')
 		return "jkeypika";
-	else if(t_crka == '=' || t_crka == '+')
-		return "jkeyequals";
-	else if(t_crka == '?' || t_crka == '/')
-		return "jkeyslash";
+	else if(t_crka == '*' || t_crka == '+')
+		return "jkeyplus";
 	else if(t_crka == '<' || t_crka == '>')
 		return "jkeyckck";
+	else if(t_crka == 'º' || t_crka == 'ª')
+		return "jkeytildo";
+	else if(t_crka == '¿') 
+		return 'jkey¡'
 	else
 		return "jkey"+t_crka;
 }
 
 function isLetter(str) {
-  return str.length === 1 && str.match(/[a-z]/i);
+  return str.length === 1 && str.match(/[0-9a-z¡ñç]/i);
 }

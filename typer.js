@@ -10,17 +10,16 @@ var intervalID = -1;
 var interval2ID = -1;
 var app_url;
 var show_keyboard;
+var THE_LAYOUT;
 
 function moveCursor(nextPos) {
 	if(nextPos > 0 && nextPos <= fullText.length) {
 		$('#crka'+(nextPos-1)).addClass('txtZeleno');
 		$('#crka'+(nextPos-1)).removeClass('txtModro');
 		$('#crka'+(nextPos-1)).removeClass('txtRdece');
-		//document.getElementById('crka'+(nextPos-1)).className = "txtZeleno";
 	}
 	if(nextPos < fullText.length)
 		$('#crka'+nextPos).addClass('txtModro');
-		//document.getElementById('crka'+(nextPos)).className = "txtModro";
 }
 
 function doKonec() {
@@ -54,16 +53,19 @@ function getPressedChar(e) {
 	var keynum;
 	var keychar;
 	var numcheck;
-	if(window.event) // IE
+	if(window.event)
 	    keynum = e.keyCode;
-	else if(e.which) // Netscape/Firefox/Opera
+	else if(e.which)
 	    keynum = e.which;
 	if(keynum == 13)
 		keychar = '\n';
-	else if(!keynum || keynum == 160 || keynum == 161)
+	/*THIS HACK IS NEEDED FOR SPANISH KEYBOARD, WHICH USES 161 for some character*/
+	//else if(!keynum || keynum == 160 || keynum == 161)
+	else if((!keynum || keynum == 160 || keynum == 161) && (keynum != 161 && THE_LAYOUT!='Spanish'))
 		keychar = '[not_yet_defined]';
 	else
 		keychar = String.fromCharCode(keynum);
+	//alert(keychar);
 	return keychar;
 }
 

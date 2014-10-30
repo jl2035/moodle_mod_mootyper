@@ -1,6 +1,6 @@
 var combinedChar = false;
 var combinedCharWait = false;
-
+THE_LAYOUT = 'GermanSwiss';
 function keyboardElement(ltr) {
 	this.chr = ltr.toLowerCase();
 	this.alt = false;
