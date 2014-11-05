@@ -38,6 +38,7 @@
 <span id="jkeyk" class="finger2">K</span>
 <span id="jkeyl" class="finger3">L</span>
 <span id="jkeyñ" class="finger4">Ñ</span>
+<span id="jkeyrighttick" class="normal">´</span>
 <span id="jkeyç" class="normal">Ç</span>
 <span id="jkeyenter" class="normal" style="border-right-style: solid;">Enter</span>
 <br>

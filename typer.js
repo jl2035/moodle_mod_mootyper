@@ -65,7 +65,6 @@ function getPressedChar(e) {
 		keychar = '[not_yet_defined]';
 	else
 		keychar = String.fromCharCode(keynum);
-	//alert(keychar);
 	return keychar;
 }
 
@@ -123,6 +122,7 @@ function gumbPritisnjen(e) {
 			doKonec();
 			return true;
 	    }
+	    
 	    if(trenutnaPos < fullText.length-1){
 			var nextChar = fullText[trenutnaPos+1];
 			if(show_keyboard){

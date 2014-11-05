@@ -1,35 +1,68 @@
 function isCombined(chr) {
-	return false;
+	return (chr == '´' || chr == '`');
 }
 
 function keyupCombined(e) {
-	return false;	
+	if(ended)
+		return false;
+	if(!started)
+		doStart();
+	var keychar = getPressedChar(e);
+	if(keychar == '[not_yet_defined]') {
+		combinedChar = true;
+		return true;
+	}
+	if(combinedCharWait) {
+		combinedCharWait = false;
+		return true;
+	}
+	var currentText = $('#tb1').val();
+	var lastChar = currentText.substring(currentText.length-1);
+	if(combinedChar && lastChar==trenutniChar) 
+	// && ((trenutniChar.toUpperCase() == trenutniChar && e.shiftKey) || (trenutniChar.toUpperCase() != trenutniChar))) 
+	{
+		if(show_keyboard){
+			var thisE = new keyboardElement(trenutniChar);
+			thisE.turnOff();
+		}
+		if(trenutnaPos == fullText.length-1) {   //END   
+			doKonec();
+			return true;
+		}
+		if(trenutnaPos < fullText.length-1){
+			var nextChar = fullText[trenutnaPos+1];
+			if(show_keyboard){
+				var nextE = new keyboardElement(nextChar);
+				nextE.turnOn();
+			}
+			if(!isCombined(nextChar)) {            //If next char is not combined char
+				$("#form1").off("keyup", "#tb1");
+				$("#form1").on("keypress", "#tb1", gumbPritisnjen);
+			}
+		}
+		combinedChar = false;
+		moveCursor(trenutnaPos+1);
+		trenutniChar = fullText[trenutnaPos+1];
+		trenutnaPos++;
+		return true;
+	}
+	else
+	{
+		combinedChar = false;
+		napake++;
+		var tbval = $('#tb1').val();
+		$('#tb1').val(tbval.substring(0, trenutnaPos));
+		return false;
+	}	
 }
 
 function keyupFirst(event) {
+	$("#form1").off("keyup", "#tb1", keyupFirst);
+	$("#form1").on("keyup", "#tb1", keyupCombined);
 	return false;
 }
 
 THE_LAYOUT = 'Spanish';
-
-/*
- º1234567890'¡
-qwertyuiop`+
-asdfghjklñ'ç
-&lt;zxcvbnm,.-
-
-Shitf:
-!"·$%&amp;/()=?¿
-QWERTYUIOP^*
-ASDFGHJKLÑ"Ç
-
-ZXCVBNM;:_
-
-Alt_gr:
-|@#  ¬
-[]
-{} 
- */
 
 function keyboardElement(ltr) {
 	this.chr = ltr.toLowerCase();
@@ -38,12 +71,14 @@ function keyboardElement(ltr) {
 		this.shift = ltr.toUpperCase() == ltr && ltr != '¡';
 	else
 	{
-		if(ltr == '!' || ltr == '@' || ltr == '#' || ltr == '$' || ltr == '%' || ltr == '^' || ltr == '·' ||
+		if(ltr == '!'  || ltr == '$' || ltr == '%' || ltr == '^' || ltr == '·' ||
 		   ltr == '&' || ltr == '(' || ltr == ')' || ltr == '*' || ltr == '_' || ltr == 'ª' || ltr == '¿' ||
-		   ltr == ':' || ltr == '"' || ltr == '|' || ltr == '{' || ltr == '}' || ltr == '>' || ltr == '?')
+		   ltr == ':' || ltr == '"' || ltr == '>' || ltr == '?')
 		    this.shift = true;
 		else
 			this.shift = false;
+		if(ltr == '{' || ltr == '}' || ltr == '[' || ltr == ']' || ltr == '|' || ltr == '@' || ltr == '#' || ltr == '¬')
+			this.alt = true;
 	}
 	this.turnOn = function () { 
         if(isLetter(this.chr))
@@ -90,7 +125,7 @@ function keyboardElement(ltr) {
 function dobiFinger(t_crka) {
 	if(t_crka == ' ')
 		return 5;
-	else if(t_crka == 'q' || t_crka == 'a' || t_crka == '1' ||  t_crka == '2' || t_crka == 'z' || t_crka == '<' || t_crka == 'p' || t_crka == '\'' || t_crka == '=' || t_crka == '-' || t_crka == '!' || t_crka == '@' || t_crka == '>' || t_crka == '[' || t_crka == ']' || t_crka == ':' || t_crka == '"' || t_crka == '|' || t_crka == '?' || t_crka == "'" || t_crka == '_' || t_crka == '+' || t_crka == '¡' || t_crka == '¿' || t_crka == 'ç' || t_crka == 'ñ' || t_crka == 'ª' || t_crka == 'º')
+	else if(t_crka == 'q' || t_crka == 'a' || t_crka == '1' ||  t_crka == '2' || t_crka == 'z' || t_crka == '<' || t_crka == 'p' || t_crka == '\'' || t_crka == '=' || t_crka == '-' || t_crka == '!' || t_crka == '@' || t_crka == '>' || t_crka == '{' || t_crka == '}' || t_crka == '[' || t_crka == ']' || t_crka == ':' || t_crka == '"' || t_crka == '|' || t_crka == '?' || t_crka == "'" || t_crka == '_' || t_crka == '+' || t_crka == '¡' || t_crka == '¿' || t_crka == 'ç' || t_crka == 'ñ' || t_crka == 'ª' || t_crka == 'º' || t_crka == '`' || t_crka == '´')
 		return 4;
 	else if(t_crka == 'w' || t_crka == 's' || t_crka == 'x' || t_crka == '3' || t_crka == '#' || t_crka == '.' || t_crka == ':' || 
 	        t_crka == 'l' || t_crka == 'o' || t_crka == '0' || t_crka == ')' || t_crka == '·')
@@ -101,7 +136,7 @@ function dobiFinger(t_crka) {
 	else if(t_crka == 'v' || t_crka == 'b' || t_crka == 'f' || t_crka == 'g' || t_crka == 'r' || t_crka == 't' || 
 	        t_crka == '5' || t_crka == '6' || t_crka == '7' || t_crka == '8' || t_crka == '%' || t_crka == '^' || t_crka == '/' || 
 	        t_crka == 'm' || t_crka == 'n' || t_crka == 'j' || t_crka == 'h' || t_crka == 'u' || t_crka == 'y' ||
-	        t_crka == '*' || t_crka == '&')
+	        t_crka == '*' || t_crka == '&' || t_crka == '¬')
 		return 1;
 	else
 		return 6;
@@ -118,17 +153,17 @@ function dobiTipkoId(t_crka) {
 		return "jkeypika";
 	else if(t_crka == '-' || t_crka == '_')
 		return "jkeypomislaj";            
-	else if(t_crka == '!')
+	else if(t_crka == '!' || t_crka == '|')
 		return "jkey1";
-	else if(t_crka == '"')
+	else if(t_crka == '"' || t_crka == '@')
 		return "jkey2";
-	else if(t_crka == '·')
+	else if(t_crka == '·' || t_crka == '#')
 		return "jkey3";
 	else if(t_crka == '$')
 		return "jkey4";
 	else if(t_crka == '%')
 		return "jkey5";
-	else if(t_crka == '&')
+	else if(t_crka == '&' || t_crka == '¬')
 		return "jkey6";
 	else if(t_crka == '/')
 		return "jkey7";
@@ -138,6 +173,14 @@ function dobiTipkoId(t_crka) {
 		return "jkey9";
 	else if(t_crka == '=')
 		return "jkey0";
+	else if(t_crka == '`' || t_crka == '[')
+		return "jkeylefttick";
+	else if(t_crka == ']')
+		return "jkeyplus";
+	else if(t_crka == '´' || t_crka == '{')
+		return "jkeyrighttick";
+	else if(t_crka == '}')
+		return "jkeyç";
 	else if(t_crka ==  '-' || t_crka == '_')	
 		return "jkeypomislaj";
 	else if(t_crka == "'" || t_crka == '?')
