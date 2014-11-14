@@ -106,7 +106,7 @@ function clClick()
 </script>
 <?php echo '<form method="POST">';
 echo '<span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
-	 '<textarea name="texttotype" id="texttotype">'.str_replace('\n', "\n", $exerciseToEdit->texttotype).'</textarea><br>'.
+	 '<textarea name="texttotype" id="texttotype">'.str_replace('\n', "&#10;", $exerciseToEdit->texttotype).'</textarea><br>'.
 	 '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
 echo $OUTPUT->footer();
