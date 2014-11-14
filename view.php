@@ -217,6 +217,10 @@ if ($mootyper->lesson != NULL) {
             $jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id=' . $id . '&n=' . $mootyper->id;
             echo '<a href="' . $jlnk4 . '">' . get_string('viewgrades', 'mootyper') . '</a><br /><br />';
         }
+        if (has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->id))) {
+            $jlnk7 = $CFG->wwwroot . "/mod/mootyper/owngrades.php?id=" . $id . "&n=" . $mootyper->id;
+            echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
+        }
     }
 }
 else {
