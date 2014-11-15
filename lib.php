@@ -79,7 +79,7 @@ function get_typer_grades_adv($mootyperID, $exerciseID, $userID=0, $orderby=-1, 
     $usersTblName = $CFG->prefix."user";
     $exerTblName = $CFG->prefix."mootyper_exercises";
     $attTblName = $CFG->prefix."mootyper_attempts";
-    $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$gradesTblName.".pass, ".
+    $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$usersTblName.".id as u_id, ".$gradesTblName.".pass, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".$attTblName.".suspicion, ".
     $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename, ".$gradesTblName.".wpm".
     " FROM ".$gradesTblName.
@@ -153,7 +153,7 @@ function get_typergradesfull($s_id, $orderby=-1, $desc=FALSE) {
     $usersTblName = $CFG->prefix."user";
     $exerTblName = $CFG->prefix."mootyper_exercises";
     $attTblName = $CFG->prefix."mootyper_attempts";
-    $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$attTblName.".suspicion, ".
+    $sql = "SELECT ".$gradesTblName.".id, ".$usersTblName.".firstname, ".$usersTblName.".lastname, ".$usersTblName.".id as u_id, ".$attTblName.".suspicion, ".
     $gradesTblName.".mistakes, ".$gradesTblName.".timeinseconds, ".$gradesTblName.".hitsperminute, ".
     $gradesTblName.".fullhits, ".$gradesTblName.".precisionfield, ".$gradesTblName.".timetaken, ".$exerTblName.".exercisename, ".$gradesTblName.".wpm".
     " FROM ".$gradesTblName.

@@ -109,7 +109,8 @@ if(has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)))
 					$klicaj = '';
 				
 				$remove_lnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.$_GET['id'].'&m_id='.$_GET['n'].'&g='.$gr->id.'">'.get_string('eremove', 'mootyper').'</a>';
-				$htmlout .= '<tr style="border-top-style: solid;"><td>'.$klicaj.' '.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->mistakes.'</td><td>'.$gr->timeinseconds.
+				$name_lnk = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$gr->u_id.'&amp;course='.$course->id.'">'.$gr->firstname.' '.$gr->lastname.'</a>';
+				$htmlout .= '<tr style="border-top-style: solid;"><td>'.$klicaj.' '.$name_lnk.'</td><td>'.$gr->mistakes.'</td><td>'.$gr->timeinseconds.
 				' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td><td>'.$gr->wpm.'</td><td>'.$remove_lnk.'</td></tr>';
 			}
 			$avg = get_grades_avg($grds);
@@ -212,7 +213,8 @@ if(has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)))
 				else
 					$stil = 'background-color: #FF6C6C;';
 				$remove_lnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.$_GET['id'].'&m_id='.$_GET['n'].'&g='.$gr->id.'">'.get_string('eremove', 'mootyper').'</a>';
-				$htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$klicaj.' '.$gr->firstname.' '.$gr->lastname.'</td><td>'.$gr->exercisename.'</td><td>'.$gr->mistakes.'</td><td>'.
+				$name_lnk = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$gr->u_id.'&amp;course='.$course->id.'">'.$gr->firstname.' '.$gr->lastname.'</a>';
+				$htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$klicaj.' '.$name_lnk.'</td><td>'.$gr->exercisename.'</td><td>'.$gr->mistakes.'</td><td>'.
 				$gr->timeinseconds.' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td><td>'.$gr->wpm.'</td><td>'.$remove_lnk.'</td></tr>';
 			}
 			$avg = get_grades_avg($grds);
