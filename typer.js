@@ -22,6 +22,7 @@ function moveCursor(nextPos) {
 		$('#crka'+nextPos).addClass('txtModro');
 }
 
+// end of typing
 function doKonec() {
 	$('#crka'+(fullText.length-1)).addClass('txtZeleno');
 	$('#crka'+(fullText.length-1)).removeClass('txtModro');
@@ -107,7 +108,7 @@ function doStart() {
 	interval2ID = setInterval('doCheck()', 4000);
 }
 
-function gumbPritisnjen(e) {
+function keyPressed(e) {
 	if(ended)
 		return false;
 	if(!started)
@@ -134,7 +135,7 @@ function gumbPritisnjen(e) {
 				nextE.turnOn();
 			}
 			if(isCombined(nextChar)) {
-				$("#form1").off("keypress", "#tb1", gumbPritisnjen);
+				$("#form1").off("keypress", "#tb1", keyPressed);
 				$("#form1").on("keyup", "#tb1", keyupFirst);
 			}
 		}
@@ -151,6 +152,7 @@ function gumbPritisnjen(e) {
 	}
 }
 
+// Calculate time to seconds
 function dobiSekunde(hrs, mins, seccs) {
 	if(hrs > 0)
 		mins = (hrs*60) + mins;
@@ -160,6 +162,7 @@ function dobiSekunde(hrs, mins, seccs) {
 		return (mins * 60) + seccs;
 }
 
+// Date difference
 function timeRazlika(t1, t2) {
 	var yrs = t1.getFullYear();
 	var mnth = t1.getMonth();
@@ -177,7 +180,7 @@ function timeRazlika(t1, t2) {
 }
 
 function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard) {
-	$("#form1").on("keypress", "#tb1", gumbPritisnjen);
+	$("#form1").on("keypress", "#tb1", keyPressed);
 	show_keyboard = tshowkeyboard;
 	fullText = ttext;
 	app_url = turl;
@@ -187,12 +190,12 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 		startTime = new Date(tstarttime*1000);
 		napake = tmistakes;
 		trenutnaPos = (thits - tmistakes);   //!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	    trenutniChar = fullText[trenutnaPos];
+	    trenutniChar = fullText[trenutnaPos]; // current character (trenutni = current)
 	    if(show_keyboard) {
 			var nextE = new keyboardElement(trenutniChar);
 			nextE.turnOn();
 			if(isCombined(trenutniChar)) {
-				$("#form1").off("keypress", "#tb1", gumbPritisnjen);
+				$("#form1").off("keypress", "#tb1", keyPressed);
 				$("#form1").on("keyup", "#tb1", keyupCombined);
 			}
 		}
@@ -224,7 +227,7 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 			if(i==0) {
 				tempStr += "<span id='crka"+i+"' class='txtModro'>"+tChar+"</span>";
 				if(isCombined(tChar)) {
-					$("#form1").off("keypress", "#tb1", gumbPritisnjen);
+					$("#form1").off("keypress", "#tb1", keyPressed);
 					$("#form1").on("keyup", "#tb1", keyupCombined);
 				}
 			}

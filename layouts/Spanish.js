@@ -37,7 +37,7 @@ function keyupCombined(e) {
 			}
 			if(!isCombined(nextChar)) {            //If next char is not combined char
 				$("#form1").off("keyup", "#tb1");
-				$("#form1").on("keypress", "#tb1", gumbPritisnjen);
+				$("#form1").on("keypress", "#tb1", keyPressed);
 			}
 		}
 		combinedChar = false;
