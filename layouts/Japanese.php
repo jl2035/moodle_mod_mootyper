@@ -45,8 +45,8 @@
     <span id="jkeybracketclose" class="normal">]</span>
 </div>
 <span id="jkeyenter" class="normal" style="width: 45px; border-right-style: solid; float: left; height: 88px;">Enter</span>
-<br style="clear:both;" />
-<br>
+<br style="clear:both;" /><br />
+
 <span id="jkeyshiftl" class="normal" style="width: 80px;">Shift</span>
 <span id="jkeyz" class="normal">Z</span>
 <span id="jkeyx" class="normal">X</span>
