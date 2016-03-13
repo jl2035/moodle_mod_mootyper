@@ -15,13 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file displays grades of the paricular mootyper instance.
- * 
- * @package    mod
- * @subpackage mootyper
- * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+* This file displays grades of the paricular mootyper instance.
+* 
+* @package    mod
+* @subpackage mootyper
+* @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
 
 
 global $USER;
@@ -37,41 +37,47 @@ $us = optional_param('juser', 0, PARAM_INT);
 $orderBy = optional_param('orderby', -1, PARAM_INT);
 $des = optional_param('desc', -1, PARAM_INT);
 if($md == 1)
-    $us = 0;
+$us = 0;
 else if($md == 0)
-	$se = 0;
+$se = 0;
 
 if ($id) {
-    $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-    $mootyper  = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
+	$cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+	$course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+	$mootyper  = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
 } elseif ($n) {
-    $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
-    $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
+	$mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
+	$course     = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
+	$cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 } else {
-    error('You must specify a course_module ID or an instance ID');
+	error('You must specify a course_module ID or an instance ID');
 }
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
-$PAGE->set_url('/mod/mootyper/owngrades.php', array('id' => $cm->id));
-$PAGE->set_title(format_string($mootyper->name));
-$PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_context($context);
-$PAGE->set_cacheable(false);
-echo $OUTPUT->header();
-echo '<link rel="stylesheet" type="text/css" href="style.css">';
-echo $OUTPUT->heading($mootyper->name);
-$htmlout = '';
-$htmlout .= '<div id="mainDiv">';
+
+// Prevent anyone but students from typing in address to view my grades.
+if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->id))) {
+	redirect('view.php?id='.$id, get_string('invalidaccess', 'mootyper'));
+} else {
+
+	$PAGE->set_url('/mod/mootyper/owngrades.php', array('id' => $cm->id));
+	$PAGE->set_title(format_string($mootyper->name));
+	$PAGE->set_heading(format_string($course->fullname));
+	$PAGE->set_context($context);
+	$PAGE->set_cacheable(false);
+	echo $OUTPUT->header();
+	echo '<link rel="stylesheet" type="text/css" href="style.css">';
+	echo $OUTPUT->heading($mootyper->name);
+	$htmlout = '';
+	$htmlout .= '<div id="mainDiv">';
 
 	//Update the library
 	if($des == -1 || $des == 0)
-		$grds = get_typergradesuser($_GET['n'], $USER->id, $orderBy, 0);
+	$grds = get_typergradesuser($_GET['n'], $USER->id, $orderBy, 0);
 	else if($des == 1)
-		$grds = get_typergradesuser($_GET['n'], $USER->id, $orderBy, 1);
+	$grds = get_typergradesuser($_GET['n'], $USER->id, $orderBy, 1);
 	else
-		$grds = get_typergradesuser($_GET['n'], $USER->id, $orderBy, $des);
+	$grds = get_typergradesuser($_GET['n'], $USER->id, $orderBy, $des);
 	
 	if($des == -1 || $des == 1){
 		$lnkAdd = "&desc=0";
@@ -89,8 +95,8 @@ $htmlout .= '<div id="mainDiv">';
 	$arrTextAdds[9] = '<span class="arrow-s" style="font-size:1em;"></span>'; 
 	$arrTextAdds[12] = '<span class="arrow-s" style="font-size:1em;"></span>';
 	$arrTextAdds[$orderBy] = $des == -1 || $des == 1 ? 
-		'<span class="arrow-s" style="font-size:1em;"></span>' : 
-		'<span class="arrow-n" style="font-size:1em;"></span>';
+	'<span class="arrow-s" style="font-size:1em;"></span>' : 
+	'<span class="arrow-n" style="font-size:1em;"></span>';
 	if($grds != FALSE){
 		$htmlout .= '<table style="border-style: solid;"><tr><td>Exercise</td><td><a href="?id='.$id.'&n='.$n.'&orderby=4'.$lnkAdd.'">'.
 		get_string('vmistakes', 'mootyper').'</a>'.$arrTextAdds[4].'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=5'.$lnkAdd.'">'.
@@ -103,23 +109,24 @@ $htmlout .= '<div id="mainDiv">';
 		foreach($grds as $gr)
 		{			
 			if(!$mootyper->isexam && $gr->pass)
-				$stil = ' background-color: #7FEF6C;';
+			$stil = ' background-color: #7FEF6C;';
 			else if(!$mootyper->isexam && !$gr->pass)
-				$stil = ' background-color: #FF6C6C;';
+			$stil = ' background-color: #FF6C6C;';
 			else
-				$stil = '';
+			$stil = '';
 			$f_col = $mootyper->isexam ? '---' : $gr->exercisename;
 			$htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$f_col.'</td><td>'.$gr->mistakes.'</td><td>'.$gr->timeinseconds.
 			' s</td><td>'.$gr->hitsperminute.'</td><td>'.$gr->fullhits.'</td><td>'.$gr->precisionfield.'%</td><td>'.date('d. M Y G:i', $gr->timetaken).'</td><td>'.$gr->wpm.'</td></tr>';
 		}
 		$avg = get_grades_avg($grds);
 		if(!$mootyper->isexam)
-			$htmlout .= '<tr style="border-top-style: solid;"><td><strong>'.get_string('average', 'mootyper').': </strong></td><td>'.$avg['mistakes'].'</td><td>'.$avg['timeinseconds'].' s</td><td>'.$avg['hitsperminute'].'</td><td>'.$avg['fullhits'].'</td><td>'.$avg['precisionfield'].'%</td><td></td><td></td></tr>';
+		$htmlout .= '<tr style="border-top-style: solid;"><td><strong>'.get_string('average', 'mootyper').': </strong></td><td>'.$avg['mistakes'].'</td><td>'.$avg['timeinseconds'].' s</td><td>'.$avg['hitsperminute'].'</td><td>'.$avg['fullhits'].'</td><td>'.$avg['precisionfield'].'%</td><td></td><td></td></tr>';
 		$htmlout .= '</table>';
 	}
 	else
-		echo get_string('nogrades', 'mootyper');
-$htmlout .= '</div>';
+	echo get_string('nogrades', 'mootyper');
+	$htmlout .= '</div>';
+}
 echo $htmlout;
 echo $OUTPUT->footer();
 
