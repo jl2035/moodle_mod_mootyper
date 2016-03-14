@@ -232,4 +232,14 @@ else {
 		echo get_string('notreadyyet', 'mootyper');
 }
 
+// Trigger module viewed event.
+$event = \mod_mootyper\event\course_module_viewed::create(array(
+   'objectid' => $mootyper->id,
+   'context' => $context
+));
+$event->add_record_snapshot('course_modules', $cm);
+$event->add_record_snapshot('course', $course);
+$event->add_record_snapshot('mootyper', $mootyper);
+$event->trigger();
+
 echo $OUTPUT->footer();
