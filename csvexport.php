@@ -15,7 +15,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
                       get_string('wpm', 'mootyper'));
     fputcsv($f, $headings, $delimiter);
     foreach ($array as $gr) {
-		$fields = array($gr->firstname.' '.$gr->lastname, $gr->mistakes, $gr->timeinseconds.' s', $gr->hitsperminute, $gr->fullhits, $gr->precisionfield.'%', date('d. M Y G:i', $gr->timetaken), $gr->wpm);
+		$fields = array($gr->firstname.' '.$gr->lastname, $gr->mistakes, format_time($gr->timeinseconds), format_float($gr->hitsperminute), $gr->fullhits, format_float($gr->precisionfield).'%', date('d. M Y G:i', $gr->timetaken), $gr->wpm);
 		fputcsv($f, $fields, $delimiter);		
     }
     fclose($f);
