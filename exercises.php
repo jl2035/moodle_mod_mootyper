@@ -24,6 +24,7 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -112,5 +113,12 @@ foreach($exercises as $ex)
 	echo '</tr>';
 }
 echo '</table>';
+
+// Trigger module exercise_edited event.
+$event = \mod_mootyper\event\course_exercises_viewed::create(array(
+	'objectid' => $course->id,
+	'context' => $context
+));
+$event->trigger();
 
 echo $OUTPUT->footer();
