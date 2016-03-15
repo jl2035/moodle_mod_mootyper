@@ -18,7 +18,7 @@
  * The mod_mootyper instance list viewed event.
  *
  * @package    mod_mootyper
- * @copyright  2014 drachels@drachels.com
+ * @copyright  2016 AL Rachels drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -26,14 +26,6 @@ namespace mod_mootyper\event;
 
 defined('MOODLE_INTERNAL') || die();
 
-/**
- * The mod_mootyper instance list viewed event class.
- *
- * @package    mod_mootyper
- * @since      Moodle 2.9
- * @copyright  2014 drachels@drachels.com
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 class course_module_instance_list_viewed extends \core\event\course_module_instance_list_viewed {
     // No need for any code here as everything is handled by the parent class.
 }
