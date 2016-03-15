@@ -33,6 +33,7 @@ $string['bymootyper'] = 'by exercise';
 $string['byuser'] = 'by user';
 $string['chere'] = 'Click here to start';
 $string['configrequirepassword'] = 'Configure password';
+$string['course_exercises_viewed'] = 'Viewed exercises';
 $string['csvexport'] = 'Export to .csv';
 $string['defaultlayout'] = 'Default keyboard layout';
 $string['defaultprecision'] = 'Default typing precision %';
