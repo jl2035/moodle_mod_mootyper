@@ -16,9 +16,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * This file is used to edit exercise content. Called from exercises.php.
+ * 
  * @package    mod
  * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -47,7 +50,6 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
 	$rcrd = $DB->get_record('mootyper_exercises', array('id' => $exercise_ID), '*', MUST_EXIST);
 	$updR = new stdClass();
 	$updR->id = $rcrd->id;
-	//$updR->texttotype = $newText;
 	$updR->texttotype = str_replace("\r\n", '\n', $newText);
 	$updR->exercisename = $rcrd->exercisename;
 	$updR->lesson = $rcrd->lesson;
