@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is a one-line short description of the file
+ * This file is used to remove an exercise from a category.
  *
  * You can have a rather longer description of the file as well,
  * if you like, and it can span multiple lines.
@@ -23,13 +23,22 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-//require_once(dirname(dirname(dirname(__FILE__))).'/lib/dmllib.php');
+
 global $DB;
-//http://localhost/moodle/course/view.php?id=2
-//$DB->insert_record('mootyper_grades', $record, false);
+
+$id = optional_param('id', 0, PARAM_INT); // course_module ID, or
+if ($id){
+    $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
+}
+else
+    error('You must specify a course_module ID or an instance ID');
+
+$context = context_course::instance($id);
+
 if(isset($_GET['r'])){
 	$exerciseID = $_GET['r'];
 	$DB->delete_records('mootyper_exercises', array('id'=>$exerciseID));
@@ -40,17 +49,16 @@ else
 	$DB->delete_records('mootyper_exercises', array('lesson' =>$lessonID));
 	$DB->delete_records('mootyper_lessons', array('id' => $lessonID));
 }
+
+// Trigger module exercise_removed event.
+$event = \mod_mootyper\event\exercise_removed::create(array(
+	'objectid' => $course->id,
+	'context' => $context
+));
+$event->trigger();
+
 $cID = $_GET['id'];
 $webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cID;
 header('Location: '.$webDir);
-/*
-    $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') 
-                    === FALSE ? 'http' : 'https';
-    $host     = $_SERVER['HTTP_HOST'];
-    $script   = $_SERVER['SCRIPT_NAME'];
-    $params   = $_SERVER['QUERY_STRING'];
-    $currentUrl = $protocol . '://' . $host . $script . '?' . $params;
-    echo $currentUrl; 
- */
 
 ?>
