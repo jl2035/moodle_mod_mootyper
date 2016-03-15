@@ -18,31 +18,10 @@
 /**
  * Capability definitions for the mootyper module
  *
- * The capabilities are loaded into the database table when the module is
- * installed or updated. Whenever the capability definitions are updated,
- * the module version number should be bumped up.
- *
- * The system has four possible values for a capability:
- * CAP_ALLOW, CAP_PREVENT, CAP_PROHIBIT, and inherit (not set).
- *
- * It is important that capability names are unique. The naming convention
- * for capabilities that are specific to modules and blocks is as follows:
- *   [mod/block]/<plugin_name>:<capabilityname>
- *
- * component_name should be the same as the directory name of the mod or block.
- *
- * Core moodle capabilities are defined thus:
- *    moodle/<capabilityclass>:<capabilityname>
- *
- * Examples: mod/forum:viewpost
- *           block/recent_activity:view
- *           moodle/site:deleteuser
- *
- * The variable name for the capability definitions array is $capabilities
- *
  * @package    mod
  * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -58,8 +37,6 @@ $capabilities = array(
 			'manager' => CAP_ALLOW
 		)
 	),
-	
-	
 	
 	'mod/mootyper:editall' => array(
 		'captype' => 'write',
@@ -82,9 +59,6 @@ $capabilities = array(
                 'clonepermissionsfrom' => 'moodle/course:manageactivities'
         ),
 	
-	
-	
-	
 	'mod/mootyper:viewgrades' => array(
 		'captype' => 'read',
 		'contextlevel' => CONTEXT_MODULE,
@@ -94,6 +68,7 @@ $capabilities = array(
 			'manager' => CAP_ALLOW
 		)
 	),
+	
 	'mod/mootyper:viewmygrades' => array(
 		'captype' => 'read',
 		'contextlevel' => CONTEXT_MODULE,
@@ -101,6 +76,7 @@ $capabilities = array(
 			'student' => CAP_ALLOW
 		)
 	),
+	
 	'mod/mootyper:aftersetup' => array(
 		'captype' => 'write',
 		'contextlevel' => CONTEXT_MODULE,
@@ -110,6 +86,7 @@ $capabilities = array(
 			'manager' => CAP_ALLOW
 		)
 	),
+	
 	'mod/mootyper:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
@@ -121,4 +98,3 @@ $capabilities = array(
         )
     )
 );
-
