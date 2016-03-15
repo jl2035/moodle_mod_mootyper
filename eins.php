@@ -16,14 +16,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is a one-line short description of the file
- *
+ * This is is used to add a new exercise/category.
  *
  * @package    mod
  * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+ **/
 
 global $USER, $DB;
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
@@ -31,22 +31,28 @@ require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
+//$n = optional_param('n', 0, PARAM_INT); // mootyper instance ID - it should be named as the first character of the module
 
 if ($id){
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 }
 else
     error('You must specify a course_module ID or an instance ID');
+
 require_login($course, true);
 $lessonPO = optional_param('lesson', -1, PARAM_INT);
 if(isset($_POST['button']))
-   $param1 = $_POST['button']; 
-if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
-  //DB insert
+   $param1 = $_POST['button'];
+
+$context = context_course::instance($id);   
+
+   
+//DB insert
+if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) 
 {
-	//$lessonPO = optional_param('lesson', -1, PARAM_INT);
+	// $lessonPO = optional_param('lesson', -1, PARAM_INT);
 	$texttotypeePO = $_POST['texttotype'];
-	//$enamePO = $_POST['exercisename'];
+	// $enamePO = $_POST['exercisename'];
 	if($lessonPO == -1)
 	{
 		$lsnnamePO = $_POST['lessonname'];
@@ -71,10 +77,13 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
 	$webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
 	//header('Location: '.$webDir);
 	echo '<script type="text/javascript">window.location="'.$webDir.'";</script>';
+	// Trigger module exercise_added event.
+	$event = \mod_mootyper\event\exercise_added::create(array(
+		'objectid' => $course->id,
+		'context' => $context
+	));
+	$event->trigger();
 }
-//$context = get_context_instance(CONTEXT_MODULE, $cm->id);
-
-//add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id);
 
 /// Print the page header
 
@@ -130,7 +139,7 @@ if($lessonPO == -1){
 
 <script type="text/javascript">
 function isLetter(str) {
-	var pattern = /[a-zčšžđćüöäèéàçâêîôº¡çñáéíóú]/i;
+	var pattern = /[a-zčšžđćüöäèéàçâêîôº¡çñ]/i;
 	return str.length === 1 && str.match(pattern);
 }
 function isNumber(n) {
@@ -142,7 +151,7 @@ var ok = true;
 function clClick()
 {
 	var exercise_text = document.getElementById("texttotype").value;
-	var allowed_chars = ['!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','{','}','>','<','?','\'','-','/','=','.',',',' ','|','¡','`','º','¿','ª','·','\n','\r','\r\n', '\n\r', ']', '[', '¬', '´', '`'];
+	var allowed_chars = ['!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','{','}','>','<','?','\'','-','/','=','.',',',' ','|','¡','`','ç','ñ','º','¿','ª','·','\n','\r','\r\n', '\n\r', ']', '[', '¬', '´', '`'];
 	var shown_text = "";
 	ok = true;
 	for(var i=0; i<exercise_text.length; i++) {
@@ -158,7 +167,7 @@ function clClick()
 		return false;
 	}
 	if(document.getElementById("lessonname").value == "") {
-		document.getElementById("namemsg").innerHTML = '<?php echo get_string('reqfield', 'mootyper'); ?>';
+		document.getElementById("namemsg").innerHTML = '<?php echo get_string('reqfield', 'mootyper');?>';
 		return false;
 	}
 	else
@@ -166,7 +175,8 @@ function clClick()
 }
 </script>
 
-<?php echo '<br><span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
+<?php 
+echo '<br><span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
 	 '<textarea rows="4" cols="40" name="texttotype" id="texttotype"></textarea><br>'.
 	 '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
