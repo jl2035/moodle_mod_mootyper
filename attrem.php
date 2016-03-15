@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This fils is used to remove a student attempt. Called from gview.php (View All Grades). 
+ * This file is used to remove a student attempt. Called from gview.php (View All Grades). 
  *
  * @package    mod
  * @subpackage mootyper
