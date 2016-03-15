@@ -629,8 +629,8 @@ function mootyper_pluginfile($course, $cm, $context, $filearea, array $args, $fo
  * @param stdClass $module
  * @param cm_info $cm
  */
-function mootyper_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
-}
+//function mootyper_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
+//}
 
 /**
  * Extends the settings navigation with the mootyper settings
