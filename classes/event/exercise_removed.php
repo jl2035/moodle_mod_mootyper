@@ -51,7 +51,7 @@ class exercise_removed extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' removed an exercise/category for mootyper activities in the course with id
+        return "The user with id '$this->userid' removed a mootyper exercise/category while in the course with id
             '$this->contextinstanceid'";
     }
 
