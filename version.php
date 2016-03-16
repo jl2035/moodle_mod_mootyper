@@ -25,14 +25,15 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyfight  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2014120500;	// The current module version (Date: YYYYMMDDXX)
-$plugin->requires  = 2014051200;	// Requires this Moodle version
+$plugin->version   = 2016031500;	// The current module version (Date: YYYYMMDDXX)
+$plugin->requires  = 2014051200;	// Requires Moodle v2.7
 $plugin->cron      = 60;			// Period for cron to check this module (secs)
 $plugin->component = 'mod_mootyper';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '2.6.6 (Build: 2014120500)';
+$plugin->release   = '2.7.0 (Build: 2016031500)';
