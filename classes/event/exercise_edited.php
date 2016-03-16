@@ -51,7 +51,7 @@ class exercise_edited extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' edited an exercise for mootyper activities in the course with id
+        return "The user with id '$this->userid' edited a mootyper exercise while in the course with id
             '$this->contextinstanceid'";
     }
 
